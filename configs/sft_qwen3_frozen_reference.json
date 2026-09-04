@@ -1,0 +1,19 @@
+{
+  "model": "Qwen/Qwen3-8B (frozen v18 protocol reference — DO NOT modify)",
+  "note": "本文件是 v18 冻结 Qwen3 SFT 协议的文档化快照 (恢复自 phase3_train.py + configs/config.py + train_configs/config_pilot_sft_clean_v3.py)。v19 中 Qwen3 直接复用 v18 冻结预测, 不重训。InternLM3 协议 = 本协议 + 语义层映射。",
+  "data": {"train": "mini_42_pilot/train.json (4186)", "dev": "dev.json (420)", "test": "test.json (420 pilot / 4452 heldout)"},
+  "template": {
+    "system": "你是一位资深中医专家。请根据真实临床资料判断最符合的中医证型，并严格按照“证型”和“辨证依据”两个字段作答。",
+    "user": "请根据以下真实临床资料进行中医辨证。要求：1. 只输出一个最可能的证型。2. 证型名称尽量使用标准证型名称。3. 不要输出治法、方剂、病位或其他额外字段。临床资料：{input_text} 输出格式：证型：辨证依据：",
+    "assistant": "证型：{syndrome}\\n辨证依据：根据主诉、四诊信息及现病描述综合判断，当前表现与{syndrome}的病机特征更为吻合。",
+    "labels": "prompt=-100, answer=label tokens"
+  },
+  "quantization": {"bits": 4, "type": "nf4", "double_quant": true, "compute_dtype": "bfloat16", "device_map": "auto"},
+  "lora": {"r": 16, "alpha": 32, "dropout": 0.1, "bias": "none", "target_modules": ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]},
+  "training": {"batch_size": 1, "grad_accum_steps": 16, "grad_clip": 1.0, "max_seq_length": 768, "pad_token": "eos", "gradient_checkpointing": true, "weight_decay": 0.01},
+  "stage1": {"frozen_layers": "0-22", "open_layers": "23-31", "lr": 8e-05, "epochs": 3, "scheduler": "constant"},
+  "stage2": {"frozen_layers": "0-11", "open_layers": "12-31", "lr": 1e-05, "epochs": 2, "scheduler": "CosineAnnealingLR"},
+  "loss": "pure SFT CE: 1.0*l_sft + 0*KL + 0*rule + 0*smooth",
+  "checkpoint_selection": "stage2 lowest dev loss",
+  "inference": {"do_sample": false, "temperature": 0, "max_new_tokens": 96, "parser": "evaluation/parse_label.py (unified)"}
+}

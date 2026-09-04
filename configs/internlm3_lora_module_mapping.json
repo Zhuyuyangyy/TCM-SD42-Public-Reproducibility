@@ -1,0 +1,25 @@
+{
+  "num_hidden_layers": 48,
+  "model_type": "internlm3",
+  "module_discovery": "meta_device_named_modules",
+  "ffn_style": "llama-style gate/up/down",
+  "target_modules": {
+    "q_proj": "model.layers.0.self_attn.q_proj",
+    "k_proj": "model.layers.0.self_attn.k_proj",
+    "v_proj": "model.layers.0.self_attn.v_proj",
+    "o_proj": "model.layers.0.self_attn.o_proj",
+    "gate_proj": "model.layers.0.mlp.gate_proj",
+    "up_proj": "model.layers.0.mlp.up_proj",
+    "down_proj": "model.layers.0.mlp.down_proj"
+  },
+  "status": "VERIFIED",
+  "target_module_short_names": [
+    "q_proj",
+    "k_proj",
+    "v_proj",
+    "o_proj",
+    "gate_proj",
+    "up_proj",
+    "down_proj"
+  ]
+}

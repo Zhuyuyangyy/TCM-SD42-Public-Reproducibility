@@ -1,0 +1,22 @@
+{
+  "model": "internlm/internlm3-8b-instruct",
+  "task": "closed-set 42-class syndrome classification (generative formulation)",
+  "input": "item['input_text']",
+  "target": "item['syndrome_canonical']",
+  "protocol_file": "protocol/internlm3_training_protocol.json",
+  "required_artifacts": [
+    "runs/internlm3/full/seed42/config.json",
+    "runs/internlm3/full/seed42/environment.json",
+    "runs/internlm3/full/seed42/training_history.csv",
+    "runs/internlm3/full/seed42/best_checkpoint/",
+    "runs/internlm3/full/seed42/run_summary.json"
+  ],
+  "prediction_outputs": [
+    "predictions/internlm3/full/seed42/pilot420_raw.jsonl",
+    "predictions/internlm3/full/seed42/pilot420.jsonl",
+    "predictions/internlm3/full/seed42/heldout4452_raw.jsonl",
+    "predictions/internlm3/full/seed42/heldout4452.jsonl"
+  ],
+  "raw_fields": ["id", "gold_syndrome", "raw_output"],
+  "parsed_fields": ["id", "gold", "pred", "confidence"]
+}

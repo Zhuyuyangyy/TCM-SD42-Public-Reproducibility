@@ -1,0 +1,32 @@
+{
+  "model": "ZY-BERT (CCL2022 official)",
+  "task": "42-class sequence classification",
+  "input": "item['input_text']",
+  "target": "item['syndrome_canonical']",
+  "max_length": 512,
+  "classifier": "hidden -> 42 linear head",
+  "loss": "CrossEntropyLoss",
+  "optimizer": "AdamW",
+  "learning_rate": 2e-05,
+  "weight_decay": 0.01,
+  "batch_size": 16,
+  "warmup_ratio": 0.1,
+  "max_epochs": 10,
+  "early_stopping": "dev macro-F1, patience=3",
+  "seed": 42,
+  "precision": "FP16 (fallback BF16/FP32 per model compatibility)",
+  "checkpoint_rule": "ONLY dev macro-F1; held-out never consulted during training",
+  "required_artifacts": [
+    "runs/zybert/full/seed42/config.json",
+    "runs/zybert/full/seed42/environment.json",
+    "runs/zybert/full/seed42/training_history.csv",
+    "runs/zybert/full/seed42/best_checkpoint/",
+    "runs/zybert/full/seed42/dev_predictions.jsonl",
+    "runs/zybert/full/seed42/run_summary.json"
+  ],
+  "prediction_outputs": [
+    "predictions/zybert/full/seed42/pilot420.jsonl",
+    "predictions/zybert/full/seed42/heldout4452.jsonl"
+  ],
+  "jsonl_fields": ["id", "gold", "pred", "confidence", "top3_labels", "top3_probs"]
+}

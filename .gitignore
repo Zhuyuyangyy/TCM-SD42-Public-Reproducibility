@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+*.safetensors
+*.bin
+*.pt
+*.pth
+data/raw/
+data/private/
+predictions/
+runs/
+checkpoints/
+.DS_Store

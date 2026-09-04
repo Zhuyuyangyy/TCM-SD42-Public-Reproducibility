@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite the final paper and the original TCM-SD paper."
+title: "TCM-SD42 Controlled Model Comparison Reproducibility Package"
+type: software
+authors:
+  - family-names: "FILL_ME"
+    given-names: "FILL_ME"
+version: "2.0"
+date-released: "2026-09-04"
+repository-code: "https://github.com/FILL_ME/TCM-SD42-Model-Comparison"

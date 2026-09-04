@@ -1,0 +1,6 @@
+{
+  "id": "synthetic_example_001",
+  "input_text": "疾病名称：示例疾病\\n主诉：示例主诉\\n四诊信息：示例信息\\n现病描述摘要：示例文本（非真实病例）",
+  "syndrome_raw": "气虚血瘀证",
+  "syndrome_canonical": "气虚血瘀"
+}

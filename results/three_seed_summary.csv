@@ -1,0 +1,9 @@
+model,metric,mean_percent,sd_percent,seeds
+ZY-BERT,accuracy,74.9167,1.1263,42;2026;7
+ZY-BERT,macro_f1,66.0633,0.6562,42;2026;7
+ZY-BERT,weighted_f1,77.1733,1.0961,42;2026;7
+ZY-BERT,balanced_accuracy,78.8133,1.0646,42;2026;7
+InternLM3-8B,accuracy,69.4167,0.2098,42;2026;7
+InternLM3-8B,macro_f1,60.8867,0.3075,42;2026;7
+InternLM3-8B,weighted_f1,72.1567,0.1115,42;2026;7
+InternLM3-8B,balanced_accuracy,73.8133,0.3970,42;2026;7

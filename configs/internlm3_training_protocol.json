@@ -1,0 +1,128 @@
+{
+  "protocol_version": "v19.1",
+  "model": "internlm/internlm3-8b-instruct",
+  "task": "42-class closed-set syndrome classification (generative formulation, aligned with frozen Qwen3 SFT)",
+  "layer_mapping_rule": {
+    "semantics": "Stage1 = higher-layer sub-interval (semantic anchor); Stage2 = expanded mid-to-high sub-interval (reasoning expansion).",
+    "frozen_reference_note": "Qwen3-8B 实际 num_hidden_layers=36 (local config.json)。v18 config.py 设计区间: STAGE1_OPEN_LAYERS=23..31, STAGE2_OPEN_LAYERS=12..31 (该标注基于当时的 32 层假设写成, 后经本地 config.json 核实为 36 层)。v19.1 起按【设计区间】双边界等比映射: 开区间 [start, end) 的 start 与 end 两个边界都乘以 L/36, 而非只缩放 start 后一路延伸到 L-1 (v19.0 规则, 等价于把 v18 因 32 层假设而未列层的顶部也等比放大给 InternLM, 造成覆盖比例失衡)。",
+    "resolution": "stage1 = [round(L*23/36), round(L*32/36)); stage2 = [round(L*12/36), round(L*32/36)). 两个边界都来自 v18 设计区间开区间 [23,32) / [12,32) 的等比缩放。L=36 → 23..31 / 12..31 (与 v18 设计区间逐层一致); L=48 → 31..42 (12 层 = 25%) / 16..42 (27 层 = 56.25%), 对齐 Qwen 设计覆盖 9/36 = 25% 与 20/36 = 55.6%。",
+    "locked_before_heldout_inference": true,
+    "no_test_driven_adjustment": true
+  },
+  "resolved_layer_ranges": {
+    "status": "LOCKED",
+    "num_hidden_layers": 48,
+    "stage1_open_layers": [
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42
+    ],
+    "stage2_open_layers": [
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42
+    ],
+    "locked_at": "2026-08-12T09:00:00+08:00",
+    "rule": "stage1 = [round(L*23/36), round(L*32/36)); stage2 = [round(L*12/36), round(L*32/36)). L=48 → 31..42 / 16..42; L=36 → 23..31 / 12..31 (v18 设计区间)。num_hidden_layers 必须真实读取, 禁止硬编码。"
+  },
+  "changelog": [
+    {
+      "version": "v19.0",
+      "time": "2026-08-11T21:40:00+08:00",
+      "change": "初始锁定",
+      "rule": "start 等比缩放 (round(L*23/36), round(L*12/36)) + 延伸到 L-1",
+      "resolved": "stage1 = 31..47 (17 层), stage2 = 16..47 (32 层)"
+    },
+    {
+      "version": "v19.1",
+      "time": "2026-08-12T09:00:00+08:00",
+      "change": "层区间映射公平性修正 (双边界等比映射)",
+      "before": "stage1 = 31..47 (17/48 = 35.4%), stage2 = 16..47 (32/48 = 66.7%)",
+      "after": "stage1 = 31..42 (12/48 = 25%), stage2 = 16..42 (27/48 = 56.25%)",
+      "reason": "v19.0 规则只缩放起始边界、结束一路延伸到 L-1, 使 InternLM 覆盖比例 (35.4% / 66.7%) 明显大于 Qwen3 冻结协议设计区间 (9/36 = 25% / 20/36 = 55.6%)——相当于把 v18 因 32 层假设未列层的顶部也等比放大给 InternLM, 比较不公平。v19.1 改为按设计区间双边界等比映射 (start 与 end 均乘 L/36), 覆盖比例对齐 (25% / 56.25%)。修正发生在 InternLM3 任何训练与 held-out 推理之前, 属 protocol correction (实验设计问题), 非 test-driven tuning。",
+      "status": "LOCKED"
+    }
+  ],
+  "hyperparameters": {
+    "quant_bits": 4,
+    "quant_type": "nf4",
+    "double_quant": true,
+    "compute_dtype": "bfloat16",
+    "lora_r": 16,
+    "lora_alpha": 32,
+    "lora_dropout": 0.1,
+    "lora_bias": "none",
+    "train_batch_size": 1,
+    "grad_accum_steps": 16,
+    "grad_clip_norm": 1.0,
+    "max_seq_length": 768,
+    "stage1_lr": 8e-05,
+    "stage1_epochs": 3,
+    "stage1_scheduler": "constant",
+    "stage2_lr": 1e-05,
+    "stage2_epochs": 2,
+    "stage2_scheduler": "cosine (CosineAnnealingLR, T_max=stage2_total_steps)",
+    "loss": "pure SFT cross-entropy (no KD / rule / smoothing)",
+    "checkpoint_selection": "lowest stage2 dev loss",
+    "pad_token": "eos_token",
+    "use_gradient_checkpointing": true,
+    "weight_decay": 0.01
+  },
+  "template": {
+    "training": "system=资深中医专家(证型+辨证依据两字段); user=临床资料(input_text); assistant=证型：{syndrome}\\n辨证依据：<generic evidence> (labels only on answer)",
+    "inference": "same content via model's native chat template; do_sample=False, temperature=0, max_new_tokens=96; raw_output saved then parsed by evaluation/parse_label.py (unified parser)"
+  },
+  "comparability_notes": [
+    "quantization matched to frozen Qwen3 run (config.py QUANT_BITS=4 on CUDA; build_quant_config: nf4 + double_quant + bf16 compute; artifact sft_clean_v3_bnb_nf4) — QLoRA is the frozen protocol, not an OOM fallback",
+    "layer coverage aligned to Qwen3 designed protocol interval (v19.1): 25% (stage1) / 56.25% (stage2) of 48 layers",
+    "any deviation from this protocol must be recorded in run_summary.json with reason"
+  ],
+  "trainable_parameter_record": {
+    "total_params": 4981002240,
+    "trainable_params": 52297728,
+    "trainable_pct": 1.0499,
+    "target_modules": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj",
+      "down_proj"
+    ],
+    "recorded_at": "2026-08-26T10:24:20.328801"
+  }
+}
