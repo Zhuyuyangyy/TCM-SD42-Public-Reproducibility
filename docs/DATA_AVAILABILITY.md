@@ -18,4 +18,4 @@ This repository intentionally does not release:
 - model weights or LoRA adapters
 - private compute paths and operational logs
 
-The historical exact TCM-SD42 construction script is unavailable; therefore this repository cannot promise exact reconstruction of the original 42-class split from the official 148-class release alone.
+A surviving historical preprocessing log recovers the operational class-eligibility rule used to establish the 42-label task (minimum support of 100/10/10 records in the original train/development/test splits, respectively). The original preprocessing source file itself is not included in the public package, and TCM-SD42 is not reconstructable by selecting 42 labels directly from the official normalized 148-class taxonomy because it is based on original `syndrome` annotations rather than the normalized `norm_syndrome` label space.
