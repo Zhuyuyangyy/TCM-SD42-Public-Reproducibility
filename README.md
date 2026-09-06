@@ -2,13 +2,15 @@
 
 Public reproducibility materials for the study:
 
-**Domain-Specific Pretraining versus Large Language Models for Traditional Chinese Medicine Syndrome Differentiation: A Controlled Evaluation on TCM-SD42**
+**Domain-Specific Pretraining versus Large Language Models for Traditional Chinese Medicine Syndrome Differentiation: A Controlled Evaluation on a TCM-SD-Derived 42-Class Task**
 
 ## Scope
 
-This repository documents a **previously established, fixed 42-class syndrome differentiation task derived from clinical records in the public TCM-SD corpus**. It is important that **TCM-SD42 is not described as a direct 42-label subset of the official normalized 148-class TCM-SD benchmark taxonomy**. TCM-SD contains original `syndrome` annotations and an official normalized `norm_syndrome` label space; the historical TCM-SD42 task uses a fixed set of original syndrome labels with lightweight canonicalization (primarily removal of the trailing Chinese character `证`).
+This repository documents a **previously established, fixed 42-class syndrome differentiation task derived from clinical records in the public TCM-SD corpus**. TCM-SD42 is **not** the official normalized 148-class TCM-SD benchmark and should not be described as a direct 42-label subset of that normalized taxonomy. TCM-SD contains original `syndrome` annotations and an official normalized `norm_syndrome` label space; the historical TCM-SD42 task uses a fixed set of original syndrome labels with lightweight canonicalization, primarily removal of the trailing Chinese character `证`.
 
-The comparative experiments reported here keep the TCM-SD42 label space and data partitions fixed across all models.
+A surviving preprocessing log dated 2026-05-07 records the historical eligibility rule: source syndrome categories were retained when they had at least **100 training records, 10 development records, and 10 test records** in the original TCM-SD splits. Exactly **42** original syndrome categories met all three thresholds. This construction predates the present four-model comparison and did not use model predictions or model performance. Because test-label support contributed to the historical eligibility rule, this is disclosed as a test-informed task-construction limitation.
+
+The comparative experiments reported here keep the resulting TCM-SD42 label space and data partitions fixed across all models.
 
 ## Models
 
@@ -53,9 +55,9 @@ python code/parser_tests.py
 
 To recompute metrics from standardized prediction files (`id`, `gold`, `pred`), use `code/evaluate.py`. For pairwise accuracy comparisons, use `code/pairwise_stats.py`.
 
-## Important provenance limitation
+## Provenance notes
 
-The historical preprocessing program that originally established the exact TCM-SD42 42-class construction (`prepare_42class.py`, referenced by older training code) is not present in the archived public materials. Therefore this repository does **not** claim a fully reconstructed 148-to-42 selection algorithm. The 42-class task predates the present comparative experiments and was held fixed throughout them.
+The historical support-threshold rule is recoverable from surviving preprocessing logs, but the original preprocessing source file is not included in the public package. The exact 42-label task predates the current comparative experiments and was held fixed throughout them. See `docs/DATASET_PROVENANCE.md` and `docs/KNOWN_LIMITATIONS.md` for the full audit trail and limitations.
 
 ## Citation
 
