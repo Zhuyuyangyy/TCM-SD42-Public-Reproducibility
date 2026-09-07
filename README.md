@@ -2,7 +2,7 @@
 
 Public reproducibility materials for the study:
 
-**Domain-Specific Pretraining versus Large Language Models for Traditional Chinese Medicine Syndrome Differentiation: A Controlled Evaluation on a TCM-SD-Derived 42-Class Task**
+**Domain-Specific Encoders versus General-Purpose Large Language Models for Traditional Chinese Medicine Syndrome Differentiation: A Controlled System-Level Evaluation on a TCM-SD-Derived 42-Class Task**
 
 ## Scope
 
@@ -30,14 +30,16 @@ The comparative experiments reported here keep the resulting TCM-SD42 label spac
 
 Three-seed summaries for ZY-BERT and InternLM3-8B are under `results/three_seed_summary.csv`. Pairwise accuracy comparisons use paired bootstrap confidence intervals, exact McNemar tests, and six-comparison Holm correction.
 
+The v23 statistical addendum additionally reports paired-bootstrap 95% confidence intervals for **Macro-F1** and **Balanced Accuracy** differences. All six Macro-F1 intervals exclude zero. Five of six Balanced Accuracy intervals exclude zero; the InternLM3-versus-MacBERT difference is +0.92 percentage points with 95% CI [-1.46, 3.31]. A class-stratified paired-bootstrap sensitivity analysis preserves the direction of all 12 class-sensitive comparisons and the same qualitative exception. See `results/pairwise_class_sensitive_bootstrap_seed42.csv` and `docs/STATISTICAL_METHOD.md`.
+
 ## Repository contents
 
 ```text
 code/          parser, evaluator, training/inference reference scripts, pairwise statistics
 configs/       model/protocol snapshots
 label_space/   fixed 42-label taxonomy
-results/       aggregate metrics, seed summaries, confusion matrices, figures
-docs/          provenance, methods, results, limitations, availability statements
+results/       aggregate metrics, seed summaries, confusion matrices, bootstrap summaries, figures
+docs/          provenance, methods, statistical methods, results, limitations, availability statements
 data/          schema only; no clinical records
 paper/         manuscript-publication note; full draft intentionally not included
 ```
@@ -53,7 +55,7 @@ pip install -r requirements.txt
 python code/parser_tests.py
 ```
 
-To recompute metrics from standardized prediction files (`id`, `gold`, `pred`), use `code/evaluate.py`. For pairwise accuracy comparisons, use `code/pairwise_stats.py`.
+To recompute metrics from standardized prediction files (`id`, `gold`, `pred`), use `code/evaluate.py`. For the published pairwise summaries, see the files under `results/` and the methodology under `docs/STATISTICAL_METHOD.md`.
 
 ## Provenance notes
 
