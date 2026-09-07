@@ -1,0 +1,13 @@
+metric,first_model,second_model,difference,ci_low,ci_high,ci_excludes_zero
+macro_f1,zybert,internlm3,0.0577,0.0427,0.0737,true
+macro_f1,zybert,macbert,0.0970,0.0812,0.1136,true
+macro_f1,zybert,qwen3,0.1201,0.1042,0.1357,true
+macro_f1,internlm3,macbert,0.0393,0.0226,0.0557,true
+macro_f1,internlm3,qwen3,0.0624,0.0484,0.0774,true
+macro_f1,macbert,qwen3,0.0231,0.0052,0.0410,true
+balanced_accuracy,zybert,internlm3,0.0577,0.0361,0.0786,true
+balanced_accuracy,zybert,macbert,0.0669,0.0452,0.0894,true
+balanced_accuracy,zybert,qwen3,0.1059,0.0847,0.1276,true
+balanced_accuracy,internlm3,macbert,0.0092,-0.0146,0.0331,false
+balanced_accuracy,internlm3,qwen3,0.0482,0.0289,0.0678,true
+balanced_accuracy,macbert,qwen3,0.0390,0.0145,0.0636,true
