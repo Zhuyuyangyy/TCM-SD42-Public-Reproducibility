@@ -18,8 +18,40 @@
 
 Mean accuracy gap (ZY-BERT minus InternLM3-8B): approximately **5.50 percentage points**.
 
-## Pairwise significance
+## Pairwise accuracy inference
+
 All six seed-42 pairwise accuracy comparisons remain statistically significant after Holm correction. Exact values are in `results/pairwise_significance_seed42.csv`.
 
+## Pairwise Macro-F1 bootstrap (ordinary paired bootstrap; 2,000 resamples; seed 20260516)
+
+| Comparison | Difference (first - second) | 95% CI |
+|---|---:|---:|
+| ZY-BERT vs InternLM3 | +0.0577 | [0.0427, 0.0737] |
+| ZY-BERT vs MacBERT | +0.0970 | [0.0812, 0.1136] |
+| ZY-BERT vs Qwen3 | +0.1201 | [0.1042, 0.1357] |
+| InternLM3 vs MacBERT | +0.0393 | [0.0226, 0.0557] |
+| InternLM3 vs Qwen3 | +0.0624 | [0.0484, 0.0774] |
+| MacBERT vs Qwen3 | +0.0231 | [0.0052, 0.0410] |
+
+All six Macro-F1 intervals exclude zero.
+
+## Pairwise Balanced Accuracy bootstrap
+
+| Comparison | Difference (first - second) | 95% CI |
+|---|---:|---:|
+| ZY-BERT vs InternLM3 | +0.0577 | [0.0361, 0.0786] |
+| ZY-BERT vs MacBERT | +0.0669 | [0.0452, 0.0894] |
+| ZY-BERT vs Qwen3 | +0.1059 | [0.0847, 0.1276] |
+| InternLM3 vs MacBERT | +0.0092 | [-0.0146, 0.0331] |
+| InternLM3 vs Qwen3 | +0.0482 | [0.0289, 0.0678] |
+| MacBERT vs Qwen3 | +0.0390 | [0.0145, 0.0636] |
+
+Five of six Balanced Accuracy intervals exclude zero. The InternLM3-versus-MacBERT interval includes zero, so this analysis does not support a class-balanced recall advantage for InternLM3 over MacBERT despite InternLM3's higher point estimate.
+
+## Sensitivity analysis
+
+A class-stratified paired-bootstrap analysis preserved the direction of all 12 class-sensitive comparisons. The same qualitative exception remained for InternLM3 versus MacBERT Balanced Accuracy: its interval included zero under both ordinary and class-stratified resampling.
+
 ## Interpretation boundary
-These results support a domain-specific pretraining advantage **within this fixed TCM-SD-derived 42-class setting**. They do not establish that encoder models universally outperform LLMs, and they should not be represented as a complete evaluation on the official normalized 148-class TCM-SD benchmark.
+
+These results support a system-level advantage for ZY-BERT **within this fixed TCM-SD-derived 42-class setting**. They do not establish that encoder models universally outperform LLMs, and they should not be represented as a complete evaluation on the official normalized 148-class TCM-SD benchmark.
