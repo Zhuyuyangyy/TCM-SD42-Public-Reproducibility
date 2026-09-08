@@ -1,0 +1,143 @@
+{
+  "freeze_version": "v25",
+  "freeze_date": "2026-09-08",
+  "freeze_branch": "freeze/v25-20260908",
+  "source_main_commit": "a9993382f0ab072d85bfc773ebbeba030444d921",
+  "manuscript": {
+    "filename": "TCM_SD42_SCI_Manuscript_v25_scientific_skill_optimized.docx",
+    "sha256": "5c7eab5961f7987464b50ac94273dd80d198d28973bed45e4bdc42d67c4cabb8"
+  },
+  "task": {
+    "name": "TCM-SD-derived 42-class raw-label syndrome differentiation",
+    "official_148_class_benchmark": false,
+    "raw_frozen_classes": 42,
+    "distinct_normalized_categories_in_audit": 40,
+    "historical_support_rule": {
+      "train_min": 100,
+      "dev_min": 10,
+      "source_test_min": 10,
+      "test_informed_at_label_support_level": true
+    }
+  },
+  "data": {
+    "train_n": 4186,
+    "dev_n": 420,
+    "source_test_before_cleaning_n": 4452,
+    "clean_test_n": 4218,
+    "heldout_exclusion_union_n": 234,
+    "clean_test_class_support_range": [6, 860]
+  },
+  "leakage_audit": {
+    "exact_match": "SHA-256 equality of raw input_text",
+    "near_duplicate": {
+      "analyzer": "char_wb",
+      "ngram_range": [2, 4],
+      "min_df": 2,
+      "sublinear_tf": true,
+      "norm": "l2",
+      "max_features": 200000,
+      "cosine_threshold": 0.95
+    },
+    "unique_raw_exact_heldout_ids": 5,
+    "unique_near_duplicate_heldout_ids": 234,
+    "near_duplicate_ids_not_in_raw_exact": 229,
+    "union_unique_heldout_ids": 234,
+    "train_dev_overlap_affected_dev_instances": 54,
+    "train_dev_exact_duplicates": 18,
+    "zybert_dev_macro_f1_before_overlap_exclusion": 0.8056,
+    "zybert_dev_macro_f1_after_overlap_exclusion": 0.7742
+  },
+  "seed42": {
+    "n": 4218,
+    "models": {
+      "ZY-BERT": {
+        "accuracy": 0.7577,
+        "accuracy_ci95": [0.7447, 0.7705],
+        "macro_f1": 0.6651,
+        "weighted_f1": 0.7800,
+        "balanced_accuracy": 0.7932
+      },
+      "InternLM3-8B": {
+        "accuracy": 0.6958,
+        "accuracy_ci95": [0.6823, 0.7093],
+        "macro_f1": 0.6074,
+        "weighted_f1": 0.7220,
+        "balanced_accuracy": 0.7355
+      },
+      "MacBERT": {
+        "accuracy": 0.6278,
+        "accuracy_ci95": [0.6124, 0.6420],
+        "macro_f1": 0.5681,
+        "weighted_f1": 0.6394,
+        "balanced_accuracy": 0.7263
+      },
+      "Qwen3-8B": {
+        "accuracy": 0.5870,
+        "accuracy_ci95": [0.5723, 0.6019],
+        "macro_f1": 0.5450,
+        "weighted_f1": 0.6182,
+        "balanced_accuracy": 0.6873
+      }
+    }
+  },
+  "three_seed": {
+    "seeds": [42, 2026, 7],
+    "ZY-BERT": {
+      "accuracy_by_seed": [0.7577, 0.7534, 0.7364],
+      "accuracy_mean": 0.7492,
+      "accuracy_sample_sd": 0.0113,
+      "macro_f1_mean": 0.6606,
+      "macro_f1_sample_sd": 0.0066,
+      "weighted_f1_mean": 0.7717,
+      "weighted_f1_sample_sd": 0.0110,
+      "balanced_accuracy_mean": 0.7881,
+      "balanced_accuracy_sample_sd": 0.0106
+    },
+    "InternLM3-8B": {
+      "accuracy_by_seed": [0.6958, 0.6949, 0.6918],
+      "accuracy_mean": 0.6942,
+      "accuracy_sample_sd": 0.0021,
+      "macro_f1_mean": 0.6089,
+      "macro_f1_sample_sd": 0.0031,
+      "weighted_f1_mean": 0.7216,
+      "weighted_f1_sample_sd": 0.0011,
+      "balanced_accuracy_mean": 0.7381,
+      "balanced_accuracy_sample_sd": 0.0040
+    },
+    "mean_accuracy_gap_zybert_minus_internlm3": 0.0550
+  },
+  "paired_accuracy": {
+    "bootstrap_resamples": 2000,
+    "bootstrap_seed": 20260516,
+    "mcnemar": "exact two-sided",
+    "multiplicity": "Holm across six pairwise accuracy tests",
+    "comparisons": [
+      {"first":"ZY-BERT","second":"InternLM3-8B","diff_pp":6.19,"ci95_pp":[4.93,7.44],"discordant_first_correct_second_correct":[505,244],"raw_p":8.08e-22,"holm_p":2.42e-21},
+      {"first":"ZY-BERT","second":"MacBERT","diff_pp":12.99,"ci95_pp":[11.64,14.39],"discordant_first_correct_second_correct":[724,176],"raw_p":1.50e-79,"holm_p":7.50e-79},
+      {"first":"ZY-BERT","second":"Qwen3-8B","diff_pp":17.07,"ci95_pp":[15.74,18.44],"discordant_first_correct_second_correct":[893,173],"raw_p":2.06e-117,"holm_p":1.24e-116},
+      {"first":"InternLM3-8B","second":"MacBERT","diff_pp":6.80,"ci95_pp":[5.33,8.30],"discordant_first_correct_second_correct":[653,366],"raw_p":1.89e-19,"holm_p":3.78e-19},
+      {"first":"InternLM3-8B","second":"Qwen3-8B","diff_pp":10.88,"ci95_pp":[9.63,12.14],"discordant_first_correct_second_correct":[651,192],"raw_p":4.33e-59,"holm_p":1.73e-58},
+      {"first":"MacBERT","second":"Qwen3-8B","diff_pp":4.08,"ci95_pp":[2.49,5.71],"discordant_first_correct_second_correct":[663,491],"raw_p":4.59e-7,"holm_p":4.59e-7}
+    ]
+  },
+  "paired_class_sensitive": {
+    "macro_f1_diff_pp_ci95": [
+      {"comparison":"ZY-BERT vs InternLM3-8B","diff_pp":5.77,"ci95_pp":[4.27,7.37]},
+      {"comparison":"ZY-BERT vs MacBERT","diff_pp":9.70,"ci95_pp":[8.12,11.36]},
+      {"comparison":"ZY-BERT vs Qwen3-8B","diff_pp":12.01,"ci95_pp":[10.42,13.57]},
+      {"comparison":"InternLM3-8B vs MacBERT","diff_pp":3.93,"ci95_pp":[2.26,5.57]},
+      {"comparison":"InternLM3-8B vs Qwen3-8B","diff_pp":6.24,"ci95_pp":[4.84,7.74]},
+      {"comparison":"MacBERT vs Qwen3-8B","diff_pp":2.31,"ci95_pp":[0.52,4.10]}
+    ],
+    "balanced_accuracy_diff_pp_ci95": [
+      {"comparison":"ZY-BERT vs InternLM3-8B","diff_pp":5.77,"ci95_pp":[3.61,7.86]},
+      {"comparison":"ZY-BERT vs MacBERT","diff_pp":6.69,"ci95_pp":[4.52,8.94]},
+      {"comparison":"ZY-BERT vs Qwen3-8B","diff_pp":10.59,"ci95_pp":[8.47,12.76]},
+      {"comparison":"InternLM3-8B vs MacBERT","diff_pp":0.92,"ci95_pp":[-1.46,3.31]},
+      {"comparison":"InternLM3-8B vs Qwen3-8B","diff_pp":4.82,"ci95_pp":[2.89,6.78]},
+      {"comparison":"MacBERT vs Qwen3-8B","diff_pp":3.90,"ci95_pp":[1.45,6.36]}
+    ]
+  },
+  "interpretation_boundary": "System-level comparison only within the fixed decontaminated TCM-SD-derived 42-class task; not a causal isolation of architecture, scale, or pretraining domain and not a direct evaluation on the official normalized 148-class TCM-SD benchmark.",
+  "public_data_boundary": "No raw clinical records, per-case predictions, trained weights, or private compute logs are added by this freeze."
+}
