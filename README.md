@@ -30,16 +30,17 @@ The comparative experiments reported here keep the resulting TCM-SD42 label spac
 
 Three-seed summaries for ZY-BERT and InternLM3-8B are under `results/three_seed_summary.csv`. Pairwise accuracy comparisons use paired bootstrap confidence intervals, exact McNemar tests, and six-comparison Holm correction.
 
-The v23 statistical addendum additionally reports paired-bootstrap 95% confidence intervals for **Macro-F1** and **Balanced Accuracy** differences. All six Macro-F1 intervals exclude zero. Five of six Balanced Accuracy intervals exclude zero; the InternLM3-versus-MacBERT difference is +0.92 percentage points with 95% CI [-1.46, 3.31]. A class-stratified paired-bootstrap sensitivity analysis preserves the direction of all 12 class-sensitive comparisons and the same qualitative exception. See `results/pairwise_class_sensitive_bootstrap_seed42.csv` and `docs/STATISTICAL_METHOD.md`.
+The v23 statistical addendum additionally reports paired-bootstrap 95% confidence intervals for **Macro-F1** and **Balanced Accuracy** differences. All six Macro-F1 intervals exclude zero. Five of six Balanced Accuracy intervals exclude zero; the InternLM3-versus-MacBERT difference is +0.92 percentage points with 95% CI [-1.46, 3.31]. A class-stratified paired-bootstrap sensitivity analysis preserves the direction of all 12 class-sensitive comparisons and the same qualitative exception. See the ordinary and stratified tables under `results/`, the portable scripts under `code/`, and `docs/STATISTICAL_METHOD.md`.
 
 ## Repository contents
 
 ```text
-code/          parser, evaluator, training/inference reference scripts, pairwise statistics
+code/          parser, evaluator, leakage audit, training/inference reference scripts, pairwise statistics
 configs/       model/protocol snapshots
 label_space/   fixed 42-label taxonomy
 results/       aggregate metrics, seed summaries, confusion matrices, bootstrap summaries, figures
 docs/          provenance, methods, statistical methods, results, limitations, availability statements
+provenance/    sanitized run-level seals and artifact provenance summaries
 data/          schema only; no clinical records
 paper/         manuscript-publication note; full draft intentionally not included
 ```
@@ -57,9 +58,15 @@ python code/parser_tests.py
 
 To recompute metrics from standardized prediction files (`id`, `gold`, `pred`), use `code/evaluate.py`. For the published pairwise summaries, see the files under `results/` and the methodology under `docs/STATISTICAL_METHOD.md`.
 
+## Recovered provenance evidence
+
+The historical four-layer leakage-audit implementation was recovered and is published as `code/audit_leakage.py`. The v23 class-sensitive statistics addendum was also recovered; its ordinary and class-stratified aggregate tables and portable verification scripts are included here. The run-level seal coverage and the remaining evidence gap are summarized in `docs/PROVENANCE_EVIDENCE.md` and `provenance/seal_summary.json`.
+
+The original `preprocess_tcm_sd_v4_topn.py` source was not found in the archived search. It is not reconstructed or mislabeled as original source. The support-threshold rule remains documented from surviving logs and is disclosed as a historical task-construction limitation.
+
 ## Provenance notes
 
-The historical support-threshold rule is recoverable from surviving preprocessing logs, but the original preprocessing source file is not included in the public package. The exact 42-label task predates the current comparative experiments and was held fixed throughout them. See `docs/DATASET_PROVENANCE.md` and `docs/KNOWN_LIMITATIONS.md` for the full audit trail and limitations.
+The exact 42-label task predates the current comparative experiments and was held fixed throughout them. See `docs/DATASET_PROVENANCE.md`, `docs/PROVENANCE_EVIDENCE.md`, and `docs/KNOWN_LIMITATIONS.md` for the full audit trail and limitations.
 
 ## Citation
 

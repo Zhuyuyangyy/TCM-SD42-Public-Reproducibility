@@ -1,0 +1,265 @@
+{
+  "schema_version": "1.0",
+  "generated_from": "TCM_SD42_missing_provenance_evidence(1).zip",
+  "scope": "run-level provenance only; no raw records, predictions, or model weights",
+  "runs": [
+    {
+      "model": "zybert",
+      "seed": 42,
+      "sealed_at": "2026-08-26T09:44:34.515971",
+      "selected_epoch": 8,
+      "selected_dev_macro_f1": 0.8056,
+      "data_sha256": "dc5d66dda2295921916a2edaa52f2537206b8d1784fe10cb8ba3e9c80f2935de",
+      "n_main": 4218,
+      "eval_scope": "clean 4218 (heldout; 主文口径; 4452 全量=敏感性, 与此不互换)",
+      "generation": "deterministic argmax over 42-class head (no sampling)",
+      "parser": "not applicable (encoder head outputs label directly); labels_42.txt frozen order",
+      "prediction_files": [
+        {
+          "name": "heldout4452.jsonl",
+          "size_bytes": 856559,
+          "sha256": "b8556864a1cdd3d3d42e7a8182f22ff5022ad27f2ca6b0ce59a2bc8f9ceeb7cf"
+        },
+        {
+          "name": "pilot383.jsonl",
+          "size_bytes": 77905,
+          "sha256": "6df5565f143da2ad0d90a2cf0c48840974155eff55d4304f95fde15a372c80a2"
+        }
+      ],
+      "checkpoint_files_sha256": [
+        {
+          "name": "config.json",
+          "size_bytes": 2750,
+          "sha256": "4a218aca9b48c12c9c6172473e28a1975d1861fd1b13b4be524bcea34df4be94"
+        },
+        {
+          "name": "model.safetensors",
+          "size_bytes": 1302308904,
+          "sha256": "c1d892e0bd493ea52b8b0a731def43a79ce29c39cae1c57be36052ef3ca72c02"
+        },
+        {
+          "name": "special_tokens_map.json",
+          "size_bytes": 695,
+          "sha256": "5d5b662e421ea9fac075174bb0688ee0d9431699900b90662acd44b2a350503a"
+        },
+        {
+          "name": "tokenizer.json",
+          "size_bytes": 439389,
+          "sha256": "2ce0b285a2411367d5c1be776dcbc1f2249cdabcc49a8b17712d00872e9ba989"
+        },
+        {
+          "name": "tokenizer_config.json",
+          "size_bytes": 1249,
+          "sha256": "bc3788b020afe8d772684fc7a5f64cbb562f1b816d2585858558d3df8b95bbf7"
+        },
+        {
+          "name": "vocab.txt",
+          "size_bytes": 109540,
+          "sha256": "45bbac6b341c319adc98a532532882e91a9cefc0329aa57bac9ae761c27b291c"
+        }
+      ]
+    },
+    {
+      "model": "zybert",
+      "seed": 2026,
+      "sealed_at": "2026-08-26T10:20:52.151459",
+      "selected_epoch": 8,
+      "selected_dev_macro_f1": 0.7996,
+      "data_sha256": "dc5d66dda2295921916a2edaa52f2537206b8d1784fe10cb8ba3e9c80f2935de",
+      "n_main": 4218,
+      "eval_scope": "clean 4218 (heldout; 主文口径; 4452 全量=敏感性, 与此不互换)",
+      "generation": "deterministic argmax over 42-class head (no sampling)",
+      "parser": "not applicable (encoder head outputs label directly); labels_42.txt frozen order",
+      "prediction_files": [
+        {
+          "name": "heldout4452.jsonl",
+          "size_bytes": 855614,
+          "sha256": "caccfa96a1e258599c4c2a6c86ecbc62eb5c3c710ac867186d042f2fba32c85e"
+        }
+      ],
+      "checkpoint_files_sha256": [
+        {
+          "name": "config.json",
+          "size_bytes": 2750,
+          "sha256": "4a218aca9b48c12c9c6172473e28a1975d1861fd1b13b4be524bcea34df4be94"
+        },
+        {
+          "name": "model.safetensors",
+          "size_bytes": 1302308904,
+          "sha256": "21c6208e05796c0ccdbde6fd4e6e157c230b38c2dddfcb86a6086657150769bc"
+        },
+        {
+          "name": "special_tokens_map.json",
+          "size_bytes": 695,
+          "sha256": "5d5b662e421ea9fac075174bb0688ee0d9431699900b90662acd44b2a350503a"
+        },
+        {
+          "name": "tokenizer.json",
+          "size_bytes": 439389,
+          "sha256": "2ce0b285a2411367d5c1be776dcbc1f2249cdabcc49a8b17712d00872e9ba989"
+        },
+        {
+          "name": "tokenizer_config.json",
+          "size_bytes": 1249,
+          "sha256": "bc3788b020afe8d772684fc7a5f64cbb562f1b816d2585858558d3df8b95bbf7"
+        },
+        {
+          "name": "vocab.txt",
+          "size_bytes": 109540,
+          "sha256": "45bbac6b341c319adc98a532532882e91a9cefc0329aa57bac9ae761c27b291c"
+        }
+      ]
+    },
+    {
+      "model": "zybert",
+      "seed": 7,
+      "sealed_at": "2026-08-26T10:21:46.486882",
+      "selected_epoch": 4,
+      "selected_dev_macro_f1": 0.8032,
+      "data_sha256": "dc5d66dda2295921916a2edaa52f2537206b8d1784fe10cb8ba3e9c80f2935de",
+      "n_main": 4218,
+      "eval_scope": "clean 4218 (heldout; 主文口径; 4452 全量=敏感性, 与此不互换)",
+      "generation": "deterministic argmax over 42-class head (no sampling)",
+      "parser": "not applicable (encoder head outputs label directly); labels_42.txt frozen order",
+      "prediction_files": [
+        {
+          "name": "heldout4452.jsonl",
+          "size_bytes": 855800,
+          "sha256": "82f0b730ec7b892d6c2bdca4527132e749475516397d70cf4736b48cea6e4739"
+        }
+      ],
+      "checkpoint_files_sha256": [
+        {
+          "name": "config.json",
+          "size_bytes": 2750,
+          "sha256": "4a218aca9b48c12c9c6172473e28a1975d1861fd1b13b4be524bcea34df4be94"
+        },
+        {
+          "name": "model.safetensors",
+          "size_bytes": 1302308904,
+          "sha256": "ec180d15633bdd749d9f3f714f8be8d6eb2cf19cd1815463e447ae8c61de8fb4"
+        },
+        {
+          "name": "special_tokens_map.json",
+          "size_bytes": 695,
+          "sha256": "5d5b662e421ea9fac075174bb0688ee0d9431699900b90662acd44b2a350503a"
+        },
+        {
+          "name": "tokenizer.json",
+          "size_bytes": 439389,
+          "sha256": "2ce0b285a2411367d5c1be776dcbc1f2249cdabcc49a8b17712d00872e9ba989"
+        },
+        {
+          "name": "tokenizer_config.json",
+          "size_bytes": 1249,
+          "sha256": "bc3788b020afe8d772684fc7a5f64cbb562f1b816d2585858558d3df8b95bbf7"
+        },
+        {
+          "name": "vocab.txt",
+          "size_bytes": 109540,
+          "sha256": "45bbac6b341c319adc98a532532882e91a9cefc0329aa57bac9ae761c27b291c"
+        }
+      ]
+    },
+    {
+      "model": "internlm3",
+      "seed": 42,
+      "sealed_at": "2026-08-14T06:53:02.199805",
+      "selected_epoch": 2,
+      "selected_dev_macro_f1": 0.7456,
+      "data_sha256": "dc5d66dda2295921916a2edaa52f2537206b8d1784fe10cb8ba3e9c80f2935de",
+      "n_main": 4218,
+      "eval_scope": "clean 4218 (heldout; 主文口径; 4452 全量=敏感性, 与此不互换)",
+      "generation": "do_sample=False, temperature=0, max_new_tokens=96 (frozen, 与 selection 同口径)",
+      "parser": "v18 evaluation/parse_label.py (frozen, 唯一)",
+      "prediction_files": [
+        {
+          "name": "heldout4452_raw.jsonl",
+          "size_bytes": 4190332,
+          "sha256": "824b2002897b7f8c1f569dc85228a6e07f88cddb6bbfbdff86d8c53cf0a85026"
+        },
+        {
+          "name": "heldout4452.jsonl",
+          "size_bytes": 408106,
+          "sha256": "140154a50fac785c7c0bdd4713655ecf0ccf15c316a4a60421b5b2ea4b23b4d2"
+        }
+      ],
+      "checkpoint_files_sha256": []
+    },
+    {
+      "model": "internlm3",
+      "seed": 2026,
+      "sealed_at": "2026-09-01T08:57:51.365216",
+      "selected_epoch": 2,
+      "selected_dev_macro_f1": 0.7441,
+      "data_sha256": "dc5d66dda2295921916a2edaa52f2537206b8d1784fe10cb8ba3e9c80f2935de",
+      "n_main": 4218,
+      "eval_scope": "clean 4218 (heldout; 主文口径; 4452 全量=敏感性, 与此不互换)",
+      "generation": "do_sample=False, temperature=0, max_new_tokens=96 (frozen, 与 selection 同口径)",
+      "parser": "v18 evaluation/parse_label.py (frozen, 唯一)",
+      "prediction_files": [
+        {
+          "name": "heldout4452_raw.jsonl",
+          "size_bytes": 4190399,
+          "sha256": "e696c54570acfa9add8e057a4abd655f971d14e457ab6d5e7575a74aa631e7a6"
+        },
+        {
+          "name": "heldout4452.jsonl",
+          "size_bytes": 408118,
+          "sha256": "91aa0e19ccf76fb447b1ab8f3a46bbdb041f85dd226d33ab2f47b038e8d2de9d"
+        }
+      ],
+      "checkpoint_files_sha256": []
+    },
+    {
+      "model": "internlm3",
+      "seed": 7,
+      "sealed_at": "2026-09-03T14:27:37.688386",
+      "selected_epoch": 2,
+      "selected_dev_macro_f1": 0.7469,
+      "data_sha256": "dc5d66dda2295921916a2edaa52f2537206b8d1784fe10cb8ba3e9c80f2935de",
+      "n_main": 4218,
+      "eval_scope": "clean 4218 (heldout; 主文口径; 4452 全量=敏感性, 与此不互换)",
+      "generation": "do_sample=False, temperature=0, max_new_tokens=96 (frozen, 与 selection 同口径)",
+      "parser": "v18 evaluation/parse_label.py (frozen, 唯一)",
+      "prediction_files": [
+        {
+          "name": "heldout4452_raw.jsonl",
+          "size_bytes": 4190047,
+          "sha256": "96866c0462e5af30b796702684b6151a694a61d4f40b331c55007f54a2f661bf"
+        },
+        {
+          "name": "heldout4452.jsonl",
+          "size_bytes": 408118,
+          "sha256": "c6c66c2c48836dfed5aa5dc41f8789765c5d945fec1d554e959198d8ab92bdfb"
+        }
+      ],
+      "checkpoint_files_sha256": []
+    },
+    {
+      "model": "macbert",
+      "seed": 42,
+      "seal_status": "hash_only",
+      "prediction_files": [
+        {
+          "name": "macbert_heldout4452.jsonl",
+          "sha256": "f99b29ea1acd9402346976643b8ad7f5a413757e546fbbf0d892327de9bebb3f"
+        }
+      ],
+      "note": "No standalone SEAL.json was found; the frozen prediction is covered by the v20 SHA256 manifest."
+    },
+    {
+      "model": "qwen3",
+      "seed": 42,
+      "seal_status": "hash_only",
+      "prediction_files": [
+        {
+          "name": "qwen3_sft_clean_v3_heldout4452.jsonl",
+          "sha256": "9fc4dc8d3641f3fb73857536ba9d81c379f6f21ebbd40ca7814ca40a6b54ba75"
+        }
+      ],
+      "note": "No standalone SEAL.json was found; the frozen prediction is covered by the v20 SHA256 manifest."
+    }
+  ],
+  "coverage_note": "ZY-BERT and InternLM3 have structured SEAL records for seeds 42, 2026, and 7. MacBERT and Qwen3 seed-42 frozen predictions have manifest hashes but no standalone SEAL record."
+}

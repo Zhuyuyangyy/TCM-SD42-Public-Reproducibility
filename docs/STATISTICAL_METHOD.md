@@ -28,7 +28,7 @@ These confidence intervals are class-sensitive paired uncertainty summaries. The
 
 Because the clean test set is strongly imbalanced and the rarest syndrome has very low support, a sensitivity analysis additionally resamples with replacement **within each syndrome class**, preserving the original class support before recombining the 4,218 records.
 
-The ordinary and class-stratified procedures agree in direction for all 12 class-sensitive comparisons. The same qualitative exception appears under both procedures: the InternLM3-versus-MacBERT Balanced Accuracy interval includes zero. The complete stratified numerical output remains part of the sealed v23 statistical addendum; only the validated qualitative sensitivity conclusion is summarized in this public repository unless the full addendum is intentionally released later.
+The ordinary and class-stratified procedures agree in direction for all 12 class-sensitive comparisons. The same qualitative exception appears under both procedures: the InternLM3-versus-MacBERT Balanced Accuracy interval includes zero. The complete stratified numerical output is published in `results/pairwise_class_sensitive_stratified_bootstrap_seed42.csv`; the aligned case-level input remains excluded.
 
 ## Evidence package
 
@@ -38,3 +38,5 @@ The sealed statistical addendum was reported as:
 - SHA256: `50709127ea6b053b9b7ef152e007d37cc0cadcda6e214bcf47b99e923596cc3e`
 
 The original frozen experimental archive was not modified.
+
+Portable source files are available in `code/pairwise_class_sensitive_bootstrap.py` and `code/verify_four_model_alignment.py`. They require an authorized local aligned input and do not assume the historical private server paths.

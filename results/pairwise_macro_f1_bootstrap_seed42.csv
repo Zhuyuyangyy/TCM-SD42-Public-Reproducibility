@@ -1,0 +1,7 @@
+pair,model_a,model_b,n,macro_f1_a,macro_f1_b,diff_obs,ci_lower,ci_upper,ci_excludes_zero,method,n_resamples,seed
+zybert_vs_internlm3,zybert,internlm3,4218,0.6651,0.6074,0.0577,0.0427,0.0737,True,ordinary_paired,2000,20260516
+zybert_vs_macbert,zybert,macbert,4218,0.6651,0.5681,0.097,0.0812,0.1136,True,ordinary_paired,2000,20260516
+zybert_vs_qwen3,zybert,qwen3,4218,0.6651,0.545,0.1201,0.1042,0.1357,True,ordinary_paired,2000,20260516
+internlm3_vs_macbert,internlm3,macbert,4218,0.6074,0.5681,0.0393,0.0226,0.0557,True,ordinary_paired,2000,20260516
+internlm3_vs_qwen3,internlm3,qwen3,4218,0.6074,0.545,0.0624,0.0484,0.0774,True,ordinary_paired,2000,20260516
+macbert_vs_qwen3,macbert,qwen3,4218,0.5681,0.545,0.0231,0.0052,0.041,True,ordinary_paired,2000,20260516
