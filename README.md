@@ -1,5 +1,25 @@
 # TCM-SD42: Controlled Model Comparison for TCM Syndrome Differentiation
 
+> **Research archive / Medical NLP / Reproducibility**  
+> A controlled, system-level comparison of specialized encoders and general-purpose language models for traditional Chinese medicine syndrome differentiation.
+
+### At a glance
+
+| Study dimension | What is actually evaluated |
+| --- | --- |
+| Task | Fixed historical **42-class task derived from TCM-SD** |
+| Models | ZY-BERT, MacBERT, Qwen3-8B and InternLM3-8B-Instruct |
+| Clean held-out split | **4,218 records**, seed 42 |
+| Strongest reported baseline in this comparison | **ZY-BERT: 75.77% accuracy / 66.51% macro-F1** |
+| Evidence | Evaluation scripts, aggregate results, statistical tests, provenance and known limitations |
+
+**Start with the evidence:** [Results summary](docs/RESULTS_SUMMARY.md) · [Methods](docs/METHODS_SUMMARY.md) · [Statistical tests](docs/STATISTICAL_METHOD.md) · [Dataset provenance](docs/DATASET_PROVENANCE.md) · [Known limitations](docs/KNOWN_LIMITATIONS.md) · [Data availability](docs/DATA_AVAILABILITY.md).
+
+> [!IMPORTANT]
+> This is **not** the official normalized 148-class TCM-SD benchmark. The fixed historical task has a disclosed test-informed eligibility rule. The public release intentionally does not include raw clinical records, per-case predictions or trained weights. Interpret the numbers and reproducibility scope in that context.
+
+---
+
 Public reproducibility materials for the study:
 
 **Domain-Specific Encoders versus General-Purpose Large Language Models for Traditional Chinese Medicine Syndrome Differentiation: A Controlled System-Level Evaluation on a TCM-SD-Derived 42-Class Task**
