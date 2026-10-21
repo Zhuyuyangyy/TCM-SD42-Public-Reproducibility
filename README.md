@@ -24,6 +24,32 @@ Public reproducibility materials for the study:
 
 **Domain-Specific Encoders versus General-Purpose Large Language Models for Traditional Chinese Medicine Syndrome Differentiation: A Controlled System-Level Evaluation on a TCM-SD-Derived 42-Class Task**
 
+## Read the evidence first
+
+The results below are **historical reported results** on a fixed TCM-SD-derived 42-class task, not a new run or a clinical validation. Start with the [claim-to-evidence map](docs/EVIDENCE_MAP.md), which clearly separates what can be verified from public aggregates from what still requires the original authorized records and checkpoints.
+
+![Four-model seed-42 results](results/figures/figure1_overall_performance.png)
+
+*Existing repository figure, reproduced from published aggregate results; not evidence of a new training run.*
+
+**Reproducibility level:** **Public aggregate consistency check available**; full model training, case-level paired analysis, checkpoint identity, and split reconstruction are **not independently reproducible from this public repository alone**.
+
+Run the read-only check on the published matrices, fixed label vocabulary, per-seed summaries, and the six McNemar/Holm calculations:
+
+```bash
+python code/verify_public_aggregates.py
+```
+
+This script uses only Python's standard library. A **PASS** means the disclosed aggregate tables agree internally; it does **not** verify case-level predictions, raw clinical records, resampling confidence intervals, checkpoints, or patient independence. See [the evidence map](docs/EVIDENCE_MAP.md) for the complete scope.
+
+![ZY-BERT and InternLM3 three-seed robustness](results/figures/figure2_seed_robustness.png)
+
+*Existing repository figure; three seeds per displayed system. Do not interpret this as a four-model three-seed comparison.*
+
+**Important reporting detail:** Each LLM's published 42×42 confusion matrix contains **4,216 valid-label outputs**, not all **4,218** test cases. The two omitted outputs per model were recorded as non-parsed (`empty`) and count as incorrect against the full denominator. The [evidence map](docs/EVIDENCE_MAP.md#why-the-llm-4242-confusion-matrices-have-4216-entries) shows how to correctly reconstruct Macro-F1 and Balanced Accuracy without silently discarding cases.
+
+**Checkpoint disclosure:** The public InternLM3 *training-time* script saves by Stage-2 dev loss; an author-reported private archive audit describes a separate *official inference* selection by dev Macro-F1 that chose the same epoch-2 adapters for all three seeds. The full separate selection and checkpoint hashes are **not yet available publicly**, so the public archive cannot independently validate that step. See [checkpoint provenance](docs/EVIDENCE_MAP.md#checkpoint-protocol-do-not-conflate-two-stages).
+
 ## Scope
 
 This repository documents a **previously established, fixed 42-class syndrome differentiation task derived from clinical records in the public TCM-SD corpus**. TCM-SD42 is **not** the official normalized 148-class TCM-SD benchmark and should not be described as a direct 42-label subset of that normalized taxonomy. TCM-SD contains original `syndrome` annotations and an official normalized `norm_syndrome` label space; the historical TCM-SD42 task uses a fixed set of original syndrome labels with lightweight canonicalization, primarily removal of the trailing Chinese character `证`.
