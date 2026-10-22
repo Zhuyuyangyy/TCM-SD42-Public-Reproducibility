@@ -5,7 +5,7 @@ This document reports aggregate duplicate and overlap counts from the 2026-10-22
 ## Definitions
 
 - **Exact/raw duplicate:** byte-identical \`input_text\`, measured by SHA-256.
-- **Normalized duplicate:** lowercase text after removal of fixed template labels, dataset/case identifiers, digits, punctuation and whitespace, then SHA-256. This is the specific normalization implemented by the archived audit script; it is not a general semantic-equivalence test.
+- **Normalized duplicate:** Unicode NFKC normalization, each consecutive digit run replaced with the sentinel `#`, then punctuation, symbols, control characters and whitespace removed while preserving the `#` sentinel, followed by SHA-256. This is a string-normalization rule, not a general semantic-equivalence test.
 - **Groups / involved / redundant:** number of duplicate groups / records inside those groups / involved minus groups.
 - **Conflict:** a group containing different \`syndrome_canonical\` labels.
 
@@ -32,7 +32,7 @@ The raw-text unique-input counts are 4,118 in training and 4,206 in the clean se
 | Development vs training | 18 records / 17 unique text hashes | 27 |
 | Pilot test vs training | 14 | 20 |
 
-The clean test is **not internally deduplicated**. Its 12 exact duplicate groups remain in the primary record-level metrics. A sensitivity analysis retains the first record within each exact-text group (N=4,206) and within each normalized-text group (N=4,195). The normalized subset is a string-normalization stress test, not adjudicated semantic or patient-level deduplication. Aggregate results are in \`results/dedup_sensitivity_seed42.csv\`.
+The clean test is **not internally deduplicated**. Its 12 exact duplicate groups remain in the primary record-level metrics. A sensitivity analysis retains the record with the smallest numeric ID suffix within each exact-text group (N=4,206) and within each normalized-text group (N=4,195). The normalized subset is a string-normalization stress test, not adjudicated semantic or patient-level deduplication. Aggregate results are in \`results/dedup_sensitivity_seed42.csv\`.
 
 ## Held-out exclusion evidence and limits
 
