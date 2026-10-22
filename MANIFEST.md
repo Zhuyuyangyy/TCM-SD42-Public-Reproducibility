@@ -100,3 +100,7 @@ This repository contains public, aggregate, non-patient-level reproducibility ma
 ## Explicit exclusions
 
 The public repository does not contain raw TCM-SD clinical records, per-case prediction files, raw generated outputs, trained model/adapter weights, private compute paths, the private near-duplicate pair table, or full operational logs. The internal dataset_stats.json used to document the reported 278/42 counts is not included.
+
+- `code/recompute_tcm_sd42_label_selection.py` — recomputes raw-label support thresholds from official source splits; emits aggregate counts only
+- `code/recompute_macbert_frozen_metrics.py` — recomputes MacBERT clean-test metrics from frozen positional predictions; requires authorized local inputs
+- `docs/TARGETED_RECOMPUTATION_GUIDE.md` — commands and evidence boundaries for source-split and MacBERT metric checks
