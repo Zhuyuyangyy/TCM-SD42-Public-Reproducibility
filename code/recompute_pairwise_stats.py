@@ -79,8 +79,8 @@ def main():
             pred[name]=[parse_label_from_output(r.get("raw_output","")) for r in ordered]
         else:pred[name]=[r["pred"] for r in ordered]
     corr={m:[g==p for g,p in zip(gold,pred[m])] for m in pred}
-    subsets={"S0_full":list(range(len(ids))),"S1_raw_dedup":keep_first([sha(t) for t in texts]),
-             "S2_norm_dedup":keep_first([sha(norm_text(t)) for t in texts])}
+    subsets={"S0_full":list(range(len(ids))),"S1_raw_dedup":keep_min_id([sha(t) for t in texts],ids),
+             "S2_norm_dedup":keep_min_id([sha(norm_text(t)) for t in texts],ids)}
     pairs=[tuple(x.split(":")) for x in a.pairs.split(",")] if a.pairs else list(combinations(sorted(pred),2))
     out=[]
     for sub,idx in subsets.items():
