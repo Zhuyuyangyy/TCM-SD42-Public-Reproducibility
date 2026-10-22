@@ -56,7 +56,8 @@
       42
     ],
     "locked_at": "2026-08-12T09:00:00+08:00",
-    "rule": "stage1 = [round(L*23/36), round(L*32/36)); stage2 = [round(L*12/36), round(L*32/36)). L=48 → 31..42 / 16..42; L=36 → 23..31 / 12..31 (v18 设计区间)。num_hidden_layers 必须真实读取, 禁止硬编码。"
+    "rule": "stage1 = [round(L*23/36), round(L*32/36)); stage2 = [round(L*12/36), round(L*32/36)). L=48 → 31..42 / 16..42; L=36 → 23..31 / 12..31 (v18 设计区间)。num_hidden_layers 必须真实读取, 禁止硬编码。",
+    "execution_clarification_20261022": "The ranges in this protocol are the locked DESIGN ranges, not a record of the executed unfreezing behavior. The executed training script did not call the stage-2 unfreezing routine; the execution audit reports that both stages updated only LoRA adapters in layers 31-47, supported by code inspection and checkpoint tensor comparisons. This is an implementation deviation; preserve the design ranges above for historical traceability."
   },
   "changelog": [
     {
@@ -87,12 +88,12 @@
     "lora_bias": "none",
     "train_batch_size": 1,
     "grad_accum_steps": 16,
-    "grad_clip_norm": 1.0,
+    "grad_clip_norm": 1,
     "max_seq_length": 768,
-    "stage1_lr": 8e-05,
+    "stage1_lr": 0.00008,
     "stage1_epochs": 3,
     "stage1_scheduler": "constant",
-    "stage2_lr": 1e-05,
+    "stage2_lr": 0.00001,
     "stage2_epochs": 2,
     "stage2_scheduler": "cosine (CosineAnnealingLR, T_max=stage2_total_steps)",
     "loss": "pure SFT cross-entropy (no KD / rule / smoothing)",
@@ -123,6 +124,7 @@
       "up_proj",
       "down_proj"
     ],
-    "recorded_at": "2026-08-26T10:24:20.328801"
+    "recorded_at": "2026-08-26T10:24:20.328801",
+    "scope_note": "52,297,728 is the total adapter parameter count recorded before layer freezing (adapters exist for all 48 layers). It is not the per-stage optimizer scope. The execution audit reports 18,522,112 parameters in each stage's optimizer, corresponding to the LoRA adapters in layers 31-47. See resolved_layer_ranges.execution_clarification_20261022."
   }
 }
