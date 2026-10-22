@@ -95,6 +95,10 @@ paper/         manuscript-publication note; full draft intentionally not include
 
 This release intentionally excludes raw clinical records, per-case predictions, trained model weights, private compute paths, and operational logs. The source TCM-SD dataset can be obtained from its official release. See `DATA_LICENSE_NOTICE.md` and `docs/DATA_AVAILABILITY.md`.
 
+## Targeted historical checks
+
+Two additional scripts are provided for authorized local use: `code/recompute_tcm_sd42_label_selection.py` recomputes the historical support-threshold rule from the official raw source splits, and `code/recompute_macbert_frozen_metrics.py` recomputes MacBERT metrics from its frozen 4,452-row prediction file after checking alignment to the clean 4,218 records. Neither the raw source splits nor the per-case prediction file is distributed here. Instructions and limits are in [docs/TARGETED_RECOMPUTATION_GUIDE.md](docs/TARGETED_RECOMPUTATION_GUIDE.md). These scripts have not been run against those private/local inputs in this environment; do not describe the historical 278→42 rule or MacBERT row-level metrics as freshly recomputed until the scripts are run on the actual files.
+
 ## Quick checks
 
 ```bash
