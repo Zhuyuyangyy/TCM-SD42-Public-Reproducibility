@@ -63,7 +63,7 @@ The comparative experiments reported here keep the resulting TCM-SD42 label spac
 - MacBERT (`hfl/chinese-macbert-base`) — discriminative encoder
 - ZY-BERT — TCM domain-specific encoder introduced with TCM-SD
 - Qwen3-8B — generative LLM, frozen historical QLoRA-SFT protocol
-- InternLM3-8B-Instruct — generative LLM, QLoRA-SFT under the locked comparative protocol
+- InternLM3-8B-Instruct — generative LLM, QLoRA-SFT under a locked design protocol with a disclosed layer-freezing execution deviation (see the protocol JSON and known limitations)
 
 ## Main clean held-out results (N = 4,218, seed 42)
 
