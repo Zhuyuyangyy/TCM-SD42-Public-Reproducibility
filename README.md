@@ -111,7 +111,7 @@ To recompute metrics from standardized prediction files (`id`, `gold`, `pred`), 
 
 The historical four-layer leakage-audit implementation was recovered and is published as `code/audit_leakage.py`. The v23 class-sensitive statistics addendum was also recovered; its ordinary and class-stratified aggregate tables and portable verification scripts are included here. The run-level seal coverage and the remaining evidence gap are summarized in `docs/PROVENANCE_EVIDENCE.md` and `provenance/seal_summary.json`.
 
-The original `preprocess_tcm_sd_v4_topn.py` source was not found in the archived search. It is not reconstructed or mislabeled as original source. The support-threshold rule remains documented from surviving logs and is disclosed as a historical task-construction limitation.
+The original `preprocess_tcm_sd_v4_topn.py` source, complete source-label frequency table and contemporaneous execution log were not recovered. The support-threshold rule is documented only as a secondary description reported by an internal `dataset_stats.json` and project notes; it is not presented as a surviving log or as independently verified execution evidence.
 
 ## Provenance notes
 
