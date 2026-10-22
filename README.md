@@ -54,7 +54,7 @@ This script uses only Python's standard library. A **PASS** means the disclosed 
 
 This repository documents a **previously established, fixed 42-class syndrome differentiation task derived from clinical records in the public TCM-SD corpus**. TCM-SD42 is **not** the official normalized 148-class TCM-SD benchmark and should not be described as a direct 42-label subset of that normalized taxonomy. TCM-SD contains original `syndrome` annotations and an official normalized `norm_syndrome` label space; the historical TCM-SD42 task uses a fixed set of original syndrome labels with lightweight canonicalization, primarily removal of the trailing Chinese character `证`.
 
-A surviving preprocessing log dated 2026-05-07 records the historical eligibility rule: source syndrome categories were retained when they had at least **100 training records, 10 development records, and 10 test records** in the original TCM-SD splits. Exactly **42** original syndrome categories met all three thresholds. This construction predates the present four-model comparison and did not use model predictions or model performance. Because test-label support contributed to the historical eligibility rule, this is disclosed as a test-informed task-construction limitation.
+The historical eligibility rule is reported in a retained internal `dataset_stats.json` (SHA-256 `5b96b35e77a5a43021658eabe7ede3b7bc149f03ec541373ec4da8f51deda804`) and secondary project notes: 278 raw labels were reported, with 42 eligible and selected under train>=100, dev>=10, test>=10 and a top-50 cap. The original preprocessing script, full source-label frequency table and contemporaneous execution log were not recovered. Therefore, the reported 278 count and the claim that the thresholds uniquely yielded the 42-label set cannot be independently recomputed. The frozen vocabulary and its per-class support totals are verifiable. Because source test-label support contributed to the historical rule, task construction is disclosed as test-informed.
 
 The comparative experiments reported here keep the resulting TCM-SD42 label space and data partitions fixed across all models.
 
@@ -81,7 +81,7 @@ The v23 statistical addendum additionally reports paired-bootstrap 95% confidenc
 ## Repository contents
 
 ```text
-code/          parser, evaluator, leakage audit, training/inference reference scripts, pairwise statistics
+code/          parser, evaluator, leakage audit, training/inference reference scripts, pairwise statistics and audit gates
 configs/       model/protocol snapshots
 label_space/   fixed 42-label taxonomy
 results/       aggregate metrics, seed summaries, confusion matrices, bootstrap summaries, figures
@@ -113,6 +113,10 @@ The original `preprocess_tcm_sd_v4_topn.py` source was not found in the archived
 ## Provenance notes
 
 The exact 42-label task predates the current comparative experiments and was held fixed throughout them. See `docs/DATASET_PROVENANCE.md`, `docs/PROVENANCE_EVIDENCE.md`, and `docs/KNOWN_LIMITATIONS.md` for the full audit trail and limitations.
+
+## 2026-10-22 evidence-alignment update
+
+The public archive now distinguishes historical design from verified execution. See [Qwen3 Stage-2 semantics](docs/QWEN3_STAGE2_SEMANTICS.md), [Seed-7 inference provenance](docs/SEED7_INFERENCE_PROVENANCE.md), [data-quality summary](docs/DATA_QUALITY_SUMMARY.md), and the [claim-to-evidence map](docs/EVIDENCE_MAP.md). The public repository does not contain the private clinical inputs, per-case predictions, near-duplicate pair file or model weights needed to rerun every historical audit locally. The 4,218-case aggregate checks can be run with `python code/verify_public_aggregates.py`; a PASS validates public aggregate consistency, not end-to-end training reproduction.
 
 ## Citation
 
