@@ -50,7 +50,7 @@ The main paper reports the decontaminated held-out set (N=4,218). The original s
 - MacBERT: development Macro-F1 early stopping (historical frozen run)
 - ZY-BERT: development Macro-F1
 - InternLM3-8B: the latest author-reported reconciliation identifies development Macro-F1 as the official selection criterion; the public training script and protocol retain a development-loss intermediate checkpoint setting, and public seals alone do not independently prove the final ranking rule
-- Qwen3-8B: historical frozen v18 checkpoint selected by development loss; this mismatch is disclosed and the model was not retroactively retuned on held-out data
+- Qwen3-8B: historical frozen v18 adapter selected by development loss. A later server audit recovered the adapter (SHA-256 recorded in `docs/QWEN3_STAGE2_SEMANTICS.md`) and found that the Stage-2 optimizer included 168,960 fp32 Norm parameters, but adapter-only saving omitted them. The development loss was evaluated on the in-memory state with those Norm parameters enabled, whereas the evaluated artifact is base model plus LoRA without those Norm updates; this selection-state/evaluated-artifact mismatch is disclosed. The original inference command and per-record input hashes remain unavailable; no held-out retuning was performed.
 
 ## Inference
 Generative-model outputs are parsed with one frozen closed-set parser (`code/parse_label.py`). Greedy generation is used for the current LLM evaluation protocol (`do_sample=False`, `temperature=0`, `max_new_tokens=96`).
