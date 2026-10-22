@@ -93,3 +93,16 @@ This repository contains public, aggregate, non-patient-level reproducibility ma
 ## Explicit exclusions
 
 The public repository does not contain raw TCM-SD clinical records, per-case prediction files, raw generated outputs, model or adapter weights, private compute paths, operational logs, or the internally identified column-inconsistent per-class F1 CSV.
+
+- `VERSION_20261022.md` — evidence-alignment and audit revision note
+- `code/recompute_pairwise_stats.py` — aggregate sensitivity computation; requires authorized local predictions
+- `code/verify_exclusion_set.py` — exclusion-ID verification; requires authorized local split and pair inputs
+- `code/verify_public_aggregates.py` — public aggregate consistency checks only
+- `docs/EVIDENCE_MAP.md` — claim-to-public-evidence map and reproducibility boundaries
+- `docs/LEAKAGE_AUDIT_METHOD.md` — leakage/decontamination method and input requirements
+- `docs/STATISTICAL_METHOD.md` — bootstrap, McNemar/Holm and sensitivity methods
+- `docs/DATA_QUALITY_SUMMARY.md` — aggregate duplicate/overlap counts; no clinical text or IDs
+- `docs/QWEN3_STAGE2_SEMANTICS.md` — optimizer scope versus saved adapter scope
+- `docs/SEED7_INFERENCE_PROVENANCE.md` — seed-7 mixed-decoding provenance and limitations
+- `figures_r/reproduce_figures.R` — figure generation from aggregate data
+- `results/dedup_sensitivity_seed42.csv` — aggregate results for primary and duplicate-subset sensitivity analyses
