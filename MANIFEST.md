@@ -9,6 +9,7 @@ This repository contains public, aggregate, non-patient-level reproducibility ma
 - `DATA_LICENSE_NOTICE.md`
 - `LICENSE`
 - `README.md`
+- `VERSION_20261022.md` — documentation and audit-alignment revision
 - `requirements.txt`
 
 ## Code
@@ -20,6 +21,8 @@ This repository contains public, aggregate, non-patient-level reproducibility ma
 - `code/infer_llm.py`
 - `code/labels_42.txt`
 - `code/pairwise_stats.py`
+- `code/recompute_pairwise_stats.py` — primary and duplicate-subset exact McNemar/Holm checks; requires authorized private inputs
+- `code/verify_exclusion_set.py` — verifies the frozen exclusion IDs from authorized private inputs; outputs aggregate counts only
 - `code/pairwise_class_sensitive_bootstrap.py` — ordinary and class-stratified paired bootstrap
 - `code/parse_label.py`
 - `code/parser_tests.py`
@@ -47,6 +50,10 @@ This repository contains public, aggregate, non-patient-level reproducibility ma
 - `docs/KNOWN_LIMITATIONS.md`
 - `docs/METHODS_SUMMARY.md`
 - `docs/PROVENANCE_EVIDENCE.md`
+- `docs/EVIDENCE_MAP.md` — maps claims to public evidence and reproducibility boundaries
+- `docs/DATA_QUALITY_SUMMARY.md` — aggregate duplicate and overlap counts; no clinical text or case IDs
+- `docs/QWEN3_STAGE2_SEMANTICS.md` — optimizer scope versus adapter-only saved checkpoint
+- `docs/SEED7_INFERENCE_PROVENANCE.md` — seed-7 mixed-decoding evidence and limits
 - `docs/RESULTS_SUMMARY.md`
 - `docs/SOURCE_REFERENCES.md`
 
@@ -58,6 +65,7 @@ This repository contains public, aggregate, non-patient-level reproducibility ma
 ## Results
 
 - `results/clean4218_seed42.csv`
+- `results/dedup_sensitivity_seed42.csv` — aggregate sensitivity results for full, raw-deduplicated and normalized-text subsets
 - `results/confusion_matrix_internlm3.csv`
 - `results/confusion_matrix_macbert.csv`
 - `results/confusion_matrix_qwen3.csv`
