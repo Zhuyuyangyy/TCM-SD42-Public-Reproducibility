@@ -3,27 +3,32 @@
 Private clinical inputs and case-level predictions are not distributed here.
 """
 from __future__ import annotations
-import argparse,csv,hashlib,json,re,sys
+import argparse,csv,hashlib,json,re,sys,unicodedata
 from itertools import combinations
 from pathlib import Path
 from scipy.stats import binomtest
 
-TEMPLATE_LABELS=["疾病名称：","疾病名称:","主诉：","主诉:","四诊信息：","四诊信息:","现病描述摘要：","现病描述摘要:","病史：","病史:","舌脉：","舌脉:","中医证型：","中医证型:","证型：","证型:"]
-PUNCT=re.compile(r"[\s\u3000-\u303f\uff00-\uff0f\uff1a-\uff20\uff3b-\uff40\uff5b-\uff65!-/:-@\[\x60{-~]")
-
 def norm_text(t):
-    s=t.strip().lower()
-    for lab in TEMPLATE_LABELS:s=s.replace(lab,"")
-    s=re.sub(r"tcm_sd_(?:train|test)_\d+","",s)
-    s=re.sub(r"(病例|病案|编号|序号|记录|id)\s*[:：]?\s*[0-9a-z\-]+","",s)
-    return PUNCT.sub("",re.sub(r"\d+","",s))
+    """Audit normalization: NFKC, digit runs -> '#', strip punctuation/symbol/control and whitespace.
+    The '#' sentinel is preserved so numeric runs collapse to a common placeholder.
+    """
+    s=unicodedata.normalize("NFKC",t)
+    s=re.sub(r"\d+","#",s)
+    return "".join(ch for ch in s if ch=="#" or (not ch.isspace() and unicodedata.category(ch)[0] not in {"P","S","C"}))
 
 def sha(s):return hashlib.sha256(s.encode("utf-8")).hexdigest()
-def keep_first(keys):
-    seen=set();keep=[]
+def _id_order(value):
+    value=str(value)
+    m=re.search(r"(\d+)$",value)
+    return (0,int(m.group(1)),value) if m else (1,value)
+
+def keep_min_id(keys,ids):
+    """Keep the record with the smallest numeric ID suffix in each duplicate group."""
+    best={}
     for i,k in enumerate(keys):
-        if k not in seen:keep.append(i);seen.add(k)
-    return keep
+        if k not in best or _id_order(ids[i])<_id_order(ids[best[k]]):
+            best[k]=i
+    return sorted(best.values())
 def load_jsonl(path):
     with open(path,encoding="utf-8") as f:return [json.loads(x) for x in f if x.strip()]
 def holm(raw):
