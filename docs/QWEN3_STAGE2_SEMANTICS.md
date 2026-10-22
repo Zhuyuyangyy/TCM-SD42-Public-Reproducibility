@@ -17,19 +17,21 @@ The retained adapter configuration records PEFT 0.19.1. The historical log suppo
 
 The archived code path calls \`prepare_model_for_kbit_training\`, then attaches LoRA adapters to seven projection targets across 36 layers. The Stage-2 helper sets \`requires_grad=True\` only for floating-point parameters in layers 12–31. The 4-bit backbone weights are stored as non-floating-point packed parameters and are skipped by that guard.
 
+A subsequent server-side inventory recovered the adapter file at the historical local path and verified its SHA-256 against the retained model checksum: `a80b261a36d79b7085f4b577f0eed291b570103e4a32edc13ca5e7a6dcde7daf`. The Qwen3 base-model directory was also reported to contain all five model shards. These files are not included in this public repository. The recovery permits a new local inference check, but does not by itself prove that the original historical prediction file was generated from this exact adapter because the original inference command and per-record input hashes were not retained.
+
 The private audit calculates the following parameter counts:
 
 | Scope | Parameter count | Interpretation |
 |---|---:|---|
 | LoRA adapters across 36 layers | 43,646,976 | Stage-1 optimizer scope reported by the audit |
 | Stage-2 optimizer parameter group | 43,815,936 | LoRA plus 168,960 floating-point normalization parameters |
-| Stage-2 normalization parameters actually updated | Unverified | No optimizer state, intermediate weights, or per-tensor update log was recovered |
+| Stage-2 normalization parameters in AdamW group | 168,960 | Historical code and log show the fp32 Norm parameters were made trainable and included in the Stage-2 optimizer; exact per-tensor before/after deltas were not retained |
 | Parameters in the evaluated adapter artifact | 43,646,976 (LoRA only) | Adapter-only save; separate normalization updates are not present in this artifact |
 
 The 168,960 normalization count comprises 8,448 parameters per layer across 20 layers (12–31): input and post-attention layer norms (4,096 each), plus Q/K normalization parameters (128 each).
 
 ## Reporting boundary
 
-It is accurate to say that the Stage-2 optimizer parameter group included the additional floating-point normalization parameters, according to the private code audit. It is **not** verified that those parameters received and applied updates. Because the saved artifact is adapter-only, the evaluated system must not be described as a 4-bit backbone with persistently fine-tuned layers 12–31.
+The historical code and training log establish that the Stage-2 optimizer group included the additional floating-point normalization parameters and that Stage-2 training steps ran. The retained archive does not contain the before/after Norm tensors or optimizer state needed to report the exact numerical delta of every Norm tensor. Because the saved artifact is adapter-only, those Norm weights were not serialized into the evaluated checkpoint. This creates a material distinction: the development loss used to select the epoch was evaluated on the in-memory Stage-2 model with Norm parameters in the optimizer, while held-out inference uses the base model's original Norm weights plus the saved LoRA adapter. The selection-time state and evaluated artifact are therefore not identical; this must be disclosed rather than described as a fully matched checkpoint-selection/inference path.
 
-The historical adapter directory and original per-tensor update records were not recovered. This note is a transparent account of the private audit, not an independently executable reproduction from the public repository.
+The adapter and base shards were recovered in the private server environment, but they are not redistributed here. This note is a transparent account of the private audit, not an independently executable reproduction from the public repository. The historical inference command and per-record input hashes remain missing.
