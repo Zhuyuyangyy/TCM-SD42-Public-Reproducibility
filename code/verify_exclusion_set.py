@@ -31,10 +31,13 @@ def main():
     pairs=load_csv(a.pairs)
     full_pairs=[r for r in pairs if r.get("split_b")=="full"]
     near_ids={str(r["id_b"]) for r in full_pairs if float(r["similarity"])>=a.threshold}
+    near_only=near_ids-raw_ids
     derived=raw_ids|near_ids
     excluded={str(r["id"]) for r in load_csv(a.excluded)}
     result={"n_full":len(splits["full"]),"n_raw_exact_excluded":len(raw_ids),
-        "n_near_duplicate_ids":len(near_ids),"n_union":len(derived),"n_archived_excluded":len(excluded),
+        "n_near_duplicate_ids_including_exact":len(near_ids),
+        "n_additional_near_only_excluded":len(near_only),
+        "n_union":len(derived),"n_archived_excluded":len(excluded),
         "set_equal":derived==excluded,"missing":len(excluded-derived),"extra":len(derived-excluded),
         "threshold":a.threshold,"pairs_rows":len(pairs),
         "pairs_sha256":hashlib.sha256(Path(a.pairs).read_bytes()).hexdigest(),
