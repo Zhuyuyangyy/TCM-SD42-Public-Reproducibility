@@ -34,8 +34,12 @@ def paired_compare(a, b, n_boot=2000, seed=20260516):
     diff=sum(ca)/n-sum(cb)/n
     rng=random.Random(seed)
     ds=[]
+    population=list(range(n))
     for _ in range(n_boot):
-        idx=[rng.randrange(n) for _ in range(n)]
+        # Match the archived choices-based, with-replacement bootstrap generator.
+        # randrange is also with replacement but consumes the RNG stream differently,
+        # so it does not reproduce the archived interval endpoints exactly.
+        idx=rng.choices(population, k=n)
         ds.append(sum(ca[i]-cb[i] for i in idx)/n)
     ds.sort()
     lo=ds[int(n_boot*0.025)]

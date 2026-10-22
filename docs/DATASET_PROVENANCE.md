@@ -10,23 +10,13 @@ TCM-SD42 is a **derived 42-class task based on TCM-SD clinical records and origi
 
 The historical 42-class task uses a fixed set of source `syndrome` labels with lightweight string-level canonicalization, primarily removal of the trailing Chinese character `证`. Some source syndrome labels that remain distinct in TCM-SD42 can map to the same official `norm_syndrome` category.
 
-## Recovered historical class-selection rule
+## Historical class-selection rule: evidence status
 
-A surviving preprocessing log dated 2026-05-07 records the operational rule used in the historical Top-N preprocessing stage. The source split contained 278 distinct original syndrome labels. A syndrome category was eligible if it had at least:
+A retained **internal** `dataset_stats.json` (SHA-256 `5b96b35e77a5a43021658eabe7ede3b7bc149f03ec541373ec4da8f51deda804`; three byte-identical copies were reported in the internal archive) records `raw_label_count=278`, `eligible_label_count=42`, and `selected_label_count=42`. It reports the criterion `train>=100, dev>=10, test>=10, top-50 by total`, with raw split totals of 43,180 / 5,486 / 5,486 and final split totals of 19,125 / 4,411 / 4,452.
 
-- 100 records in the source training split,
-- 10 records in the source development split, and
-- 10 records in the source test split.
+The original `preprocess_tcm_sd_v4_topn.py`, complete source-label frequency table, and contemporaneous execution log were not recovered. Thus, 278 is a retained summary-file value, not an independently recomputed count; the exact historical threshold implementation and uniqueness of the 42-class selection remain unverified. The final 42-label vocabulary and its downstream support totals can be checked against the frozen files. The top-50 cap was not reached in the reported summary (42 selected versus a cap of 50), but that arithmetic alone does not independently prove that exactly 42 source labels passed the thresholds.
 
-Exactly **42 original syndrome categories** satisfied all three minimum-support criteria. The subsequent `top50` step therefore retained all 42 eligible categories rather than 50. The same log records the following post-deduplication counts for the 42-class `top50_full` version:
-
-- training: 39,072 records,
-- development: 4,411 records,
-- test: 4,452 records.
-
-For the `top50_balanced_cap1000` version, only the training split was capped at 1,000 records per class, yielding 19,125 training records while development and test remained 4,411 and 4,452.
-
-This construction predates the present four-model comparison. The surviving log recovers the operational support thresholds, although the original preprocessing source file is not included in the current public package.
+The later `top50_balanced_cap1000` summary reports 19,125 training, 4,411 development and 4,452 test records. The comparative package subsequently used a 4,186-record training subset and a 420-record balanced development subset, while retaining the 4,452-record source test pool before decontamination.
 
 ### Important design limitation
 
@@ -50,4 +40,4 @@ A separate audit identified 54 development instances involved in train-developme
 
 ## Remaining provenance limitations
 
-The current archive preserves the fixed label list, downstream split definitions, aggregate evaluation evidence, the historical preprocessing log, and the recovered four-layer leakage-audit implementation (`code/audit_leakage.py`), but not the original preprocessing source file that implemented the support-threshold rule. Patient identifiers are also unavailable in the frozen derived files, so patient-disjoint partitions cannot be established; the study verifies text-level decontamination rather than patient-level independence. See `docs/PROVENANCE_EVIDENCE.md` for the recovery record and the remaining seal gap for the two historical seed-42 baselines.
+The public archive preserves the fixed label list, downstream split definitions, aggregate evaluation evidence, and the recovered four-layer leakage-audit implementation (`code/audit_leakage.py`), but it does not include the internal `dataset_stats.json`, the original preprocessing source file, a complete source-label frequency table, or a contemporaneous preprocessing execution log. The internal summary-file report is described above; it must not be presented as a surviving public preprocessing log. Patient identifiers are also unavailable in the frozen derived files, so patient-disjoint partitions cannot be established; the study verifies text-level decontamination rather than patient-level independence. See `docs/PROVENANCE_EVIDENCE.md` for the recovery record and the remaining seal gap for the two historical seed-42 baselines.

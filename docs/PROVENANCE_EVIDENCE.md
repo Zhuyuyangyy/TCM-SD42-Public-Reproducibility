@@ -12,7 +12,7 @@ This note records the provenance artifacts recovered from the private experiment
 | Structured run seals | Found for ZY-BERT and InternLM3 seeds 42, 2026, and 7 | Sanitized run-level summary in `provenance/seal_summary.json` |
 | MacBERT/Qwen3 seed-42 seals | No standalone `SEAL.json` found | Frozen prediction hashes and protocol references are retained; this gap is explicit |
 
-The missing preprocessing script is not reconstructed or represented as original source. The eligibility rule is retained as historical evidence: a source syndrome category was kept when it had at least 100 training, 10 development, and 10 test records; 42 categories met the rule. The rule was established before the four-model comparison and is disclosed as test-informed task construction.
+The original preprocessing script is not reconstructed or represented as original source. A retained internal `dataset_stats.json` (SHA-256 `5b96b35e77a5a43021658eabe7ede3b7bc149f03ec541373ec4da8f51deda804`) reports 278 raw labels and 42 eligible/selected labels under the train>=100, dev>=10, test>=10, top-50 criterion. The original source-label frequency table and contemporaneous execution log were not recovered. Accordingly, 278 is a summary-file report value; neither that raw-label count nor the uniqueness of the historical threshold-based selection can be independently recomputed. The final 42-label vocabulary and downstream support counts are independently checkable. The task is disclosed as test-informed because source test-label support contributed to the reported rule.
 
 ## Run-level seal coverage
 
