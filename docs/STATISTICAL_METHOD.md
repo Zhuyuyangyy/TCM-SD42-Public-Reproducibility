@@ -40,3 +40,14 @@ The sealed statistical addendum was reported as:
 The original frozen experimental archive was not modified.
 
 Portable source files are available in `code/pairwise_class_sensitive_bootstrap.py` and `code/verify_four_model_alignment.py`. They require an authorized local aligned input and do not assume the historical private server paths.
+
+
+## Deduplication sensitivity (2026-10-22)
+
+A record-level sensitivity analysis rescored the same frozen predictions after keeping the first record within each duplicate group. The primary set has n=4,218; the raw-text deduplicated subset has n=4,206; and the normalized-text subset has n=4,195. The normalized subset is a **string-normalization stress test**, not adjudicated semantic or patient-level deduplication. It can collapse distinct texts or labels after digits are removed, so it must not be interpreted as a definitive duplicate-case set.
+
+The aggregate pairwise cells and exact McNemar/Holm results are in `results/dedup_sensitivity_seed42.csv`; the computation script is `code/recompute_pairwise_stats.py`. The script requires an authorized local evidence tree containing the private aligned inputs and does not make those inputs public. The analysis is sensitivity evidence, not a replacement for the original primary analysis. Because repeated text can induce dependence, record-level bootstrap and McNemar inference do not account for all dependence among duplicate records.
+
+## Bootstrap implementation note
+
+`code/pairwise_stats.py` uses the archived choices-based, with-replacement index generator. The earlier public randrange-based implementation was also with-replacement but consumed the random-number stream differently, so its interval endpoints did not exactly reproduce the archived results.
