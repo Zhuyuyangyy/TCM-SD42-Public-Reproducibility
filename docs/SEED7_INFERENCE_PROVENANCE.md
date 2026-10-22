@@ -27,7 +27,7 @@ These are reported private-evidence fingerprints, not files available for indepe
 
 ## Mixed decoding segments
 
-The private verification report says the continuation log recorded batch size 8, 739 already-completed records, 3,479 remaining records, and a continuation start at zero-based index 739 (ID \`tcm_sd_test_000743\`). The reported counts sum to 4,218, and the boundary ID reportedly matches the raw output at that position.
+The private verification report says the continuation log recorded batch size 8, 739 already-completed records, 3,479 remaining records, and a continuation start at zero-based index 739 (record identifier withheld). The reported counts sum to 4,218, and the boundary ID reportedly matches the raw output at that position.
 
 The interpretation is limited to the reported segment boundary. Individual rows have no per-record segment marker, so a particular prediction cannot be attributed to a specific run from the public files. The public repository does not contain the original stdout log or the per-case output files. A prior 32-record comparison reportedly found token-identical output across batch sizes, while a separate development check found differences in 15/420 records; the effect on the held-out test predictions is unknown.
 
