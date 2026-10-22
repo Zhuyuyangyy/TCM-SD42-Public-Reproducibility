@@ -49,7 +49,7 @@ The main paper reports the decontaminated held-out set (N=4,218). The original s
 ## Checkpoint selection
 - MacBERT: development Macro-F1 early stopping (historical frozen run)
 - ZY-BERT: development Macro-F1
-- InternLM3-8B: development Macro-F1 in the final comparative protocol
+- InternLM3-8B: the latest author-reported reconciliation identifies development Macro-F1 as the official selection criterion; the public training script and protocol retain a development-loss intermediate checkpoint setting, and public seals alone do not independently prove the final ranking rule
 - Qwen3-8B: historical frozen v18 checkpoint selected by development loss; this mismatch is disclosed and the model was not retroactively retuned on held-out data
 
 ## Inference
