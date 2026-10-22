@@ -100,7 +100,10 @@ This release intentionally excludes raw clinical records, per-case predictions, 
 ```bash
 pip install -r requirements.txt
 python code/parser_tests.py
+python code/verify_public_aggregates.py
 ```
+
+The public aggregate verification script checks the frozen label order, confusion-matrix counts, reported aggregate metrics, three-seed summaries, and the published McNemar/Holm table. A PASS establishes internal consistency of public aggregate files; it does not reproduce model training, case-level predictions, private exclusion inputs, or checkpoints.
 
 To recompute metrics from standardized prediction files (`id`, `gold`, `pred`), use `code/evaluate.py`. For the published pairwise summaries, see the files under `results/` and the methodology under `docs/STATISTICAL_METHOD.md`.
 
