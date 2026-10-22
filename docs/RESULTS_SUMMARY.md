@@ -55,3 +55,8 @@ A class-stratified paired-bootstrap analysis preserved the direction of all 12 c
 ## Interpretation boundary
 
 These results support a system-level advantage for ZY-BERT **within this fixed TCM-SD-derived 42-class setting**. They do not establish that encoder models universally outperform LLMs, and they should not be represented as a complete evaluation on the official normalized 148-class TCM-SD benchmark.
+
+
+## Deduplication sensitivity (2026-10-22)
+
+The primary results above remain the frozen 4,218-record record-level analysis. A separate aggregate sensitivity table rescored the same predictions after deterministic first-record retention within exact-text groups (n=4,206) and normalized-text groups (n=4,195). The largest reported Accuracy change was approximately 0.085 percentage points. The normalized-text subset is a string-normalization stress test, not expert-adjudicated semantic deduplication. See `results/dedup_sensitivity_seed42.csv` and `docs/DATA_QUALITY_SUMMARY.md`. Case-level inputs are private and are not included in this repository.
