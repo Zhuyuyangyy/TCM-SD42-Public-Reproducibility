@@ -12,7 +12,7 @@ The original preprocessing script, complete source-label frequency table and con
 The later comparative task used 4,186 training records, 420 development records and the same 4,452-record held-out source pool before final decontamination. The 420-record development subset is a downstream balanced subset, not the 4,411-record post-processing development split reported in the internal summary.
 
 ## Leakage and redundancy audit
-The archived implementation was re-audited at code level in the v23.1 revision. Exact held-out exclusions were defined by SHA-256 equality of the raw `input_text` against train, development, or pilot records.
+The archived implementation was re-audited at code level in the v23.1 revision using authorized private inputs; the public repository contains the implementation but not the records required to replay the historical result by itself. Exact held-out exclusions were defined by SHA-256 equality of the raw `input_text` against train, development, or pilot records.
 
 For near-duplicate screening, `input_text` was standardized by removing case identifiers matching `tcm_sd_(train|test)_\\d+`, all digits, punctuation/whitespace, and fixed template prefixes. A single `TfidfVectorizer` was fit across standardized train, development, pilot, and held-out texts with:
 
@@ -26,7 +26,7 @@ For near-duplicate screening, `input_text` was standardized by removing case ide
 
 Cosine similarity was computed across train-held-out, development-held-out, pilot-held-out, train-development, train-pilot, and development-pilot split pairs. The primary near-duplicate threshold was >=0.95. A held-out record was excluded if it had either a raw exact `input_text` match or a >=0.95 TF-IDF cosine match to any train, development, or pilot record.
 
-Independent reconstruction from the frozen audit files found 5 unique raw-exact held-out IDs and 234 unique >=0.95 near-duplicate held-out IDs; 229 of the latter were not already in the raw-exact set. Their union therefore contained 234 unique records, exactly matching the ID difference between the 4,452-record source pool and the 4,218-record clean held-out set.
+The 2026-10-22 private audit reports an independent reconstruction from authorized frozen audit files: 5 unique raw-exact held-out IDs and 234 unique >=0.95 near-duplicate held-out IDs; 229 of the latter were not already in the raw-exact set. Their union contained 234 unique records, matching the ID difference between the 4,452-record source pool and the 4,218-record clean held-out set. The private source partitions and pair-level file are not included in this public repository.
 
 A separate train-development audit identified 54 development instances involved in >=0.95-similarity pairs, including 18 exact duplicates. In a ZY-BERT sensitivity analysis, removing overlap-affected development instances reduced development Macro-F1 from 0.8056 to 0.7742.
 
