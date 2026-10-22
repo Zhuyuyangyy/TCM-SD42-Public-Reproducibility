@@ -54,7 +54,7 @@ def pair_cells(idx,ca,cb):
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--clean",required=True,help="authorized private clean 4218 JSON")
-    ap.add_argument("--preds",required=True,help="comma-separated name=path[:index][:raw]")
+    ap.add_argument("--preds",required=True,help="comma-separated name=path[:index][:raw]; :index means already aligned row-for-row to --clean")
     ap.add_argument("--gold-field",default="syndrome_canonical")
     ap.add_argument("--pairs",default="")
     ap.add_argument("--out-csv",required=True)
@@ -68,11 +68,15 @@ def main():
         while path.endswith(":index") or path.endswith(":raw"):path,flag=path.rsplit(":",1);flags.add(flag)
         rows=load_jsonl(path)
         if "index" in flags:
-            by={int(r["index"]):r for r in rows};ordered=[by[int(i.rsplit("_",1)[1])+1] for i in ids]
+            assert len(rows)==len(clean),f"{name}: position-aligned input length mismatch"
+            ordered=rows
+            obs=[r.get("gold",r.get("gold_syndrome")) for r in ordered]
+            assert all(g is not None for g in obs),f"{name}: position-aligned input must include gold labels"
+            assert obs==gold,f"{name}: position-aligned gold sequence mismatch"
         else:
             by={str(r["id"]):r for r in rows};assert set(by)==set(ids),f"{name}: ID set mismatch";ordered=[by[i] for i in ids]
-        obs=[r.get("gold",r.get("gold_syndrome")) for r in ordered]
-        assert all(g is None or g==gg for g,gg in zip(obs,gold)),f"{name}: gold mismatch"
+            obs=[r.get("gold",r.get("gold_syndrome")) for r in ordered]
+            assert all(g is None or g==gg for g,gg in zip(obs,gold)),f"{name}: gold mismatch"
         if "raw" in flags:
             sys.path.insert(0,str(Path(__file__).resolve().parent))
             from parse_label import parse_label_from_output
