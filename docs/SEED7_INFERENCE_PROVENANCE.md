@@ -23,7 +23,7 @@ The report records these SHA-256 values:
 - Seed-7 SEAL: \`24f273034952fb8a63714208cb92e552d38e2808e035be77820a6fd74704b11a\`
 - Continuation stdout log reported by the audit: \`17eaf1e94b249e6bedd0645840553342c4687c2b890dafebbae31bf9a0dea36f\`
 
-These are reported private-evidence fingerprints, not files available for independent byte-level checking from this repository.
+These fingerprints were transcribed from the earlier private verification report; the raw/parsed files and stdout log are not available in this public repository for byte-level checking. A later reconciliation on a separate server could not locate `/tmp/seed7_resume_b8.log` or confirm its SHA-256. Therefore, the reported log hash and the 739/3,479 segment split remain UNVERIFIED in the currently available archive, even though the raw/parsed/clean artifact hashes were reported to match the SEAL.
 
 ## Mixed decoding segments
 
@@ -33,4 +33,4 @@ The interpretation is limited to the reported segment boundary. Individual rows 
 
 ## Reproducibility boundary
 
-The reported ID, gold, parser and hash checks support integrity and alignment of the sealed output artifact. They do not independently establish every runtime detail, nor do they quantify how the mixed decoding batch sizes affected test predictions. The public release therefore reports this as private-audit evidence and does not claim end-to-end reproduction.
+The reported ID, gold, parser and hash checks support integrity and alignment of the sealed output artifact. They do not independently establish every runtime detail, and the reported segment split remains unverified because the cited log could not be located in the subsequent reconciliation. They also do not quantify how mixed decoding batch sizes affected test predictions. The public release therefore reports this as private-audit evidence and does not claim end-to-end reproduction.
