@@ -1,6 +1,6 @@
 # Seed-7 inference provenance (InternLM3-8B)
 
-The 2026-10-22 private verification report describes the sealed seed-7 prediction file as a mixed-provenance artifact: an interrupted per-sample segment followed by a batched continuation. The raw clinical inputs, prediction JSONL files, run log, and seal are not redistributed in this public repository.
+An earlier private verification report described the sealed seed-7 prediction file as a mixed-provenance artifact: an interrupted per-sample segment followed by a batched continuation. A later archive reconciliation could not locate the cited continuation stdout, so the segment split remains unverified. The raw clinical inputs, prediction JSONL files, run log, and seal are not redistributed in this public repository.
 
 ## Checks reported by the private verification
 
