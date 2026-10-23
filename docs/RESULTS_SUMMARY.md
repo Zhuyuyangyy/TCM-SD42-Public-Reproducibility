@@ -69,3 +69,8 @@ A read-only reconstruction on the official public source splits found 278 distin
 ## Targeted historical checks
 
 MacBERT frozen-prediction metrics were recomputed from the authorized 4,452-row prediction file after 8/8 structural alignment checks: Accuracy 62.778568%, Macro-F1 56.811275%, Weighted-F1 63.944848%, Balanced Accuracy 72.628728% (n=4,218; 2,648 correct). This verifies metrics from frozen predictions, not the missing original fine-tuned checkpoint. The early pilot archive contains the historical TCM-Mini-best Qwen3 adapter and its checksum-matching raw-output artifact. This confirms those early artifacts are preserved, but the original inference command/input hashes are missing and the two Stage-2 epoch adapters needed for a saved-state epoch comparison were not found in the latest server audit, so that comparison remains blocked. The Seed-7 continuation stdout was recovered and hash-verified; it supports a batch-8 continuation that skipped 739 rows and generated 3,479, but does not establish the provenance of the first 739 rows.
+
+
+## Corrected 5-gram Jaccard diagnostic (not the historical filter)
+
+The completed 2026-10-23 log reports Train-to-Dev/Test candidate hits of 615/625 at threshold >=0.80, 516/550 at >=0.85, and 370/387 at >=0.90. Earlier interim values 502/518 and 424/447 came from an incomplete log tail and are superseded. These candidate-hit counts are diagnostic only; the original historical matching key and pair-level file were not recovered. The corrected report SHA-256 is `7014c4021f1a38b1eb72db23f0e56e50c44d0a0eb44f836c7b0c688c42646536`.
