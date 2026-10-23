@@ -12,6 +12,22 @@ The uploaded early pilot archive contains the historical TCM-Mini-best adapter:
 
 The early archive also contains a 4,452-row raw-output artifact (SHA-256 9a02eca7394a599ead9db00c80bb16803c63dedf203bae9d4f8c644523c07042) matching the historical server inventory. These matching hashes establish that the early pilot adapter and raw outputs are preserved. They do not fully prove the original output-to-checkpoint invocation because the inference command and per-record input hashes were not retained. The two Stage-2 epoch adapters needed for a saved-state epoch comparison were not found in the latest server audit.
 
+## Base-model upstream verification (2026-10-23)
+
+A separate server-side audit verified all five Qwen3-8B weight shards and `tokenizer.json` against official Hugging Face LFS entries at commit prefix `b968826d…`; `config.json` was byte-identical to the upstream file.
+
+| Artifact | Reported SHA-256 prefix | Verification |
+|---|---|---|
+| `model-00001-of-00005.safetensors` | `31d6a825…cbf5f` | Matches upstream HF LFS |
+| `model-00002-of-00005.safetensors` | `5991236c…18282` | Matches upstream HF LFS |
+| `model-00003-of-00005.safetensors` | `c5185c47…896836` | Matches upstream HF LFS |
+| `model-00004-of-00005.safetensors` | `b5ee7de7…caa917a` | Matches upstream HF LFS |
+| `model-00005-of-00005.safetensors` | `20c2d636…b542ff` | Matches upstream HF LFS |
+| `tokenizer.json` | `aeb13307…2dae4` | Matches upstream HF LFS |
+| `config.json` | `f7c4eadf…47c30` | Byte-identical; diff empty |
+
+Full digests are preserved in the server-side audit report (SHA-256 `337abf91ad9493b496069f381df8a5da5a2912a48dcf326b8aee76fef5f5a0de`). The verified base files and the archived checksum-matching adapter make a new local inference check possible. The two epoch-specific adapters needed for saved-state epoch comparison remain missing from the active run tree, and the original inference command/input hashes are still unavailable; do not claim full historical output-to-checkpoint reproduction.
+
 ## Historical optimizer and saved-state scope
 
 The archived code path attaches LoRA adapters to seven projection targets across 36 layers. The Stage-2 helper sets requires_grad=True for floating-point parameters in layers 12–31. The 4-bit backbone weights are packed non-floating-point tensors and are skipped by that guard.
