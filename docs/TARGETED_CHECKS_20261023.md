@@ -41,11 +41,7 @@ A prior server inventory reported an adapter SHA-256 of a80b261a36d79b7085f4b577
 
 ## D. Seed-7 continuation stdout — FOUND / VERIFIED
 
-The continuation stdout was recovered and its SHA-256 verified as:
-
-17eaf1e94b249e6bedd0645840553342c4687c2b890dafebbae31bf9a0dea36f
-
-It records batch size 8, skipping 739 existing rows and generating 3,479 rows. This verifies the continuation segment and its reported counts. It does not independently establish the provenance of the first 739 predictions, provide per-record segment markers, or verify a complete cross-segment checkpoint/tokenizer hash chain. The held-out effect of any batch-size difference remains unknown.
+The continuation stdout was recovered in the 2026-10-23 targeted audit and its SHA-256 was verified as `17eaf1e94b249e6bedd0645840553342c4687c2b890dafebbae31bf9a0dea36f`. It records batch size 8, skipping 739 existing rows and generating 3,479 rows. A prior reconciliation on a different server could not locate the referenced path, so that path discrepancy remains a provenance note; the current audit reports the log bytes as FOUND/VERIFIED. The log does not independently establish the provenance of the first 739 predictions, provide per-record segment markers, or verify a complete cross-segment checkpoint/tokenizer hash chain. The held-out effect of any batch-size difference remains unknown.
 
 ## Overall conclusion
 
