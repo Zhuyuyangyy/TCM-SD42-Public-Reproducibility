@@ -39,3 +39,16 @@ The clean test is **not internally deduplicated**. Its 12 exact duplicate groups
 The private audit reports 234 unique held-out exclusions from the 4,452-record pool: 5 raw exact matches and 229 additional near-duplicate matches at the inherited cosine threshold >=0.95. The private pair-level audit file and raw clinical partitions are not redistributed. The exclusion set can be independently re-derived **only when an authorized local evidence tree containing those private inputs is supplied** to \`code/verify_exclusion_set.py\`; this public repository alone cannot rerun the record-level exclusion audit.
 
 The 0.95 cutoff is an inherited operational decision, not a threshold validated against expert-adjudicated duplicate pairs. Text-level equality is not semantic duplication, and no stable patient identifier is available to prove patient-level independence. Record-level bootstrap and McNemar analyses do not account for all dependence that may arise from repeated text or multiple records from the same patient.
+
+
+## 5-gram Jaccard diagnostic for source-split count reconciliation (not the historical production filter)
+
+The completed 2026-10-23 log reports these Train-to-Dev/Test candidate-hit counts:
+
+| Threshold | Dev hits | Test hits |
+|---|---:|---:|
+| >=0.80 | 615 | 625 |
+| >=0.85 | 516 | 550 |
+| >=0.90 | 370 | 387 |
+
+Earlier interim values 502/518 and 424/447 came from an incomplete log tail and are superseded. These candidate-hit counts are not the historical production deletion counts. Corrected diagnostic report SHA-256: `7014c4021f1a38b1eb72db23f0e56e50c44d0a0eb44f836c7b0c688c42646536`. The historical summary counters remain 453 Dev/Train, 460 Test/Train, and 38 additional Dev/Test removals; the original pair-level file and exact historical matching key remain unavailable.
