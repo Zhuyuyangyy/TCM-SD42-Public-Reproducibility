@@ -104,3 +104,4 @@ The public repository does not contain raw TCM-SD clinical records, per-case pre
 - `code/recompute_tcm_sd42_label_selection.py` — recomputes raw-label support thresholds from official source splits; emits aggregate counts only
 - `code/recompute_macbert_frozen_metrics.py` — recomputes MacBERT clean-test metrics from frozen positional predictions; requires authorized local inputs
 - `docs/TARGETED_RECOMPUTATION_GUIDE.md` — commands and evidence boundaries for source-split and MacBERT metric checks
+- `docs/TARGETED_CHECKS_20261023.md` — results of the 2026-10-23 real-input targeted audit
