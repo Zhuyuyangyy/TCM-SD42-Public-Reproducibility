@@ -65,6 +65,7 @@ This repository contains public, aggregate, non-patient-level reproducibility ma
 - docs/TARGETED_CHECKS_20261023.md
 - docs/TARGETED_RECOMPUTATION_GUIDE.md
 - docs/HISTORICAL_EVIDENCE_RECONCILIATION_20261023.md
+- docs/MANUSCRIPT_PATCHES_20261023.md
 
 ## Label space
 
