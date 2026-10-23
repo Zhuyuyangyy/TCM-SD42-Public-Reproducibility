@@ -60,3 +60,12 @@ These results support a system-level advantage for ZY-BERT **within this fixed T
 ## Deduplication sensitivity (2026-10-22)
 
 The primary results above remain the frozen 4,218-record record-level analysis. A separate aggregate sensitivity table rescored the same predictions after retaining the record with the smallest numeric ID suffix within exact-text groups (n=4,206) and normalized-text groups (n=4,195). The largest reported Accuracy change was approximately 0.085 percentage points. The normalized-text subset applies Unicode NFKC, replaces consecutive digit runs with `#`, then removes punctuation, symbols, control characters and whitespace while preserving `#`; it is a string-normalization stress test, not expert-adjudicated semantic deduplication. See `results/dedup_sensitivity_seed42.csv` and `docs/DATA_QUALITY_SUMMARY.md`. Case-level inputs are private and are not included in this repository.
+
+
+## Source-split label-selection reconstruction (2026-10-23)
+
+A read-only reconstruction on the official public source splits found 278 distinct raw `syndrome` strings in train, 282 in the raw union across train/dev/test, and 278 after removing a trailing `证`. The thresholds train>=100, dev>=10, test>=10 select 43 eligible raw strings; canonicalization merges two into the frozen 42-label vocabulary. After the per-canonical-label training cap, the reconstructed counts are 19,352 / 4,902 / 4,912, which do not match the frozen downstream support totals 19,125 / 4,411 / 4,452. The historical post-processing/deduplication implementation is missing, so the label set can be independently reconstructed but the exact downstream support transformation cannot. The internal summary's `raw_label_count=278` field is ambiguous about which counting stage it represents.
+
+## Targeted historical checks
+
+MacBERT frozen-prediction metrics were recomputed from the authorized 4,452-row prediction file after 8/8 structural alignment checks: Accuracy 62.778568%, Macro-F1 56.811275%, Weighted-F1 63.944848%, Balanced Accuracy 72.628728% (n=4,218; 2,648 correct). This verifies metrics from frozen predictions, not the missing original fine-tuned checkpoint. The Qwen3 adapter recovery status is conflicting across server inventories; the latest targeted audit could not locate the selected or epoch adapters, so the saved-state epoch comparison remains blocked. The Seed-7 continuation stdout was recovered and hash-verified; it supports a batch-8 continuation that skipped 739 rows and generated 3,479, but does not establish the provenance of the first 739 rows.
