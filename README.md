@@ -137,3 +137,8 @@ Original code in this repository is released under the MIT License. TCM-SD data 
 
 
 **Historical pilot-evaluator boundary:** the early Pilot-SFT v14 evaluation used alias-equivalence for top-1 correctness (including an alias mapping between two distinct frozen labels) while its F1 metrics used alias-normalized predictions against raw gold labels. Those pilot aggregate metrics are not reused in the present four-system comparison. The early archive's raw-output file was independently re-parsed with the current exact-label parser as a provenance check; this was not a new inference run. Details are in [the historical evidence reconciliation](docs/HISTORICAL_EVIDENCE_RECONCILIATION_20261023.md).
+
+
+## Additional audit corrections (2026-10-23)
+
+The completed 5-gram Jaccard diagnostic reports Train-to-Dev/Test hits of 615/625 at >=0.80, 516/550 at >=0.85, and 370/387 at >=0.90. Earlier interim counts 502/518 and 424/447 are superseded; these are diagnostics, not the historical production filter. The Qwen3 base model's five weight shards, tokenizer.json and config.json have been verified against the official upstream release (commit prefix b968826d…); the two epoch-specific adapters needed for saved-state comparison remain unavailable. See `docs/TARGETED_CHECKS_20261023.md` and `docs/HISTORICAL_EVIDENCE_RECONCILIATION_20261023.md`.
