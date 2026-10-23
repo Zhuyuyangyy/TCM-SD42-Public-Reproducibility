@@ -51,7 +51,7 @@ def main():
     ap=argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--train",required=True,type=Path); ap.add_argument("--dev",required=True,type=Path); ap.add_argument("--test",required=True,type=Path)
     ap.add_argument("--label-field",default="syndrome")
-    ap.add_argument("--frozen-labels",type=Path)
+    ap.add_argument("--frozen-labels",type=Path); ap.add_argument("--frozen-support-csv",type=Path)
     ap.add_argument("--train-cap",type=int,default=1000); ap.add_argument("--top-k",type=int,default=50)
     ap.add_argument("--out-dir",required=True,type=Path)
     ap.add_argument("--expected-train",type=int,default=43180); ap.add_argument("--expected-dev",type=int,default=5486); ap.add_argument("--expected-test",type=int,default=5486)
@@ -89,6 +89,26 @@ def main():
     final={"train_before_cap":sum(r["train_before_cap"] for r in canonical_table),
         "train_after_cap":sum(r["train_after_cap"] for r in canonical_table),
         "dev":sum(r["dev"] for r in canonical_table),"test":sum(r["test"] for r in canonical_table)}
+    # Compare two plausible cap orders explicitly; do not silently choose whichever matches.
+    raw_cap_train=sum(min(r["train"],a.train_cap) for r in selected_raw)
+    raw_cap_dev=sum(r["dev"] for r in selected_raw)
+    raw_cap_test=sum(r["test"] for r in selected_raw)
+    frozen_support=None
+    if a.frozen_support_csv:
+        with a.frozen_support_csv.open(encoding="utf-8-sig",newline="") as f:
+            fr=list(csv.DictReader(f))
+        by_label={canonicalize(str(r["syndrome"]).strip()):r for r in fr}
+        frozen_support={"rows":len(fr),"train_total":sum(int(r["train_count"]) for r in fr),
+            "dev_total":sum(int(r["dev_count"]) for r in fr),"test_total":sum(int(r["test_count"]) for r in fr),
+            "canonical_train_support_mismatches":[]}
+        for r in canonical_table:
+            old=by_label.get(r["canonical_label"])
+            if old is None or int(old["train_count"])!=int(r["train_after_cap"]):
+                frozen_support["canonical_train_support_mismatches"].append({
+                    "canonical_label":r["canonical_label"],
+                    "reconstructed_train_after_canonical_cap":int(r["train_after_cap"]),
+                    "frozen_train_count":None if old is None else int(old["train_count"])})
+        frozen_support["canonical_train_support_match"]=not frozen_support["canonical_train_support_mismatches"]
     frozen=None
     if a.frozen_labels:
         labs=[x.strip() for x in a.frozen_labels.read_text(encoding="utf-8").splitlines() if x.strip()]
@@ -107,8 +127,18 @@ def main():
             "canonicalization":"remove one trailing Chinese character 证 from each selected eligible raw label",
             "training_cap":"apply min(count, train_cap) per canonical label after selected raw strings are grouped"},
         "recomputed_selected_support_before_historical_dedup":final,
+        "cap_order_comparison":{
+            "cap_each_raw_label_then_merge":{"train":raw_cap_train,"dev":raw_cap_dev,"test":raw_cap_test},
+            "merge_eligible_raw_labels_then_cap_each_canonical_label":{"train":final["train_after_cap"],"dev":final["dev"],"test":final["test"]},
+            "train_difference_between_cap_orders":raw_cap_train-final["train_after_cap"],
+            "canonical_cap_train_equals_reported_frozen_train":final["train_after_cap"]==a.reported_final_train,
+            "raw_cap_train_equals_reported_frozen_train":raw_cap_train==a.reported_final_train,
+            "interpretation":"Compare both explicit operation orders against retained per-class support and historical records; do not infer which order ran historically from a total match alone."
+        },
+        "frozen_support_csv_comparison":frozen_support,
         "reported_internal_summary_counts":reported,
-        "delta_recomputed_minus_reported":{"train_after_cap":final["train_after_cap"]-reported["train"],
+        "delta_recomputed_minus_reported":{"train_after_canonical_cap":final["train_after_cap"]-reported["train"],
+            "train_after_raw_cap":raw_cap_train-reported["train"],
             "dev":final["dev"]-reported["dev"],"test":final["test"]-reported["test"]},
         "frozen_label_comparison":frozen,
         "outputs":["label_selection_raw_support.csv","label_selection_canonical_support.csv"],
