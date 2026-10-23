@@ -25,3 +25,25 @@ The Seed-7 continuation stdout was recovered and SHA-256-verified as `17eaf1e94b
 ## Reporting boundary
 
 The 42-label set is independently matched and Dev/Test totals are arithmetically reconciled. The full source-to-frozen pipeline and 227-record Train difference are not fully reproducible. Do not mix the early pilot evaluator's aggregate metrics with the current exact-label comparison, and do not claim end-to-end Seed-7 or Qwen3 checkpoint provenance beyond the evidence above.
+
+
+## Qwen3 base-model upstream hash verification
+
+A separate server-side job verified all five Qwen3-8B base weight shards and `tokenizer.json` against the official Hugging Face LFS entries at upstream commit prefix `b968826d…`; `config.json` was byte-identical to upstream.
+
+| Artifact | Reported SHA-256 prefix | Result |
+|---|---|---|
+| `model-00001-of-00005.safetensors` | `31d6a825…cbf5f` | HF LFS match |
+| `model-00002-of-00005.safetensors` | `5991236c…18282` | HF LFS match |
+| `model-00003-of-00005.safetensors` | `c5185c47…896836` | HF LFS match |
+| `model-00004-of-00005.safetensors` | `b5ee7de7…caa917a` | HF LFS match |
+| `model-00005-of-00005.safetensors` | `20c2d636…b542ff` | HF LFS match |
+| `tokenizer.json` | `aeb13307…2dae4` | HF LFS match |
+| `config.json` | `f7c4eadf…47c30` | Byte-identical; diff empty |
+
+The full digests are preserved in the server-side targeted-check report (SHA-256 `337abf91ad9493b496069f381df8a5da5a2912a48dcf326b8aee76fef5f5a0de`). This upgrades the evidence for the base-model files from “present” to “verified against upstream”. It does not restore the two missing epoch-specific adapters or independently prove the historical inference command/input chain.
+
+
+## Corrected 5-gram Jaccard diagnostic
+
+The completed log reports Dev/Test hits of 615/625 at threshold >=0.80, 516/550 at >=0.85, and 370/387 at >=0.90. Earlier interim values 502/518 and 424/447 came from an incomplete log tail and are superseded. These are candidate-hit counts, not proof of the historical production filter. Corrected diagnostic report SHA-256: `7014c4021f1a38b1eb72db23f0e56e50c44d0a0eb44f836c7b0c688c42646536`.
