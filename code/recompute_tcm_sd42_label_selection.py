@@ -52,6 +52,10 @@ def main():
     ap.add_argument("--train",required=True,type=Path); ap.add_argument("--dev",required=True,type=Path); ap.add_argument("--test",required=True,type=Path)
     ap.add_argument("--label-field",default="syndrome")
     ap.add_argument("--frozen-labels",type=Path); ap.add_argument("--frozen-support-csv",type=Path)
+    ap.add_argument("--support-label-field",default="auto")
+    ap.add_argument("--support-train-field",default="auto")
+    ap.add_argument("--support-dev-field",default="auto")
+    ap.add_argument("--support-test-field",default="auto")
     ap.add_argument("--train-cap",type=int,default=1000); ap.add_argument("--top-k",type=int,default=50)
     ap.add_argument("--out-dir",required=True,type=Path)
     ap.add_argument("--expected-train",type=int,default=43180); ap.add_argument("--expected-dev",type=int,default=5486); ap.add_argument("--expected-test",type=int,default=5486)
@@ -97,17 +101,30 @@ def main():
     if a.frozen_support_csv:
         with a.frozen_support_csv.open(encoding="utf-8-sig",newline="") as f:
             fr=list(csv.DictReader(f))
-        by_label={canonicalize(str(r["syndrome"]).strip()):r for r in fr}
-        frozen_support={"rows":len(fr),"train_total":sum(int(r["train_count"]) for r in fr),
-            "dev_total":sum(int(r["dev_count"]) for r in fr),"test_total":sum(int(r["test_count"]) for r in fr),
-            "canonical_train_support_mismatches":[]}
+        if not fr: raise ValueError("frozen support CSV has no data rows")
+        fields=list(fr[0])
+        def choose_field(requested,candidates,kind):
+            if requested!="auto":
+                if requested not in fields: raise ValueError(f"support CSV missing requested {kind} field {requested!r}; available={fields}")
+                return requested
+            for candidate in candidates:
+                if candidate in fields:return candidate
+            raise ValueError(f"cannot infer support CSV {kind} field from {fields}; pass the corresponding --support-*-field")
+        lab_field=choose_field(a.support_label_field,("syndrome","label","canonical_label","syndrome_canonical","label_name"),"label")
+        tr_field=choose_field(a.support_train_field,("train_count","train","train_support","n_train"),"train")
+        dv_field=choose_field(a.support_dev_field,("dev_count","dev","dev_support","n_dev","development_count"),"dev")
+        te_field=choose_field(a.support_test_field,("test_count","test","test_support","n_test"),"test")
+        by_label={canonicalize(str(r[lab_field]).strip()):r for r in fr}
+        frozen_support={"rows":len(fr),"fields":{"label":lab_field,"train":tr_field,"dev":dv_field,"test":te_field},
+            "train_total":sum(int(r[tr_field]) for r in fr),"dev_total":sum(int(r[dv_field]) for r in fr),
+            "test_total":sum(int(r[te_field]) for r in fr),"canonical_train_support_mismatches":[]}
         for r in canonical_table:
             old=by_label.get(r["canonical_label"])
-            if old is None or int(old["train_count"])!=int(r["train_after_cap"]):
+            if old is None or int(old[tr_field])!=int(r["train_after_cap"]):
                 frozen_support["canonical_train_support_mismatches"].append({
                     "canonical_label":r["canonical_label"],
                     "reconstructed_train_after_canonical_cap":int(r["train_after_cap"]),
-                    "frozen_train_count":None if old is None else int(old["train_count"])})
+                    "frozen_train_count":None if old is None else int(old[tr_field])})
         frozen_support["canonical_train_support_match"]=not frozen_support["canonical_train_support_mismatches"]
     frozen=None
     if a.frozen_labels:
