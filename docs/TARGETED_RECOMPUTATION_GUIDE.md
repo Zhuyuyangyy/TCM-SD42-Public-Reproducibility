@@ -1,6 +1,6 @@
 # Targeted server-side recomputation guide (2026-10-23)
 
-These scripts are intended to run on an authorized machine that has the official public source splits or the private frozen prediction inputs. They emit aggregate metrics/counts and file hashes only; they do not print clinical text or record IDs. The source datasets and per-case prediction files are deliberately not included in this repository.
+The 2026-10-23 real-input audit has already run the MacBERT metric check and the source-split label reconstruction on the authorized server. The results and remaining limits are recorded in `docs/TARGETED_CHECKS_20261023.md`. The commands below document how to repeat those checks on authorized inputs; they do not imply that private inputs are included in this public repository. The scripts emit aggregate metrics/counts and file hashes only and do not print clinical text or record IDs.
 
 ## A. Recompute the historical 42-label eligibility rule
 
@@ -64,8 +64,13 @@ A successful metric match verifies the frozen prediction file against the clean 
 
 ## C. Qwen3 Stage-2 evidence boundary
 
-A prior server inventory reported an adapter SHA-256 and five base-model shards, but the latest targeted audit could not locate the selected adapter or either epoch adapter and found the `TCM-Mini-best` link dangling. Treat adapter recovery as unresolved until the file is present and its hash is rechecked in the same environment. The audit reports that 168,960 fp32 Norm parameters were included in the Stage-2 AdamW group but omitted from the adapter-only saved artifact. The validation loss was computed on the in-memory model state with those Norm parameters enabled, whereas held-out inference used the base model's original Norm weights plus LoRA. This state mismatch must be disclosed. If both stage-2 epoch adapters are available, a development-only comparison of the saved adapter artifacts can assess whether selecting the checkpoint on the actual saved inference state would change the epoch choice; do not use held-out test results to retune.
+The 2026-10-23 server audit verified all five Qwen3-8B base weight shards and `tokenizer.json` against upstream Hugging Face LFS at commit prefix `b968826d…`; `config.json` was byte-identical. The early archive contains a checksum-matching `TCM-Mini-best` adapter copy (SHA-256 `a80b261a36d79b7085f4b577f0eed291b570103e4a32edc13ca5e7a6dcde7daf`). However, the two epoch-specific adapters needed for a saved-state epoch comparison were not found in the active run tree, so that comparison remains BLOCKED. The Stage-2 AdamW group included 168,960 fp32 Norm parameters, but adapter-only saving omitted them; validation loss was computed on the in-memory state with Norm parameters in the optimizer, whereas held-out inference uses base Norm weights plus LoRA. This state mismatch must be disclosed. A new inference check is possible with the verified base and archived adapter copy, but the original inference command and per-record input hashes remain unavailable; do not claim an exact historical prediction-to-checkpoint chain.
 
 ## D. Seed 7
 
-The 739/3,479 split is not asserted as verified because the cited continuation stdout could not be located in the subsequent archive reconciliation. Keep it UNVERIFIED unless a byte-identical log copy is recovered and its SHA-256 verified. The existing prediction/SEAL integrity checks do not prove the segment boundary or quantify any test-set batch-size effect.
+The continuation stdout was recovered in the 2026-10-23 targeted audit and its SHA-256 verified as `17eaf1e94b249e6bedd0645840553342c4687c2b890dafebbae31bf9a0dea36f`. It records batch size 8, skipping 739 existing rows and generating 3,479 rows. A prior reconciliation on another server could not locate the referenced path, so that path discrepancy remains documented. The log supports the continuation segment, but not the provenance of the first 739 predictions or the complete cross-segment checkpoint/tokenizer hash chain; the held-out effect of any batch-size difference remains unknown.
+
+
+## E. Corrected 5-gram Jaccard diagnostic
+
+The completed log reports Train-to-Dev/Test candidate hits of 615/625 at threshold >=0.80, 516/550 at >=0.85, and 370/387 at >=0.90. Earlier interim counts 502/518 and 424/447 were taken from an incomplete log tail and are superseded. These diagnostic hit counts are not the historical production deletion counts. Corrected diagnostic report SHA-256: `7014c4021f1a38b1eb72db23f0e56e50c44d0a0eb44f836c7b0c688c42646536`.
