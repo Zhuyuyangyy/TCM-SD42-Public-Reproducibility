@@ -1,6 +1,6 @@
 # Seed-7 inference provenance (InternLM3-8B)
 
-The 2026-10-23 targeted audit recovered the continuation stdout and verified its SHA-256 as `17eaf1e94b249e6bedd0645840553342c4687c2b890dafebbae31bf9a0dea36f`. The log supports a batch-size-8 continuation that skipped 739 existing rows and generated 3,479 rows. The provenance of the first 739 rows still depends on separate run/SEAL records. The raw clinical inputs, prediction JSONL files, run log, and seal are not redistributed in this public repository.
+The 2026-10-23 targeted audit recovered the continuation stdout and verified its SHA-256 as `17eaf1e94b249e6bedd0645840553342c4687c2b890dafebbae31bf9a0dea36f`. The log supports a batch-size-8 continuation that skipped 739 existing rows and generated 3,479 rows. The provenance of the first 739 rows still depends on separate run/SEAL records. The raw clinical inputs, prediction JSONL files and SEAL are not redistributed in this public repository. The continuation stdout was recovered in the private audit tree.
 
 ## Checks reported by the private verification
 
