@@ -1,6 +1,6 @@
 # Seed-7 inference provenance (InternLM3-8B)
 
-An earlier private verification report described the sealed seed-7 prediction file as a mixed-provenance artifact: an interrupted per-sample segment followed by a batched continuation. A later archive reconciliation could not locate the cited continuation stdout, so the segment split remains unverified. The raw clinical inputs, prediction JSONL files, run log, and seal are not redistributed in this public repository.
+The 2026-10-23 targeted audit recovered the continuation stdout and verified its SHA-256 as `17eaf1e94b249e6bedd0645840553342c4687c2b890dafebbae31bf9a0dea36f`. The log supports a batch-size-8 continuation that skipped 739 existing rows and generated 3,479 rows. The provenance of the first 739 rows still depends on separate run/SEAL records. The raw clinical inputs, prediction JSONL files, run log, and seal are not redistributed in this public repository.
 
 ## Checks reported by the private verification
 
@@ -33,4 +33,4 @@ The interpretation is limited to the reported segment boundary. Individual rows 
 
 ## Reproducibility boundary
 
-The reported ID, gold, parser and hash checks support integrity and alignment of the sealed output artifact. They do not independently establish every runtime detail, and the reported segment split remains unverified because the cited log could not be located in the subsequent reconciliation. They also do not quantify how mixed decoding batch sizes affected test predictions. The public release therefore reports this as private-audit evidence and does not claim end-to-end reproduction.
+The reported ID, gold, parser and hash checks support integrity and alignment of the sealed output artifact. They establish the logged batch-8 continuation, but do not independently establish the generation provenance of the first 739 rows, provide per-record segment markers, or verify a complete checkpoint/tokenizer hash chain across segments. They also do not quantify how mixed decoding batch sizes affected test predictions. The public release therefore reports this as private-audit evidence and does not claim end-to-end reproduction.
