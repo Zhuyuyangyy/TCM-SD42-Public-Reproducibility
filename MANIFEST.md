@@ -106,3 +106,4 @@ The public repository does not contain raw TCM-SD clinical records, per-case pre
 - `docs/TARGETED_RECOMPUTATION_GUIDE.md` — commands and evidence boundaries for source-split and MacBERT metric checks
 - `docs/TARGETED_CHECKS_20261023.md` — results of the 2026-10-23 real-input targeted audit
 - `docs/HISTORICAL_EVIDENCE_RECONCILIATION_20261023.md` — early pilot artifact hashes, evaluator mismatch, source-split count reconciliation, and remaining evidence limits
+- `docs/HISTORICAL_EVIDENCE_RECONCILIATION_20261023.md` — early pilot artifact hashes, legacy evaluator mismatch, source-split count reconciliation, and remaining evidence limits
