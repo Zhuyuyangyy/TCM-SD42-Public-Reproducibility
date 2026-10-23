@@ -18,6 +18,27 @@ python code/recompute_tcm_sd42_label_selection.py \\
 
 Expected source split sizes are 43,180 / 5,486 / 5,486. The 2026-10-23 source-split audit found 278 unique raw labels in train, 282 in the raw three-split union, and 278 after trailing-证 canonicalization; 43 raw strings pass the thresholds and canonicalize to the frozen 42 labels. The source reconstruction yields 39,072 training records before cap, 19,352 after the 1,000-per-label cap, 4,902 development and 4,912 test. The internal summary reports 19,125 / 4,411 / 4,452 downstream records; these counts do not reproduce, because the historical post-processing/deduplication script is missing. The script reports the actual recomputation rather than forcing the historical values. It writes separate raw-label and canonical-label support CSVs plus aggregate JSON with input SHA-256 hashes. The expected outputs are label_selection_raw_support.csv, label_selection_canonical_support.csv, and label_selection_recompute.json. If the field names or source split counts differ, stop and resolve the schema before interpreting the result. A successful result validates the rule on the downloaded source files; it does not prove that the same script was executed in May 2026.
 
+## A2. Test the two possible training-cap orders
+
+The 2026-10-23 source-split audit found 19,352 training records when the 1,000-per-class cap is applied to each eligible raw label before suffix canonicalization. The retained frozen Train artifact has 19,125 records, a difference of 227. The revised label-selection script now reports both:
+- cap each eligible raw label, then merge canonical labels;
+- merge eligible raw labels into canonical labels, then cap each canonical label.
+
+Run it with the frozen support CSV as an additional input:
+
+```bash
+python code/recompute_tcm_sd42_label_selection.py \
+  --train /path/to/source_train.json \
+  --dev /path/to/source_dev.json \
+  --test /path/to/source_test.json \
+  --label-field syndrome \
+  --frozen-labels code/labels_42.txt \
+  --frozen-support-csv /path/to/label_distribution.csv \
+  --out-dir /path/to/private_audit_output
+```
+
+Inspect `cap_order_comparison` and `frozen_support_csv_comparison` in the JSON. If canonicalization-before-cap yields 19,125 and the per-class Train support matches the frozen CSV, this would explain the 227-count difference for the reconstructed rule. It would **not** prove that this was the exact historical operation order unless the original script/log is recovered. Do not change the historical claim based on total-count coincidence alone.
+
 ## B. Recompute MacBERT metrics from the frozen 4,452-row prediction file
 
 This requires authorized local copies of:
