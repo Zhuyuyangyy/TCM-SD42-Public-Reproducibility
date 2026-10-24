@@ -5,7 +5,7 @@ This document reports aggregate duplicate and overlap counts from the 2026-10-22
 ## Definitions
 
 - **Exact/raw duplicate:** byte-identical \`input_text\`, measured by SHA-256.
-- **Normalized duplicate:** Unicode NFKC normalization, each consecutive digit run replaced with the sentinel `#`, then punctuation, symbols, control characters and whitespace removed while preserving the `#` sentinel, followed by SHA-256. This is a string-normalization rule, not a general semantic-equivalence test.
+- **Normalized duplicate:** Unicode NFKC normalization, consecutive digit runs deleted (not replaced with a sentinel), then punctuation, symbols, control characters and whitespace removed, followed by SHA-256. This string-normalization rule matches the retained aggregate counts; it is not a semantic-equivalence or patient-level test.
 - **Groups / involved / redundant:** number of duplicate groups / records inside those groups / involved minus groups.
 - **Conflict:** a group containing different \`syndrome_canonical\` labels.
 
@@ -36,10 +36,11 @@ The clean test is **not internally deduplicated**. Its 12 exact duplicate groups
 
 ## Held-out exclusion evidence and limits
 
-The private audit reports 234 unique held-out exclusions from the 4,452-record pool: 5 raw exact matches and 229 additional near-duplicate matches at the inherited cosine threshold >=0.95. The private pair-level audit file and raw clinical partitions are not redistributed. The exclusion set can be independently re-derived **only when an authorized local evidence tree containing those private inputs is supplied** to \`code/verify_exclusion_set.py\`; this public repository alone cannot rerun the record-level exclusion audit.
+The frozen exclusion set contains 234 held-out record IDs from the 4,452-record source pool. At record-level accounting, six excluded IDs have exact raw-text matches; these correspond to five distinct raw-text hashes because one text appears in two records. The remaining 228 excluded IDs are the near-duplicate-only remainder in the historical record-level accounting. Earlier wording (“5 raw exact + 229 near”) mixed unique-text and record-level units and should not be interpreted as a consistent record-level decomposition. The 234-record total is independently confirmed by the ID difference between the 4,452-record source pool and the 4,218-record clean set.
+
+The original pair-level `near_duplicate_pairs.csv` and raw clinical partitions are not redistributed. An alternative reimplementation that did not exactly reuse the archived preprocessing order overlapped with 226/234 archived IDs, with eight archived IDs not reproduced and three additional candidates. All 11 differences were close to the inherited 0.95 cosine threshold. Because the alternative implementation changed text-normalization details/order, these differences are a sensitivity warning rather than a definitive failure of the archived implementation. The public repository alone cannot independently reconstruct every historical exclusion decision; the exact pair-level evidence remains unavailable.
 
 The 0.95 cutoff is an inherited operational decision, not a threshold validated against expert-adjudicated duplicate pairs. Text-level equality is not semantic duplication, and no stable patient identifier is available to prove patient-level independence. Record-level bootstrap and McNemar analyses do not account for all dependence that may arise from repeated text or multiple records from the same patient.
-
 
 ## 5-gram Jaccard diagnostic for source-split count reconciliation (not the historical production filter)
 
