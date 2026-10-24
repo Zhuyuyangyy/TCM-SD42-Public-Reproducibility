@@ -5,11 +5,11 @@ Closed-set 42-class syndrome differentiation from clinical presentation text. Al
 
 ## Historical TCM-SD42 construction
 
-The 42-class task is derived from original TCM-SD `syndrome` annotations, not from the official normalized 148-class `norm_syndrome` taxonomy. A retained internal `dataset_stats.json` reports 278 raw source labels, 42 eligible labels and 42 selected labels under the criterion train>=100, development>=10, test>=10, with a top-50 cap. The summary reports raw split totals of 43,180 / 5,486 / 5,486 and post-processing totals of 19,125 / 4,411 / 4,452.
+TCM-SD42 is based on original TCM-SD `syndrome` annotations, not the official normalized 148-class `norm_syndrome` taxonomy. The retained internal `dataset_stats.json` reports 278 raw labels, 42 eligible labels and 42 selected labels under `train>=100, dev>=10, test>=10, top-50 by total`. A source-split recomputation completed on 2026-10-23 found 278 distinct raw strings in the training split, 282 distinct raw strings across the three splits, and 278 labels after removing a terminal `证`. The stated support thresholds identify 43 eligible raw strings that map to the frozen 42-label vocabulary after canonicalization.
 
-The original preprocessing script, complete source-label frequency table and contemporaneous execution log were not recovered. Therefore, 278 is a summary-file report value, not an independently recomputed count, and the exact historical execution of the eligibility thresholds remains unverified. The frozen 42-label vocabulary and downstream support totals are independently checkable. Since source test-label support contributed to the reported rule, the historical task definition is disclosed as test-informed.
+The source-split reconstruction yields 39,072 selected training records before the cap, 4,902 development records and 4,912 test records; after a 1,000-per-class training cap, the training total is 19,352. The retained summary reports final counts of 19,125 / 4,411 / 4,452. Its recorded duplicate counters arithmetically explain the final development and test counts, but the 227-record training difference remains unresolved. A copy of preprocess_tcm_sd_v4_topn.py was recovered in the private local evidence archive and inspected; its code canonicalizes the terminal 证 suffix before support counting/capping. The original 2026-05-07 stdout and intermediate downstream training-cleaning output were not recovered. These reconstructed counts validate the current source splits under the stated rule, but do not prove the exact historical end-to-end execution path or explain the 227-record Train difference.
 
-The later comparative task used 4,186 training records, 420 development records and the same 4,452-record held-out source pool before final decontamination. The 420-record development subset is a downstream balanced subset, not the 4,411-record post-processing development split reported in the internal summary.
+The task remains test-informed because source test-label support contributed to the historical eligibility criterion. This did not use model predictions or results from the current four-model comparison, but it limits claims of a fully pre-registered or source-independent label-space construction.
 
 ## Leakage and redundancy audit
 The archived implementation was re-audited at code level in the v23.1 revision using authorized private inputs; the public repository contains the implementation but not the records required to replay the historical result by itself. Exact held-out exclusions were defined by SHA-256 equality of the raw `input_text` against train, development, or pilot records.
@@ -26,7 +26,9 @@ For near-duplicate screening, `input_text` was standardized by removing case ide
 
 Cosine similarity was computed across train-held-out, development-held-out, pilot-held-out, train-development, train-pilot, and development-pilot split pairs. The primary near-duplicate threshold was >=0.95. A held-out record was excluded if it had either a raw exact `input_text` match or a >=0.95 TF-IDF cosine match to any train, development, or pilot record.
 
-The 2026-10-22 private audit reports an independent reconstruction from authorized frozen audit files: 5 unique raw-exact held-out IDs and 234 unique >=0.95 near-duplicate held-out IDs; 229 of the latter were not already in the raw-exact set. Their union contained 234 unique records, matching the ID difference between the 4,452-record source pool and the 4,218-record clean held-out set. The private source partitions and pair-level file are not included in this public repository.
+The frozen exclusion set contains 234 held-out record IDs, equal to the ID difference between the 4,452-record source pool and the 4,218-record clean set. At record-level accounting, six excluded record IDs have exact raw-text matches; these correspond to five distinct raw-text hashes because one text appears in two records. The remaining 228 excluded IDs are the near-duplicate-only remainder in the historical record-level accounting. Earlier public wording (“5 raw exact + 229 near”) mixed unique-text and record-level units and should not be interpreted as a record-level decomposition. The original near_duplicate_pairs.csv and raw clinical partitions are not included in this repository.
+
+An alternative reimplementation that did not exactly reuse the archived text-preprocessing order overlapped with 226/234 archived IDs, with eight archived IDs not reproduced and three additional candidates; the differences were near the 0.95 threshold. Because that implementation differed from the archived preprocessing order, this is a sensitivity warning rather than a definitive replay of the historical implementation. The public repository alone cannot independently reproduce every exclusion decision.
 
 A separate train-development audit identified 54 development instances involved in >=0.95-similarity pairs, including 18 exact duplicates. In a ZY-BERT sensitivity analysis, removing overlap-affected development instances reduced development Macro-F1 from 0.8056 to 0.7742.
 
@@ -49,11 +51,18 @@ The main paper reports the decontaminated held-out set (N=4,218). The original s
 ## Checkpoint selection
 - MacBERT: development Macro-F1 early stopping (historical frozen run)
 - ZY-BERT: development Macro-F1
-- InternLM3-8B: the latest author-reported reconciliation identifies development Macro-F1 as the official selection criterion; the public training script and protocol retain a development-loss intermediate checkpoint setting, and public seals alone do not independently prove the final ranking rule
-- Qwen3-8B: historical frozen v18 checkpoint selected by development loss; this mismatch is disclosed and the model was not retroactively retuned on held-out data
+- InternLM3-8B: the archived configuration specifies Stage-2 development loss, while the later official-selection record identifies development Macro-F1. A private author-side replay reproduced the archived epoch-2 outputs byte-for-byte on dev420 for all three seeds, and both reported criteria select epoch 2; the documentary difference remains visible, and the private weights/outputs are not public
+- Qwen3-8B: the early pilot archive contains the historical TCM-Mini-best adapter and its raw 4,452-row output artifact, with SHA-256 values matching retained checksum/inventory records (see `docs/HISTORICAL_EVIDENCE_RECONCILIATION_20261023.md`). This confirms the early pilot artifacts exist, but the original inference command and per-record input hashes are missing, so exact output-to-checkpoint linkage remains incomplete. The two Stage-2 epoch adapters needed for a saved-state epoch comparison were not found in the latest server audit. The Stage-2 optimizer included 168,960 fp32 Norm parameters, but adapter-only saving omitted them; development-loss selection and the saved/evaluated state therefore differ. No held-out retuning was performed.
+
+## Author-side dev420 replay (2026-10-23)
+
+The private author-side report states that the official final adapters for seeds 42, 7, and 2026 were replayed on the frozen 420-record development set. IDs/order, generated tokens, raw outputs, parsed predictions, and raw/parsed SHA-256 values matched the archived epoch-2 artifacts byte-for-byte for all three seeds. This is direct replay evidence for dev420 only. It is not a second inference run on the 4,218-record clean test set, does not restore the lost independent seed-2026 intermediate checkpoint, and cannot be independently repeated from the public repository because weights and case-level outputs are not distributed.
+
+## Seed-7 inference provenance
+
+A hash-verified continuation stdout supports a batch-size-8 segment that skipped 739 existing rows and generated 3,479. The completed full-run stdout and original argv were not preserved, so the SEAL field alone is not treated as proof of runtime batch size for every clean-test record. Batch-size-1 and batch-size-8 outputs are not assumed equivalent; the origin of the first 739 rows and the complete cross-segment checkpoint/tokenizer chain remain unresolved.
 
 ## Inference
-Generative-model outputs are parsed with one frozen closed-set parser (`code/parse_label.py`). Greedy generation is used for the current LLM evaluation protocol (`do_sample=False`, `temperature=0`, `max_new_tokens=96`).
 
 ## Statistical scope
 Paired inference is case-level. Because stable patient identifiers are unavailable, the analysis cannot model possible within-patient correlation if multiple records originated from the same patient.

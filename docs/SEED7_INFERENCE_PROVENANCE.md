@@ -1,36 +1,29 @@
 # Seed-7 inference provenance (InternLM3-8B)
 
-The 2026-10-22 private verification report describes the sealed seed-7 prediction file as a mixed-provenance artifact: an interrupted per-sample segment followed by a batched continuation. The raw clinical inputs, prediction JSONL files, run log, and seal are not redistributed in this public repository.
+The 2026-10-23 targeted server audit reports that the continuation stdout was recovered and its SHA-256 verified as:
 
-## Checks reported by the private verification
+\`17eaf1e94b249e6bedd0645840553342c4687c2b890dafebbae31bf9a0dea36f\`
 
-| Check | Reported result |
-|---|---|
-| Raw / parsed / clean rows | 4,218 / 4,218 / 4,218 |
-| Unique IDs in each file | 4,218 / 4,218 |
-| ID sets and row order | No mismatches |
-| Gold labels against clean data | No mismatches |
-| Parsed predictions versus frozen parser on raw output | 0 / 4,218 mismatches |
-| Empty predictions | 2 / 4,218 (0.0474%) |
-| Recomputed accuracy | 0.691797 (2,918 correct) |
+The log records a batch-size-8 continuation that skipped 739 existing rows and generated 3,479 rows. The counts sum to 4,218. A separate reconciliation on another server could not locate the referenced path; that path discrepancy remains part of the provenance history, but the latest audit reports the log bytes as FOUND/VERIFIED.
 
-The report records these SHA-256 values:
+The completed full-run stdout and original argv for the run reported to have finished on 2026-09-01 were not preserved. The two currently retained inference logs are different executions: one contains partial 100/200-row progress, while the other has no progress records; their reported shard timing also differs. The launcher script has batch-size-1 settings for per-sample inference/sealing, but the SEAL field records the value passed to the sealing command and was manually populated from a different command context after the seed-7 pipeline terminated during selection. Therefore, the SEAL value is not independent proof of runtime batch size for all 4,218 records. The best-supported reconstruction is a per-sample first segment followed by the logged batch-size-8 continuation, but the complete runtime argv/stdout chain is missing and should not be described as fully observed.
 
+Batch-size-1 and batch-size-8 equivalence is explicitly **not** assumed. A retained 420-record comparison showed 405/420 token-identical outputs and 419/420 parser-identical outputs; at least one parsed label changed. This development comparison does not identify which clean-test records would change, and no clean-test rerun was performed.
+
+The continuation log supports the batch-size-8 segment. It does **not** establish the origin of the first 739 predictions, provide per-record segment markers, or verify a complete checkpoint/tokenizer hash chain across the two segments. The effect of any batch-size difference on the held-out predictions remains unknown.
+
+The same targeted audit reports these frozen artifact checks:
+- Raw / parsed / clean rows: 4,218 / 4,218 / 4,218.
+- Unique IDs in each file: 4,218; ID sets, row order and gold-label alignment had no mismatches.
+- Frozen parser outputs versus raw-output reparsing: 0 / 4,218 mismatches.
+- Empty predictions: 2 / 4,218 (0.0474%).
+- Recomputed accuracy: 2,918 / 4,218 = 69.1797%.
+
+The report lists these artifact hashes:
 - Raw output: \`96866c0462e5af30b796702684b6151a694a61d4f40b331c55007f54a2f661bf\`
 - Parsed output: \`c6c66c2c48836dfed5aa5dc41f8789765c5d945fec1d554e959198d8ab92bdfb\`
 - Clean evaluation input: \`dc5d66dda2295921916a2edaa52f2537206b8d1784fe10cb8ba3e9c80f2935de\`
 - Frozen parser: \`f2adb96b1291bd2787f9c15b88611c6b14972f4540527d7a114274f5a4f607d9\`
-- Seed-7 SEAL: \`24f273034952fb8a63714208cb92e552d38e2808e035be77820a6fd74704b11a\`
-- Continuation stdout log reported by the audit: \`17eaf1e94b249e6bedd0645840553342c4687c2b890dafebbae31bf9a0dea36f\`
+- Continuation stdout: \`17eaf1e94b249e6bedd0645840553342c4687c2b890dafebbae31bf9a0dea36f\`
 
-These fingerprints were transcribed from the earlier private verification report; the raw/parsed files and stdout log are not available in this public repository for byte-level checking. A later reconciliation on a separate server could not locate `/tmp/seed7_resume_b8.log` or confirm its SHA-256. Therefore, the reported log hash and the 739/3,479 segment split remain UNVERIFIED in the currently available archive, even though the raw/parsed/clean artifact hashes were reported to match the SEAL.
-
-## Mixed decoding segments
-
-The private verification report says the continuation log recorded batch size 8, 739 already-completed records, 3,479 remaining records, and a continuation start at zero-based index 739 (record identifier withheld). The reported counts sum to 4,218, and the boundary ID reportedly matches the raw output at that position.
-
-The interpretation is limited to the reported segment boundary. Individual rows have no per-record segment marker, so a particular prediction cannot be attributed to a specific run from the public files. The public repository does not contain the original stdout log or the per-case output files. A prior 32-record comparison reportedly found token-identical output across batch sizes, while a separate development check found differences in 15/420 records; the effect on the held-out test predictions is unknown.
-
-## Reproducibility boundary
-
-The reported ID, gold, parser and hash checks support integrity and alignment of the sealed output artifact. They do not independently establish every runtime detail, and the reported segment split remains unverified because the cited log could not be located in the subsequent reconciliation. They also do not quantify how mixed decoding batch sizes affected test predictions. The public release therefore reports this as private-audit evidence and does not claim end-to-end reproduction.
+These hashes and checks are reported by the private server audit; the raw/parsed case-level files and stdout log are not redistributed in this public repository. The public archive can document the reported checks but cannot independently repeat them without authorized private inputs. This evidence establishes the logged continuation, not the complete provenance of every prediction or end-to-end reproducibility.

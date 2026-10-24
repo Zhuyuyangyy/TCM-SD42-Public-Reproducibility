@@ -1,7 +1,7 @@
 pair,model_a,model_b,n,balanced_accuracy_a,balanced_accuracy_b,diff_obs,ci_lower,ci_upper,ci_excludes_zero,method,n_resamples,seed
-zybert_vs_internlm3,zybert,internlm3,4218,0.7932,0.7355,0.0577,0.0361,0.0786,True,ordinary_paired,2000,20260516
-zybert_vs_macbert,zybert,macbert,4218,0.7932,0.7263,0.0669,0.0452,0.0894,True,ordinary_paired,2000,20260516
-zybert_vs_qwen3,zybert,qwen3,4218,0.7932,0.6873,0.1059,0.0847,0.1276,True,ordinary_paired,2000,20260516
-internlm3_vs_macbert,internlm3,macbert,4218,0.7355,0.7263,0.0092,-0.0146,0.0331,False,ordinary_paired,2000,20260516
-internlm3_vs_qwen3,internlm3,qwen3,4218,0.7355,0.6873,0.0482,0.0289,0.0678,True,ordinary_paired,2000,20260516
-macbert_vs_qwen3,macbert,qwen3,4218,0.7263,0.6873,0.039,0.0145,0.0636,True,ordinary_paired,2000,20260516
+zybert_vs_internlm3,zybert,internlm3,4218,0.7932,0.7355,0.057698964240224,0.0361,0.0786,True,ordinary_paired,2000,20260516
+zybert_vs_macbert,zybert,macbert,4218,0.7932,0.7263,0.0669567682389108,0.0452,0.0894,True,ordinary_paired,2000,20260516
+zybert_vs_qwen3,zybert,qwen3,4218,0.7932,0.6873,0.1059250510132741,0.0847,0.1276,True,ordinary_paired,2000,20260516
+internlm3_vs_macbert,internlm3,macbert,4218,0.7355,0.7263,0.0092578036853038,-0.0146,0.0331,False,ordinary_paired,2000,20260516
+internlm3_vs_qwen3,internlm3,qwen3,4218,0.7355,0.6873,0.0482260870730501,0.0289,0.0678,True,ordinary_paired,2000,20260516
+macbert_vs_qwen3,macbert,qwen3,4218,0.7263,0.6873,0.0389682829743633,0.0145,0.0636,True,ordinary_paired,2000,20260516
