@@ -6,6 +6,10 @@ The 2026-10-23 targeted server audit reports that the continuation stdout was re
 
 The log records a batch-size-8 continuation that skipped 739 existing rows and generated 3,479 rows. The counts sum to 4,218. A separate reconciliation on another server could not locate the referenced path; that path discrepancy remains part of the provenance history, but the latest audit reports the log bytes as FOUND/VERIFIED.
 
+The completed full-run stdout and original argv for the run reported to have finished on 2026-09-01 were not preserved. The two currently retained inference logs are different executions: one contains partial 100/200-row progress, while the other has no progress records; their reported shard timing also differs. The launcher script has batch-size-1 settings for per-sample inference/sealing, but the SEAL field records the value passed to the sealing command and was manually populated from a different command context after the seed-7 pipeline terminated during selection. Therefore, the SEAL value is not independent proof of runtime batch size for all 4,218 records. The best-supported reconstruction is a per-sample first segment followed by the logged batch-size-8 continuation, but the complete runtime argv/stdout chain is missing and should not be described as fully observed.
+
+Batch-size-1 and batch-size-8 equivalence is explicitly **not** assumed. A retained 420-record comparison showed 405/420 token-identical outputs and 419/420 parser-identical outputs; at least one parsed label changed. This development comparison does not identify which clean-test records would change, and no clean-test rerun was performed.
+
 The continuation log supports the batch-size-8 segment. It does **not** establish the origin of the first 739 predictions, provide per-record segment markers, or verify a complete checkpoint/tokenizer hash chain across the two segments. The effect of any batch-size difference on the held-out predictions remains unknown.
 
 The same targeted audit reports these frozen artifact checks:
