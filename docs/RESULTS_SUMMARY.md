@@ -46,7 +46,7 @@ All six Macro-F1 intervals exclude zero.
 | InternLM3 vs Qwen3 | +0.0482 | [0.0289, 0.0678] |
 | MacBERT vs Qwen3 | +0.0390 | [0.0145, 0.0636] |
 
-Five of six Balanced Accuracy intervals exclude zero. The InternLM3-versus-MacBERT interval includes zero, so this analysis does not support a class-balanced recall advantage for InternLM3 over MacBERT despite InternLM3's higher point estimate.
+Five of six Balanced Accuracy intervals exclude zero. The InternLM3-versus-MacBERT interval includes zero, so this analysis does not support a class-balanced recall advantage for InternLM3 over MacBERT despite InternLM3's higher point estimate. The unrounded point difference is approximately +0.9258 percentage points and is reported as +0.93.
 
 ## Sensitivity analysis
 
@@ -74,3 +74,12 @@ MacBERT frozen-prediction metrics were recomputed from the authorized 4,452-row 
 ## Corrected 5-gram Jaccard diagnostic (not the historical filter)
 
 The completed 2026-10-23 log reports Train-to-Dev/Test candidate hits of 615/625 at threshold >=0.80, 516/550 at >=0.85, and 370/387 at >=0.90. Earlier interim values 502/518 and 424/447 came from an incomplete log tail and are superseded. These candidate-hit counts are diagnostic only; the original historical matching key and pair-level file were not recovered. The corrected report SHA-256 is `7014c4021f1a38b1eb72db23f0e56e50c44d0a0eb44f836c7b0c688c42646536`.
+
+
+## Author-side InternLM3 dev420 replay (2026-10-23)
+
+A private author-side replay report states that each of the three retained final adapters reproduced its archived epoch-2 raw and parsed outputs byte-for-byte on the 420-record development set. This strengthens the adapter-to-development-output link but is not a second inference run on the 4,218-record clean test set and is not independently repeatable from this public repository alone. See docs/DEV420_REPLAY_EVIDENCE_20261023.md.
+
+## Held-out exclusion accounting and boundary
+
+The frozen exclusion set contains 234 held-out record IDs, matching the 4,452-to-4,218 ID difference. Record-level accounting identifies six raw exact-text record IDs representing five distinct raw-text hashes; the remaining 228 excluded IDs are the near-duplicate-only remainder in the historical record-level accounting. An alternative preprocessing implementation produced eight non-matching archived IDs and three additional candidates near the 0.95 threshold; because it did not exactly reuse the archived preprocessing order, this is not a definitive replay of the historical implementation. The private pair-level file is not included here, so per-record exclusion reasons cannot be independently reproduced from the public repository.
