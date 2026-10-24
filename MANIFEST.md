@@ -11,6 +11,7 @@ This repository contains public, aggregate, non-patient-level reproducibility ma
 - README.md
 - VERSION_20261022.md
 - VERSION_20261023.md
+- VERSION_20261024.md
 - requirements.txt
 
 ## Code
@@ -66,6 +67,8 @@ This repository contains public, aggregate, non-patient-level reproducibility ma
 - docs/TARGETED_RECOMPUTATION_GUIDE.md
 - docs/HISTORICAL_EVIDENCE_RECONCILIATION_20261023.md
 - docs/MANUSCRIPT_PATCHES_20261023.md
+- docs/DEV420_REPLAY_EVIDENCE_20261023.md
+- docs/MANUSCRIPT_SYNC_20261024.md
 
 ## Label space
 
