@@ -14,7 +14,7 @@ The early pilot evaluator maps `气虚血瘀` to `气滞血瘀` and uses alias-e
 
 The retained `dataset_stats.json` reports original split sizes 43,180/5,486/5,486 and frozen counts 19,125/4,411/4,452. The 2026-10-23 source-split audit reports 278 raw syndrome strings in Train, 282 across the three raw splits, and 278 after suffix normalization. The thresholds select 43 eligible raw strings; normalizing `正虚瘀结证` to `正虚瘀结` yields the frozen 42-label vocabulary. The field `raw_label_count=278` is scope-ambiguous.
 
-The source reconstruction yields 39,072 eligible raw Train records, 19,352 after the 1,000-per-class cap, and 4,902/4,912 Dev/Test. Retained duplicate counts reconcile Dev and Test: 4,902−453−38=4,411 and 4,912−460=4,452. The capped Train count remains 227 above the frozen 19,125. The original preprocessing script, complete raw label-frequency table, and pair-level near-duplicate file were not recovered; the 227-record difference remains unresolved.
+The raw-form-first reconstruction yields 38,955 eligible Train records before cap and 19,352 after separate raw-form caps. Canonical-first reconstruction yields 39,072 before cap, 19,125 after cap, and 4,902/4,912 Dev/Test; retained duplicate counters reconcile final totals to 19,125/4,411/4,452. The 227 post-cap difference is explained as +247 from separate raw-form caps for zheng-xu-yu-jie minus 20 qi-yin-liang-xu records failing raw-form Dev/Test thresholds. The pre-cap difference is -117 (-97 qi-zhi-xue-yu records failing raw-form Train/Test thresholds, minus 20 qi-yin-liang-xu). The historical stdout and complete raw label-frequency table remain unavailable, so the exact historical operation order is not proven. The canonical-first code patch is not yet synchronized to this public branch.
 
 ## Qwen3 Norm and Seed 7
 
@@ -24,7 +24,7 @@ The Seed-7 continuation stdout was recovered and SHA-256-verified as `17eaf1e94b
 
 ## Reporting boundary
 
-The 42-label set is independently matched and Dev/Test totals are arithmetically reconciled. The full source-to-frozen pipeline and 227-record Train difference are not fully reproducible. Do not mix the early pilot evaluator's aggregate metrics with the current exact-label comparison, and do not claim end-to-end Seed-7 or Qwen3 checkpoint provenance beyond the evidence above.
+The 42-label set is independently matched and Dev/Test totals are arithmetically reconciled. The canonical-first count mechanism now reconciles the 227 post-cap and 117 pre-cap differences, but the full source-to-frozen historical execution is not fully reproducible because original stdout and the complete source-label frequency table are unavailable; the canonical-first script patch is still pending on this branch. Do not mix the early pilot evaluator's aggregate metrics with the current exact-label comparison, and do not claim end-to-end Seed-7 or Qwen3 checkpoint provenance beyond the evidence above.
 
 
 ## Qwen3 base-model upstream hash verification
