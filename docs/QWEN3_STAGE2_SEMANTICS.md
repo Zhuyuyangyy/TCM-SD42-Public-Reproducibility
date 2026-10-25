@@ -1,35 +1,50 @@
 # Qwen3-8B Stage-2 semantics: optimizer scope versus saved checkpoint
 
-This note separates three distinct claims: parameters included in an optimizer group, parameters that actually received and applied updates, and parameters included in the evaluated artifact. The historical adapter directory is not included in this public repository; the figures below come from a private artifact audit and are stated with their evidence limits.
+This note distinguishes optimizer-group membership, the in-memory model state used for development-loss selection, and the adapter artifact used for held-out inference.
 
-## Artifact fingerprints reported by the private audit
+## Recovered early pilot artifact
 
-| Artifact | SHA-256 |
-|---|---|
-| Historical training script (\`phase3_train.py\`) | \`69ba59aeacbcbfb557321b12ce22cef5397df8a564de28fa42ddd0287be7af39\` |
-| Base configuration (\`config.py\`) | \`91316f207afe585a9aadcfc14a0b3c3eb277808bd5c4532e16339bfe89112b1c\` |
-| Run-group configuration | \`90bf35d44005dc439f2e83079e45b5dd483f4af6ee88796a1900e0e2421e997a\` |
-| Saved adapter configuration | \`9dabad1934555230314e20d87f8fefb22af324a7e005a5a740952ecd5c591ddb\` |
+The uploaded early pilot archive contains the historical TCM-Mini-best adapter:
+- Size: 174,655,536 bytes.
+- SHA-256: a80b261a36d79b7085f4b577f0eed291b570103e4a32edc13ca5e7a6dcde7daf, matching the retained model_checksums.txt entry.
+- Safetensors header: 504 F32 tensors, 43,646,976 parameters, and no tensor keys containing norm.
+- Adapter configuration: PEFT 0.19.1, modules_to_save=null, seven LoRA target modules, base path recorded as Qwen3-8B.
 
-The retained adapter configuration records PEFT 0.19.1. The historical log supports bitsandbytes 0.49.2 and Transformers 5.x; the exact Transformers minor version and PyTorch version remain unverified. PEFT 0.15.2 belongs to the separate later InternLM3 environment and must not be substituted for the Qwen3 environment.
+The early archive also contains a 4,452-row raw-output artifact (SHA-256 9a02eca7394a599ead9db00c80bb16803c63dedf203bae9d4f8c644523c07042) matching the historical server inventory. These matching hashes establish that the early pilot adapter and raw outputs are preserved. They do not fully prove the original output-to-checkpoint invocation because the inference command and per-record input hashes were not retained. The two Stage-2 epoch adapters needed for a saved-state epoch comparison were not found in the latest server audit.
 
-## Code-path interpretation
+## Base-model upstream verification (2026-10-23)
 
-The archived code path calls \`prepare_model_for_kbit_training\`, then attaches LoRA adapters to seven projection targets across 36 layers. The Stage-2 helper sets \`requires_grad=True\` only for floating-point parameters in layers 12–31. The 4-bit backbone weights are stored as non-floating-point packed parameters and are skipped by that guard.
+A separate server-side audit verified all five Qwen3-8B weight shards and `tokenizer.json` against official Hugging Face LFS entries at commit prefix `b968826d…`; `config.json` was byte-identical to the upstream file.
 
-The private audit calculates the following parameter counts:
+| Artifact | Reported SHA-256 prefix | Verification |
+|---|---|---|
+| `model-00001-of-00005.safetensors` | `31d6a825…cbf5f` | Matches upstream HF LFS |
+| `model-00002-of-00005.safetensors` | `5991236c…18282` | Matches upstream HF LFS |
+| `model-00003-of-00005.safetensors` | `c5185c47…896836` | Matches upstream HF LFS |
+| `model-00004-of-00005.safetensors` | `b5ee7de7…caa917a` | Matches upstream HF LFS |
+| `model-00005-of-00005.safetensors` | `20c2d636…b542ff` | Matches upstream HF LFS |
+| `tokenizer.json` | `aeb13307…2dae4` | Matches upstream HF LFS |
+| `config.json` | `f7c4eadf…47c30` | Byte-identical; diff empty |
 
-| Scope | Parameter count | Interpretation |
+Full digests are preserved in the server-side audit report (SHA-256 `337abf91ad9493b496069f381df8a5da5a2912a48dcf326b8aee76fef5f5a0de`). The verified base files and the archived checksum-matching adapter make a new local inference check possible. The two epoch-specific adapters needed for saved-state epoch comparison remain missing from the active run tree, and the original inference command/input hashes are still unavailable; do not claim full historical output-to-checkpoint reproduction.
+
+## Historical optimizer and saved-state scope
+
+The archived code path attaches LoRA adapters to seven projection targets across 36 layers. The Stage-2 helper sets requires_grad=True for floating-point parameters in layers 12–31. The 4-bit backbone weights are packed non-floating-point tensors and are skipped by that guard.
+
+| Scope | Parameter count | Evidence interpretation |
 |---|---:|---|
-| LoRA adapters across 36 layers | 43,646,976 | Stage-1 optimizer scope reported by the audit |
-| Stage-2 optimizer parameter group | 43,815,936 | LoRA plus 168,960 floating-point normalization parameters |
-| Stage-2 normalization parameters actually updated | Unverified | No optimizer state, intermediate weights, or per-tensor update log was recovered |
-| Parameters in the evaluated adapter artifact | 43,646,976 (LoRA only) | Adapter-only save; separate normalization updates are not present in this artifact |
+| LoRA adapters | 43,646,976 | Count in the recovered adapter artifact |
+| Stage-2 optimizer group | 43,815,936 | LoRA plus 168,960 fp32 normalization parameters |
+| fp32 Norm parameters in optimizer group | 168,960 | Historical code and log show these parameters were included in Stage 2 |
+| Norm parameters serialized in adapter-only artifact | 0 | Safetensors header has no Norm keys |
 
-The 168,960 normalization count comprises 8,448 parameters per layer across 20 layers (12–31): input and post-attention layer norms (4,096 each), plus Q/K normalization parameters (128 each).
+The 168,960 normalization count is 8,448 parameters per layer across layers 12–31: input and post-attention layer norms (4,096 each), plus Q/K normalization parameters (128 each).
 
 ## Reporting boundary
 
-It is accurate to say that the Stage-2 optimizer parameter group included the additional floating-point normalization parameters, according to the private code audit. It is **not** verified that those parameters received and applied updates. Because the saved artifact is adapter-only, the evaluated system must not be described as a 4-bit backbone with persistently fine-tuned layers 12–31.
+The development loss used to select Stage-2 epoch 1 (0.0198; epoch 2 loss 0.0219) was measured on the in-memory training model with the Norm parameters in the optimizer group. The adapter-only checkpoint omits those Norm parameters, so held-out inference uses the base model's original Norm weights plus saved LoRA. This selection-state/evaluated-artifact mismatch is a real implementation limitation and must be disclosed. Exact per-tensor Norm deltas and optimizer state were not retained, so this note does not claim a per-tensor numerical-delta reconstruction.
 
-The historical adapter directory and original per-tensor update records were not recovered. This note is a transparent account of the private audit, not an independently executable reproduction from the public repository.
+The early Pilot-SFT v14 evaluator also used alias-equivalence for top-1 correctness (including the alias 气虚血瘀 → 气滞血瘀), while its F1 metrics used alias-normalized predictions against raw gold labels. Those historical pilot aggregate metrics are not reused in the current four-system comparison, which uses the common exact-label parser. See docs/HISTORICAL_EVIDENCE_RECONCILIATION_20261023.md.
+
+The adapter and raw-output artifacts are not redistributed in this public repository. No held-out test result was used to retune or select a checkpoint in this follow-up review.

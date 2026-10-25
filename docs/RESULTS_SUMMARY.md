@@ -46,7 +46,7 @@ All six Macro-F1 intervals exclude zero.
 | InternLM3 vs Qwen3 | +0.0482 | [0.0289, 0.0678] |
 | MacBERT vs Qwen3 | +0.0390 | [0.0145, 0.0636] |
 
-Five of six Balanced Accuracy intervals exclude zero. The InternLM3-versus-MacBERT interval includes zero, so this analysis does not support a class-balanced recall advantage for InternLM3 over MacBERT despite InternLM3's higher point estimate.
+Five of six Balanced Accuracy intervals exclude zero. The InternLM3-versus-MacBERT interval includes zero, so this analysis does not support a class-balanced recall advantage for InternLM3 over MacBERT despite InternLM3's higher point estimate. The unrounded point difference is approximately +0.9258 percentage points and is reported as +0.93.
 
 ## Sensitivity analysis
 
@@ -59,4 +59,27 @@ These results support a system-level advantage for ZY-BERT **within this fixed T
 
 ## Deduplication sensitivity (2026-10-22)
 
-The primary results above remain the frozen 4,218-record record-level analysis. A separate aggregate sensitivity table rescored the same predictions after retaining the record with the smallest numeric ID suffix within exact-text groups (n=4,206) and normalized-text groups (n=4,195). The largest reported Accuracy change was approximately 0.085 percentage points. The normalized-text subset applies Unicode NFKC, replaces consecutive digit runs with `#`, then removes punctuation, symbols, control characters and whitespace while preserving `#`; it is a string-normalization stress test, not expert-adjudicated semantic deduplication. See `results/dedup_sensitivity_seed42.csv` and `docs/DATA_QUALITY_SUMMARY.md`. Case-level inputs are private and are not included in this repository.
+The primary results above remain the frozen 4,218-record record-level analysis. A separate post hoc sensitivity analysis retained the record with the smallest numeric ID suffix within each group: S1 raw exact-text identity (n=4,206) and S2 aggressive normalized-text stress test (n=4,195). A direct check against archived aggregate anchors found that deleting consecutive digit runs after Unicode NFKC, then removing punctuation, symbols, control characters and whitespace, reproduces the full-pool and clean-subset counts and all six archived S2 pairwise cells. The legacy digit-to-`#` sentinel mode reproduces the pairwise cells but not the count anchors. S2 removes 23 records: 12 under raw exact-text identity and 11 additional records only under normalization; nine of those groups arise only after deleting differing numeric content. S2 is therefore an aggressive upper-bound stress test among the definitions examined, not verified semantic deduplication. The maximum absolute accuracy change was 0.0849 percentage points (0.085 pp rounded; conservatively ≤0.09 pp). The primary analysis remains unchanged. See `results/dedup_sensitivity_seed42.csv`, `docs/DATA_QUALITY_SUMMARY.md`, and `docs/S2_DEFINITION_CHECK_20261025.md`. Case-level inputs remain private.
+
+
+## Source-split label-selection reconstruction (2026-10-23)
+
+A read-only reconstruction on the official public source splits found 278 distinct raw `syndrome` strings in Train, 282 in the raw union across train/dev/test, and 278 after removing a trailing `证`. The thresholds train>=100, dev>=10, test>=10 select 43 eligible raw strings; canonicalization merges two into the frozen 42-label vocabulary. The cap-before-canonicalization reconstruction gives 19,352 / 4,902 / 4,912. Retained duplicate counts reconcile Dev and Test to 4,411 and 4,452 (453 Dev/Train, 460 Test/Train, and 38 additional Dev/Test removals). The 227-record Train difference remains under targeted review: the revised source-split script compares cap-before-canonicalization and canonicalization-before-cap and checks per-class Train support against the frozen CSV. The original post-processing/deduplication implementation is missing, so no historical operation order is asserted until the per-class comparison is complete. The internal summary's `raw_label_count=278` field is ambiguous about which counting stage it represents.
+
+## Targeted historical checks
+
+MacBERT frozen-prediction metrics were recomputed from the authorized 4,452-row prediction file after 8/8 structural alignment checks: Accuracy 62.778568%, Macro-F1 56.811275%, Weighted-F1 63.944848%, Balanced Accuracy 72.628728% (n=4,218; 2,648 correct). This verifies metrics from frozen predictions, not the missing original fine-tuned checkpoint. The early pilot archive contains the historical TCM-Mini-best Qwen3 adapter and its checksum-matching raw-output artifact. This confirms those early artifacts are preserved, but the original inference command/input hashes are missing and the two Stage-2 epoch adapters needed for a saved-state epoch comparison were not found in the latest server audit, so that comparison remains blocked. The Seed-7 continuation stdout was recovered and hash-verified; it supports a batch-8 continuation that skipped 739 rows and generated 3,479, but does not establish the provenance of the first 739 rows.
+
+
+## Corrected 5-gram Jaccard diagnostic (not the historical filter)
+
+The completed 2026-10-23 log reports Train-to-Dev/Test candidate hits of 615/625 at threshold >=0.80, 516/550 at >=0.85, and 370/387 at >=0.90. Earlier interim values 502/518 and 424/447 came from an incomplete log tail and are superseded. These candidate-hit counts are diagnostic only; the original historical matching key and pair-level file were not recovered. The corrected report SHA-256 is `7014c4021f1a38b1eb72db23f0e56e50c44d0a0eb44f836c7b0c688c42646536`.
+
+
+## Author-side InternLM3 dev420 replay (2026-10-23)
+
+A private author-side replay report states that each of the three retained final adapters reproduced its archived epoch-2 raw and parsed outputs byte-for-byte on the 420-record development set. This strengthens the adapter-to-development-output link but is not a second inference run on the 4,218-record clean test set and is not independently repeatable from this public repository alone. See docs/DEV420_REPLAY_EVIDENCE_20261023.md.
+
+## Held-out exclusion accounting and boundary
+
+The frozen exclusion set contains 234 held-out record IDs, matching the 4,452-to-4,218 ID difference. Record-level accounting identifies six raw exact-text record IDs representing five distinct raw-text hashes; the remaining 228 excluded IDs are the near-duplicate-only remainder in the historical record-level accounting. An alternative preprocessing implementation produced eight non-matching archived IDs and three additional candidates near the 0.95 threshold; because it did not exactly reuse the archived preprocessing order, this is not a definitive replay of the historical implementation. The private pair-level file is not included here, so per-record exclusion reasons cannot be independently reproduced from the public repository.

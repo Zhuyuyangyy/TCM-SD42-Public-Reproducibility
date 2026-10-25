@@ -10,6 +10,9 @@ This repository contains public, aggregate, non-patient-level reproducibility ma
 - LICENSE
 - README.md
 - VERSION_20261022.md
+- VERSION_20261023.md
+- VERSION_20261024.md
+- VERSION_20261025.md
 - requirements.txt
 
 ## Code
@@ -25,6 +28,8 @@ This repository contains public, aggregate, non-patient-level reproducibility ma
 - code/verify_exclusion_set.py — exclusion-ID verification; requires authorized private split and pair inputs
 - code/verify_four_model_alignment.py — frozen-metric alignment gate; requires authorized local inputs
 - code/verify_public_aggregates.py — public aggregate consistency checks only
+- code/recompute_tcm_sd42_label_selection.py — canonical-first default; exposes raw_form comparison; emits three reconstruction variants, per-label cap-scope differences, input hashes and optional frozen-support reconciliation
+- code/recompute_macbert_frozen_metrics.py — recomputes clean-test metrics from authorized frozen predictions
 - code/pairwise_class_sensitive_bootstrap.py — ordinary and class-stratified paired bootstrap
 - code/parse_label.py
 - code/parser_tests.py
@@ -59,6 +64,13 @@ This repository contains public, aggregate, non-patient-level reproducibility ma
 - docs/QWEN3_STAGE2_SEMANTICS.md
 - docs/SEED7_INFERENCE_PROVENANCE.md
 - docs/DATA_QUALITY_SUMMARY.md
+- docs/TARGETED_CHECKS_20261023.md
+- docs/TARGETED_RECOMPUTATION_GUIDE.md
+- docs/HISTORICAL_EVIDENCE_RECONCILIATION_20261023.md
+- docs/MANUSCRIPT_PATCHES_20261023.md
+- docs/DEV420_REPLAY_EVIDENCE_20261023.md
+- docs/S2_DEFINITION_CHECK_20261025.md — direct comparison of deletion vs sentinel S2 definitions against archived aggregate anchors; aggregate-only, no clinical text
+- docs/MANUSCRIPT_SYNC_20261024.md
 
 ## Label space
 
@@ -100,3 +112,10 @@ This repository contains public, aggregate, non-patient-level reproducibility ma
 ## Explicit exclusions
 
 The public repository does not contain raw TCM-SD clinical records, per-case prediction files, raw generated outputs, trained model/adapter weights, private compute paths, the private near-duplicate pair table, or full operational logs. The internal dataset_stats.json used to document the reported 278/42 counts is not included.
+
+
+## Tests and CI
+
+- tests/test_recompute_tcm_sd42_label_selection.py — synthetic tests for canonical-first selection, raw-form threshold omission, cap-scope deltas and suffix canonicalization
+- tests/test_s2_normalization.py — synthetic coverage for deletion-default and sentinel-comparison S2 normalization
+- .github/workflows/audit-script-smoke-tests.yml — Python syntax and synthetic smoke tests
