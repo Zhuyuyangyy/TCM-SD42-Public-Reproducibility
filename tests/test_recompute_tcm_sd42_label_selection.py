@@ -97,6 +97,25 @@ class LabelSelectionRecomputeTests(unittest.TestCase):
             self.assertEqual(canonical["pre_cap_scope_difference"]["raw_form_selected_train_minus_canonical_selected_train"], -97)
             self.assertEqual(canonical["cap_scope_difference"]["raw_separate_cap_minus_canonical_cap"], -97)
 
+
+    def test_official_jsonl_with_json_extension_loads(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            train, dev, test = root / "train.json", root / "dev.json", root / "test.json"
+            out = root / "out"
+            def write_jsonl(path, label, n):
+                path.write_text("\\n".join(json.dumps({"syndrome": label, "id": f"{path.stem}_{i}"}, ensure_ascii=False) for i in range(n)) + "\\n", encoding="utf-8")
+            write_jsonl(train, "正虚瘀结证", 100)
+            write_jsonl(dev, "正虚瘀结证", 10)
+            write_jsonl(test, "正虚瘀结证", 10)
+            cmd = [sys.executable, str(SCRIPT), "--train", str(train), "--dev", str(dev), "--test", str(test),
+                   "--label-field", "syndrome", "--expected-train", "100", "--expected-dev", "10",
+                   "--expected-test", "10", "--out-dir", str(out)]
+            subprocess.run(cmd, check=True, capture_output=True, text=True)
+            result = json.loads((out / "label_selection_recompute.json").read_text(encoding="utf-8"))
+            self.assertEqual(result["source_files"]["train"]["rows"], 100)
+            self.assertEqual(result["recomputed_selected_support_before_historical_dedup"]["train_after_cap"], 100)
+
     def test_trailing_suffix_canonicalization_is_not_applied_twice(self):
         # A label with no trailing 证 is preserved; exactly one trailing character is removed.
         cmd = [sys.executable, "-c",
