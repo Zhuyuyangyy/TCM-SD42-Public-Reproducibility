@@ -3,6 +3,10 @@
 > **Research archive / Medical NLP / Reproducibility**  
 > A controlled, system-level comparison of specialized encoders and general-purpose language models for traditional Chinese medicine syndrome differentiation.
 
+### S2 normalization verification (2026-10-25)
+
+A direct comparison against archived aggregate anchors found that digit deletion reproduces the full-pool counts (31 groups / 64 involved / 33 redundant) and clean-subset counts (22 / 45 / 23; N=4,195) plus all six S2 pairwise cells. The legacy digit-to-`#` sentinel mode reproduces the pairwise cells but not the counts. S2 is an aggressive post hoc normalization stress test, not semantic deduplication; nine groups arise only by deleting differing numeric content. The public recomputation script now defaults to digit deletion. See [S2 definition check](docs/S2_DEFINITION_CHECK_20261025.md). Historical script provenance remains limited.
+
 ### At a glance
 
 | Study dimension | What is actually evaluated |
