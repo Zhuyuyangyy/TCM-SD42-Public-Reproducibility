@@ -117,4 +117,5 @@ The public repository does not contain raw TCM-SD clinical records, per-case pre
 ## Tests and CI
 
 - tests/test_recompute_tcm_sd42_label_selection.py — synthetic test of raw-label vs canonical-label cap order
+- tests/test_s2_normalization.py — synthetic coverage for deletion-default and sentinel-comparison S2 normalization
 - .github/workflows/audit-script-smoke-tests.yml — Python syntax and synthetic smoke tests
