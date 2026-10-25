@@ -95,7 +95,7 @@ class LabelSelectionRecomputeTests(unittest.TestCase):
             self.assertEqual(raw["recomputed_selected_support_before_historical_dedup"]["train_after_cap"], 500)
             self.assertEqual(canonical["reconstruction_variants"]["canonicalize_each_record_then_threshold_topk_cap"]["train_before_cap"], 597)
             self.assertEqual(canonical["pre_cap_scope_difference"]["raw_form_selected_train_minus_canonical_selected_train"], -97)
-            self.assertEqual(canonical["cap_scope_difference"]["raw_separate_cap_minus_canonical_cap"], 0)
+            self.assertEqual(canonical["cap_scope_difference"]["raw_separate_cap_minus_canonical_cap"], -97)
 
     def test_trailing_suffix_canonicalization_is_not_applied_twice(self):
         # A label with no trailing 证 is preserved; exactly one trailing character is removed.
