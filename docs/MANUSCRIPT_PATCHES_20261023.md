@@ -34,7 +34,7 @@ Do not state that all 4,218 records have verified per-record batch provenance.
 
 ## Supplementary Table S7
 
-Retain the 18-row duplicate-sensitivity table for S0 (n=4,218), S1 exact-text deduplication (n=4,206), and S2 normalized-text stress test (n=4,195). Define S2 normalization as Unicode NFKC, each consecutive digit run replaced by #, then punctuation, symbols, control characters and whitespace removed while preserving #. In each duplicate group retain the record with the smallest numeric ID suffix. Describe S2 as a string-normalization stress test, not adjudicated semantic or patient-level deduplication.
+Retain the 18-row duplicate-sensitivity table for S0 (n=4,218), S1 raw exact-text identity (n=4,206), and S2 aggressive normalized-text stress test (n=4,195). The direct comparison against archived aggregate anchors supports Unicode NFKC, deletion of consecutive digit runs, then removal of punctuation, symbols, control characters and whitespace; the legacy digit-to-# sentinel mode fails the full-pool and clean-subset count anchors. In each group retain the record with the smallest numeric ID suffix. Describe S2 as an aggressive post hoc normalization stress test / upper bound among tested definitions, not adjudicated semantic or patient-level deduplication. State that 9 groups arise only after deleting differing numeric content, including the only discordant-label group, and report the maximum accuracy change as 0.0849 pp (0.085 rounded; conservatively ≤0.09 pp).
 
 ## Limitations paragraph
 
