@@ -24,7 +24,16 @@ def load_records(path):
     elif path.suffix.lower()==".csv":
         with path.open(encoding="utf-8-sig",newline="") as f: rows=list(csv.DictReader(f))
     else:
-        with path.open(encoding="utf-8") as f: obj=json.load(f)
+        # The official source release uses JSON Lines in files named *.json.
+        # Try a whole-document JSON parse first, then safely fall back to JSONL.
+        with path.open(encoding="utf-8") as f: text=f.read()
+        try:
+            obj=json.loads(text)
+        except json.JSONDecodeError:
+            rows=[json.loads(line) for line in text.splitlines() if line.strip()]
+            if not rows or not all(isinstance(r,dict) for r in rows):
+                raise ValueError(f"{path}: invalid JSON document or JSONL records")
+            return rows
         if isinstance(obj,list): rows=obj
         elif isinstance(obj,dict):
             rows=next((obj[k] for k in ("data","records","examples","items") if isinstance(obj.get(k),list)),None)
