@@ -28,7 +28,7 @@ This repository contains public, aggregate, non-patient-level reproducibility ma
 - code/verify_exclusion_set.py — exclusion-ID verification; requires authorized private split and pair inputs
 - code/verify_four_model_alignment.py — frozen-metric alignment gate; requires authorized local inputs
 - code/verify_public_aggregates.py — public aggregate consistency checks only
-- code/recompute_tcm_sd42_label_selection.py — recomputes raw-label and canonical support; compares cap order and optional frozen support CSV
+- code/recompute_tcm_sd42_label_selection.py — canonical-first default; exposes raw_form comparison; emits three reconstruction variants, per-label cap-scope differences, input hashes and optional frozen-support reconciliation
 - code/recompute_macbert_frozen_metrics.py — recomputes clean-test metrics from authorized frozen predictions
 - code/pairwise_class_sensitive_bootstrap.py — ordinary and class-stratified paired bootstrap
 - code/parse_label.py
@@ -116,6 +116,6 @@ The public repository does not contain raw TCM-SD clinical records, per-case pre
 
 ## Tests and CI
 
-- tests/test_recompute_tcm_sd42_label_selection.py — synthetic test of raw-label vs canonical-label cap order
+- tests/test_recompute_tcm_sd42_label_selection.py — synthetic tests for canonical-first selection, raw-form threshold omission, cap-scope deltas and suffix canonicalization
 - tests/test_s2_normalization.py — synthetic coverage for deletion-default and sentinel-comparison S2 normalization
 - .github/workflows/audit-script-smoke-tests.yml — Python syntax and synthetic smoke tests
