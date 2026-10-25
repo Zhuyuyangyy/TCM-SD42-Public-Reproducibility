@@ -92,7 +92,8 @@ def main():
         raw_merge_table.append({"canonical_label":label,"selected_raw_forms":"; ".join(sorted(g["selected_raw_forms"])),
             "train_before_cap":g["train_before_cap"],"train_after_cap":min(g["train_before_cap"],a.train_cap),
             "dev":g["dev"],"test":g["test"],"total_before_cap":g["train_before_cap"]+g["dev"]+g["test"]})
-    raw_merge_final={"train_before_cap":sum(r["train_before_cap"] for r in raw_merge_table),
+    raw_merge_final={"train":sum(r["train_after_cap"] for r in raw_merge_table),
+        "train_before_cap":sum(r["train_before_cap"] for r in raw_merge_table),
         "train_after_cap":sum(r["train_after_cap"] for r in raw_merge_table),
         "dev":sum(r["dev"] for r in raw_merge_table),"test":sum(r["test"] for r in raw_merge_table)}
 
@@ -100,7 +101,7 @@ def main():
     raw_cap_train=sum(min(r["train"],a.train_cap) for r in selected_raw)
     raw_cap_dev=sum(r["dev"] for r in selected_raw)
     raw_cap_test=sum(r["test"] for r in selected_raw)
-    raw_cap_final={"train_before_cap":sum(r["train"] for r in selected_raw),
+    raw_cap_final={"train":raw_cap_train,"train_before_cap":sum(r["train"] for r in selected_raw),
         "train_after_cap":raw_cap_train,"dev":raw_cap_dev,"test":raw_cap_test}
 
     # Variant C: canonicalize every record before support counting, thresholding, top-k and cap.
@@ -124,7 +125,8 @@ def main():
             "selected_raw_forms":"; ".join(sorted(raw for raw in raw_union if canonicalize(raw)==r["canonical_label"])),
             "train_before_cap":r["train"],"train_after_cap":min(r["train"],a.train_cap),
             "dev":r["dev"],"test":r["test"],"total_before_cap":r["total"]})
-    canonical_final={"train_before_cap":sum(r["train_before_cap"] for r in canonical_table),
+    canonical_final={"train":sum(r["train_after_cap"] for r in canonical_table),
+        "train_before_cap":sum(r["train_before_cap"] for r in canonical_table),
         "train_after_cap":sum(r["train_after_cap"] for r in canonical_table),
         "dev":sum(r["dev"] for r in canonical_table),"test":sum(r["test"] for r in canonical_table)}
 
