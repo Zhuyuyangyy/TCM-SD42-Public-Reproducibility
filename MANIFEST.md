@@ -12,6 +12,7 @@ This repository contains public, aggregate, non-patient-level reproducibility ma
 - VERSION_20261022.md
 - VERSION_20261023.md
 - VERSION_20261024.md
+- VERSION_20261025.md
 - requirements.txt
 
 ## Code
@@ -68,6 +69,7 @@ This repository contains public, aggregate, non-patient-level reproducibility ma
 - docs/HISTORICAL_EVIDENCE_RECONCILIATION_20261023.md
 - docs/MANUSCRIPT_PATCHES_20261023.md
 - docs/DEV420_REPLAY_EVIDENCE_20261023.md
+- docs/S2_DEFINITION_CHECK_20261025.md — direct comparison of deletion vs sentinel S2 definitions against archived aggregate anchors; aggregate-only, no clinical text
 - docs/MANUSCRIPT_SYNC_20261024.md
 
 ## Label space
