@@ -104,7 +104,7 @@ class LabelSelectionRecomputeTests(unittest.TestCase):
             train, dev, test = root / "train.json", root / "dev.json", root / "test.json"
             out = root / "out"
             def write_jsonl(path, label, n):
-                path.write_text("\\n".join(json.dumps({"syndrome": label, "id": f"{path.stem}_{i}"}, ensure_ascii=False) for i in range(n)) + "\\n", encoding="utf-8")
+                path.write_text("\n".join(json.dumps({"syndrome": label, "id": f"{path.stem}_{i}"}, ensure_ascii=False) for i in range(n)) + "\n", encoding="utf-8")
             write_jsonl(train, "正虚瘀结证", 100)
             write_jsonl(dev, "正虚瘀结证", 10)
             write_jsonl(test, "正虚瘀结证", 10)
