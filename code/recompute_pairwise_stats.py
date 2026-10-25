@@ -8,13 +8,23 @@ from itertools import combinations
 from pathlib import Path
 from scipy.stats import binomtest
 
-def norm_text(t):
-    """Audit normalization: NFKC, digit runs -> '#', strip punctuation/symbol/control and whitespace.
-    The '#' sentinel is preserved so numeric runs collapse to a common placeholder.
+def norm_text(t, mode="delete"):
+    """S2 normalization. The retained aggregate anchors support digit deletion.
+
+    delete (default): NFKC, delete consecutive digit runs, then remove
+    punctuation, symbols, control characters and whitespace.
+    sentinel: replace digit runs with '#' and preserve the placeholder.
+    The sentinel mode is retained only for explicit sensitivity comparison;
+    it does not reproduce the archived full-pool and clean-subset count anchors.
     """
     s=unicodedata.normalize("NFKC",t)
-    s=re.sub(r"\d+","#",s)
-    return "".join(ch for ch in s if ch=="#" or (not ch.isspace() and unicodedata.category(ch)[0] not in {"P","S","C"}))
+    if mode == "sentinel":
+        s=re.sub(r"\d+","#",s)
+        return "".join(ch for ch in s if ch=="#" or (not ch.isspace() and unicodedata.category(ch)[0] not in {"P","S","C"}))
+    if mode != "delete":
+        raise ValueError(f"unknown normalization mode: {mode!r}")
+    s=re.sub(r"\d+","",s)
+    return "".join(ch for ch in s if not ch.isspace() and unicodedata.category(ch)[0] not in {"P","S","C"})
 
 def sha(s):return hashlib.sha256(s.encode("utf-8")).hexdigest()
 def _id_order(value):
@@ -83,8 +93,27 @@ def main():
             pred[name]=[parse_label_from_output(r.get("raw_output","")) for r in ordered]
         else:pred[name]=[r["pred"] for r in ordered]
     corr={m:[g==p for g,p in zip(gold,pred[m])] for m in pred}
+    s2_delete_keys=[sha(norm_text(t,"delete")) for t in texts]
+    s2_sentinel_keys=[sha(norm_text(t,"sentinel")) for t in texts]
+    s2_delete_idx=keep_min_id(s2_delete_keys,ids)
+    s2_sentinel_idx=keep_min_id(s2_sentinel_keys,ids)
+    delete_ids=sorted(ids[i] for i in s2_delete_idx)
+    sentinel_ids=sorted(ids[i] for i in s2_sentinel_idx)
+    s2_agreement={
+        "selected_definition":"delete",
+        "alternative_definition":"sentinel",
+        "n_delete":len(s2_delete_idx),
+        "n_sentinel":len(s2_sentinel_idx),
+        "definitions_agree_on_retained_record_ids":delete_ids==sentinel_ids,
+        "retained_id_set_sha256_delete":sha("\\n".join(delete_ids)),
+        "retained_id_set_sha256_sentinel":sha("\\n".join(sentinel_ids)),
+        "retained_id_symmetric_difference_count":len(set(delete_ids)^set(sentinel_ids)),
+        "note":"Full-pool and clean-subset aggregate anchors must be checked; pairwise cells alone do not distinguish the modes."
+    }
+    if not s2_agreement["definitions_agree_on_retained_record_ids"]:
+        print("WARNING: S2 deletion and sentinel modes retain different record-ID sets.", file=sys.stderr)
     subsets={"S0_full":list(range(len(ids))),"S1_raw_dedup":keep_min_id([sha(t) for t in texts],ids),
-             "S2_norm_dedup":keep_min_id([sha(norm_text(t)) for t in texts],ids)}
+             "S2_norm_dedup":s2_delete_idx}
     pairs=[tuple(x.split(":")) for x in a.pairs.split(",")] if a.pairs else list(combinations(sorted(pred),2))
     out=[]
     for sub,idx in subsets.items():
@@ -100,5 +129,6 @@ def main():
     with open(a.out_csv,"w",newline="",encoding="utf-8") as f:
         w=csv.DictWriter(f,fieldnames=list(out[0]));w.writeheader();w.writerows(out)
     print(json.dumps({"rows":len(out),"subsets":{k:len(v) for k,v in subsets.items()},"models":sorted(pred),
+        "s2_normalization_agreement":s2_agreement,
         "clinical_inputs_not_printed":True},ensure_ascii=False,indent=2))
 if __name__=="__main__":main()
