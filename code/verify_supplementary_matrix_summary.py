@@ -95,7 +95,7 @@ def main() -> int:
         offdiag = matrix_n - correct
         count = top10[model]
         pct = 100.0 * count / offdiag if offdiag else 0.0
-        print(f"{model}: top10={count}; offdiag={offdiag}; share={pct:.1f}%")
+        print(f"{model},{matrix_n},{correct},{offdiag},{count},{pct:.1f}")
     print("\nPASS: all 40 top-10 cells match the four public confusion matrices.")
     print("Note: empty generative outputs are outside the 42x42 matrices and remain errors in N=4,218 metrics.")
     return 0
