@@ -14,8 +14,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      - name: Install numerical test dependencies
+        run: python -m pip install numpy scikit-learn
       - name: Compile public audit scripts
         run: |
-          python -m py_compile code/recompute_tcm_sd42_label_selection.py code/recompute_macbert_frozen_metrics.py code/recompute_pairwise_stats.py code/verify_exclusion_set.py
-      - name: Run synthetic label-selection tests
+          python -m py_compile code/recompute_tcm_sd42_label_selection.py code/recompute_macbert_frozen_metrics.py code/recompute_pairwise_stats.py code/verify_exclusion_set.py code/pairwise_class_sensitive_bootstrap.py code/verify_supplementary_matrix_summary.py
+      - name: Run synthetic tests
         run: python -m unittest discover -s tests -v
+      - name: Verify supplementary matrix summary
+        run: python code/verify_supplementary_matrix_summary.py
