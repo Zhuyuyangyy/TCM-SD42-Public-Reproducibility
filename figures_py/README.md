@@ -29,7 +29,7 @@ prints a notice.
 
 | File | Role |
 | --- | --- |
-| `model_summary.csv` | public aggregate model summary (four rows): format validity and recorded parameter counts; no per-record predictions |
+| `model_summary.csv` | public aggregate model summary (four rows): valid-label extraction rate (historical column name `format_validity`) and recorded parameter counts; no per-record predictions |
 | `confusion_matrix_{zybert,internlm3,macbert,qwen3}.csv` | archived 42×42 matrices; source of all point metrics |
 | `fig5_metrics.csv`, `fig5_pairs.csv` | seed-42 metrics and paired differences (six comparisons) |
 | `fig6_seeds.csv` | three-seed summaries for ZY-BERT and InternLM3 |
@@ -44,6 +44,12 @@ patient identifiers. Rows marked `digitized` inside `fig5_pairs.csv`,
 archived figure sources rather than recomputed from per-record predictions; see
 `../results/` and the repository README for the underlying artifacts.
 
+Terminology: `format_validity` in `model_summary.csv` is retained as the
+historical column name. It records the fraction of outputs from which the frozen
+parser extracted a valid label (parser success rate), not strict compliance with
+the two-field output format; the manuscript reports the same quantity as the
+valid-label extraction rate.
+
 ## Layout rules used by the scripts
 
 - Model colours are fixed: ZY-BERT `#0072B2`, InternLM3-8B `#D55E00`,
@@ -52,3 +58,15 @@ archived figure sources rather than recomputed from per-record predictions; see
 - Panels carry a black letter only; panel titles live in the caption.
 - Figure 4 uses the two-route plate and a shared evaluation rail; it is built by
   `fig4_v3.py`, and `build_all.py` deliberately does not rebuild it.
+
+## Supplementary figures (S0-S4)
+
+`python make_supp_figures.py` rebuilds the five supplementary figures from the
+archived matrices in `../results/` and the top-10 table in `source_data/`:
+
+- `supp_figures/FigureS0.png` — diagonal vs off-diagonal counts and the share of
+  errors concentrated in the top-10 confusion directions;
+- `supp_figures/FigureS1.png` … `FigureS4.png` — row-normalized 42×42 heatmaps.
+
+The plotted values are identical to the typeset supplement; the styling is a
+clean re-implementation and is not claimed to be pixel-identical.

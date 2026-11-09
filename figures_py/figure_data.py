@@ -149,6 +149,8 @@ def validity():
            "macbert": "MacBERT", "qwen3": "Qwen3-8B"}
     out = {}
     for m, r in _summary().items():
+        # historical CSV column name; this is the valid-label extraction rate
+        # (parser success), not strict compliance with the two-field format
         rate = float(r["format_validity"])
         out[key[m]] = (round(rate * 100, 2), round((1 - rate) * 4218))
     return out
