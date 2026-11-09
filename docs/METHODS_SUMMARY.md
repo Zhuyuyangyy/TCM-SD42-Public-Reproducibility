@@ -42,7 +42,7 @@ The main paper reports the decontaminated held-out set (N=4,218). The original s
 - Macro-F1
 - Weighted-F1
 - Balanced accuracy
-- format validity and empty-prediction rate for generated outputs
+- valid-label extraction rate (frozen-parser success; not strict two-field format compliance) and empty-prediction rate for generated outputs
 - paired bootstrap 95% CI for accuracy, Macro-F1, and Balanced Accuracy differences (2,000 resamples; seed 20260516)
 - exact two-sided McNemar test for paired accuracy
 - Holm correction across six pairwise accuracy comparisons

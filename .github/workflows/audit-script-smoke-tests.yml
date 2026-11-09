@@ -14,8 +14,20 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      - name: Install numerical test dependencies
+        run: python -m pip install numpy scikit-learn matplotlib
       - name: Compile public audit scripts
         run: |
-          python -m py_compile code/recompute_tcm_sd42_label_selection.py code/recompute_macbert_frozen_metrics.py code/recompute_pairwise_stats.py code/verify_exclusion_set.py
-      - name: Run synthetic label-selection tests
+          python -m py_compile code/recompute_tcm_sd42_label_selection.py code/recompute_macbert_frozen_metrics.py code/recompute_pairwise_stats.py code/verify_exclusion_set.py code/pairwise_class_sensitive_bootstrap.py code/verify_supplementary_matrix_summary.py figures_py/make_supp_figures.py
+      - name: Run synthetic tests
         run: python -m unittest discover -s tests -v
+      - name: Verify supplementary matrix summary
+        run: python code/verify_supplementary_matrix_summary.py
+      - name: Render Supplementary Figures S0-S4
+        run: python figures_py/make_supp_figures.py --output-dir $RUNNER_TEMP/supplementary-figures --dpi 150
+      - name: Upload supplementary figure previews
+        uses: actions/upload-artifact@v4
+        with:
+          name: supplementary-figures-s0-s4
+          path: ${{ runner.temp }}/supplementary-figures/*
+          if-no-files-found: error

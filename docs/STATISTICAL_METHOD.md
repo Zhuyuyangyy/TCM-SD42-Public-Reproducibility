@@ -51,3 +51,10 @@ The aggregate pairwise cells and exact McNemar/Holm results are in `results/dedu
 ## Bootstrap implementation note
 
 `code/pairwise_stats.py` uses the archived choices-based, with-replacement index generator. The earlier public randrange-based implementation was also with-replacement but consumed the random-number stream differently, so its interval endpoints did not exactly reproduce the archived results.
+
+
+## Balanced-accuracy resampling semantics and implementation correction
+
+Scikit-learn `balanced_accuracy_score` averages recall over classes present in `y_true`. A label that appears only in `y_pred` has a zero-support confusion-matrix row and an undefined recall; scikit-learn excludes that row from the average. The checked-in NumPy fast path previously included such prediction-only labels as zero-recall classes, which is not equivalent on that edge case.
+
+The fast path has been corrected to average over gold-present classes, and a regression test covers a prediction-only class. The original aligned case-level predictions are not included in this public repository, so this review cannot determine whether any archived ordinary-bootstrap interval endpoint was affected by the prior fast path. Before replacing or reusing the published Balanced Accuracy bootstrap tables, run the 50-sample sklearn parity gate and regenerate the 2,000-resample ordinary and class-stratified tables in the authorized environment. The frozen predictions and published CSVs have not been changed in this PR.
