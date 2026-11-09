@@ -2,7 +2,7 @@
 
 This note records a read-only cross-check of the public aggregate files against the supplementary overview in the author-side file `TCM-SD42_Supplement_FinalReview_20261109_v7.docx`. No clinical records, case-level predictions, or model weights were accessed or added.
 
-## Supplementary Figure S1-S4 companion overview
+## Supplementary Figure S0-S4 companion overview
 
 The four public 42 x 42 confusion matrices and `figures_py/source_data/fig8_errors.csv` were cross-checked cell by cell for all ten displayed error directions (40 model-by-direction cells). The diagonal counts and valid-label off-diagonal totals are:
 
@@ -25,11 +25,15 @@ The script checks label order, matrix totals, diagonal counts, and every one of 
 
 ## Label crosswalk source
 
-The 42-row label crosswalk in Supplement v6 was compared against the public upstream preprocessing map `TCM/data_preprocess/syndrome.txt` at commit `82031dc6fa7e951f04be0c5214cf140cb008404b` in [GengJiahao121/ZY-BERT-jiahao.geng](https://github.com/GengJiahao121/ZY-BERT-jiahao.geng/blob/82031dc6fa7e951f04be0c5214cf140cb008404b/TCM/data_preprocess/syndrome.txt). Matching the 42 frozen labels plus the terminal `证` suffix yields 38 KEEP and 4 MERGE rows. This is a label-space crosswalk only; it is not the construction rule for the historical TCM-SD42 task.
+The 42-row label crosswalk in Supplement v7 was compared against the public upstream preprocessing map `TCM/data_preprocess/syndrome.txt` at commit `82031dc6fa7e951f04be0c5214cf140cb008404b` in [GengJiahao121/ZY-BERT-jiahao.geng](https://github.com/GengJiahao121/ZY-BERT-jiahao.geng/blob/82031dc6fa7e951f04be0c5214cf140cb008404b/TCM/data_preprocess/syndrome.txt). Matching the 42 frozen labels plus the terminal `证` suffix yields 38 KEEP and 4 MERGE rows. This is a label-space crosswalk only; it is not the construction rule for the historical TCM-SD42 task.
 
 ## Parameter-scale wording
 
 The repository artifact table records 4,981,002,240 tensor elements for InternLM3 after 4-bit NF4 loading and LoRA insertion. The revised manuscript correctly discloses that this is a packed runtime-object count, not a logical parameter count directly comparable with ZY-BERT. Parameter-scale wording should therefore use the nominal 8B model scale against ZY-BERT's 325,565,482 logical parameters (approximately 1:25), and should not present 4.981B as an alternative comparable parameter count. The artifact-table value itself is left unchanged as a historical recorded field.
+
+## Collision-group support cross-check
+
+The two within-task collision groups discussed in the manuscript have clean-test supports that can be independently summed from `figures_py/source_data/classwise_metrics.csv`: IDs 13 and 19 contribute 33 + 17 = 50 records; IDs 22 and 23 contribute 43 + 98 = 141 records. These are sums of label-level record supports, not counts of unique patients.
 
 ## Scope and limitations
 
@@ -40,4 +44,4 @@ The repository artifact table records 4,981,002,240 tensor elements for InternLM
 
 ## Balanced-accuracy bootstrap code review
 
-A separate code-level review found an edge-case mismatch in the checked-in NumPy fast path used by `code/pairwise_class_sensitive_bootstrap.py`: it previously included prediction-only labels as zero-recall classes, whereas scikit-learn `balanced_accuracy_score` excludes zero-support rows. The fast path is corrected on this review branch and a regression test is added. The public repository does not contain the aligned per-case predictions needed to execute the 50-sample parity gate or regenerate the 2,000-resample intervals. Therefore the published Balanced Accuracy bootstrap endpoints remain historical and are not claimed to have been revalidated by this PR. Run the parity gate and regenerate the tables with authorized local inputs before replacing or relying on those endpoints.
+A separate code-level review found an edge-case mismatch in the checked-in NumPy fast path used by `code/pairwise_class_sensitive_bootstrap.py`: it previously included prediction-only labels as zero-recall classes, whereas scikit-learn `balanced_accuracy_score` excludes zero-support rows. The fast path is corrected on this review branch and regression tests are added. GitHub Actions run #73 passed all 12 unit tests, the 40-cell matrix verifier, and the S0-S4 rendering step. The public repository does not contain the aligned per-case predictions needed to execute the 50-sample parity gate or regenerate the 2,000-resample intervals. Therefore the published Balanced Accuracy bootstrap endpoints remain historical and are not claimed to have been revalidated by this PR. Run the parity gate and regenerate the tables with authorized local inputs before replacing or relying on those endpoints.

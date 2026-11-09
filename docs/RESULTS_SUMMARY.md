@@ -35,7 +35,9 @@ All six seed-42 pairwise accuracy comparisons remain statistically significant a
 
 All six Macro-F1 intervals exclude zero.
 
-## Pairwise Balanced Accuracy bootstrap
+## Pairwise Balanced Accuracy bootstrap (historical ordinary paired bootstrap; provisional)
+
+**Implementation caveat (2026-11-09).** The intervals below are archived historical estimates produced by the original NumPy fast path, which averaged recall over the union of labels present in the resampled gold and prediction vectors. Prediction-only labels therefore entered the denominator as zero-recall classes. This is not equivalent to scikit-learn `balanced_accuracy_score`, which averages over classes present in `y_true` only. A corrected gold-present fast path is available on the open PR #4 review branch and passes code-level regression tests, but it has not been merged into `main`. The authorized aligned case-level predictions are not in this public repository, so the 50-sample G3 parity gate and the 2,000-resample ordinary-BA rerun have not been performed. The endpoints below must remain labelled historical/provisional; whether any endpoint changes under the corrected implementation is not yet known. Do not interpret this caveat as changing the full-test-set BA point estimates, Macro-F1 intervals, or class-stratified BA intervals.
 
 | Comparison | Difference (first - second) | 95% CI |
 |---|---:|---:|
@@ -46,7 +48,7 @@ All six Macro-F1 intervals exclude zero.
 | InternLM3 vs Qwen3 | +0.0482 | [0.0289, 0.0678] |
 | MacBERT vs Qwen3 | +0.0390 | [0.0145, 0.0636] |
 
-Five of six Balanced Accuracy intervals exclude zero. The InternLM3-versus-MacBERT interval includes zero, so this analysis does not support a class-balanced recall advantage for InternLM3 over MacBERT despite InternLM3's higher point estimate. The unrounded point difference is approximately +0.9258 percentage points and is reported as +0.93.
+Among the historical ordinary-bootstrap intervals shown above, five of six exclude zero. The InternLM3-versus-MacBERT interval includes zero, so the archived ordinary-bootstrap analysis does not support a class-balanced recall advantage for InternLM3 over MacBERT despite InternLM3's higher point estimate. These ordinary BA interval statements remain provisional pending the authorized-data rerun described above. The unrounded point difference is approximately +0.9258 percentage points and is reported as +0.93.
 
 ## Sensitivity analysis
 
