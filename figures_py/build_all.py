@@ -608,9 +608,9 @@ def fig8():
         x = SX0
         for v, col in zip(vals, (BLUE, ORANGE, GREEN, MAGENTA)):
             w = (SX1 - SX0) * v / 360.0
-            R(x, yy, max(w, 0.6), 30, fill=col, stroke="none", sw=0)
+            R(x, yy + 7, max(w, 0.6), 18, fill=col, stroke="#FFFFFF", sw=0.7)
             x += w
-        T(SX1 + 12, yy + 22, str(tot), 19, INK, 700)
+        T(SX1 + 12, yy + 21, str(tot), 19, INK, 700)
     T(SX1 + 12, 700, "pooled", 18, MUT, 600)
     L(SX0, 1180, SX1, 1180, stroke=INK, sw=1.2)
     for v in (0, 100, 200, 300):
@@ -619,23 +619,23 @@ def fig8():
     T(SX1, 1240, "Pooled errors (model-record errors)", 20, MUT, 400, "end")
 
     panel(1020, 660, "C")
-    VX0, VX1 = 1220, 1780
-    def vx(v): return VX0 + v / 100 * (VX1 - VX0)
     V = fd.validity()
     vals = [(nm, V[nm][0], V[nm][1], col) for nm, col in
             (("ZY-BERT", BLUE), ("InternLM3-8B", ORANGE),
              ("MacBERT", GREEN), ("Qwen3-8B", MAGENTA))]
+    TX = 1080
+    T(TX, 770, "Model", 18, MUT, 600)
+    T(1700, 770, "Format-valid", 18, MUT, 600, "end")
+    T(1930, 770, "Empty outputs", 18, MUT, 600, "end")
+    L(TX, 784, 1930, 784, stroke=INK, sw=1)
     for i, (nm, v, empty, col) in enumerate(vals):
-        yy = 760 + i * 84
-        T(1200, yy + 24, nm, 21, INK, 400, "end")
-        L(VX0, yy + 20, VX0 + (v / 100) * (VX1 - VX0), yy + 20, stroke=col, sw=14)
-        T(VX1 + 14, yy + 26, f"{v:.2f}%", 21, INK, 700)
-        T(VX1 + 14, yy + 50, ("2 empty (0.05%)" if empty else "0 empty"), 18, MUT, 400)
-    L(VX0, 1100, VX1, 1100, stroke=INK, sw=1.2)
-    for v in (0, 50, 100):
-        L(vx(v), 1100, vx(v), 1106, stroke=INK, sw=1)
-        T(vx(v), 1126, str(v), 19, MUT, 400, "middle")
-    T(VX1, 1160, "Format-valid outputs (%)", 20, MUT, 400, "end")
+        yy = 820 + i * 42
+        R(TX, yy - 11, 10, 10, fill=col, stroke=col, sw=0.6)
+        T(TX + 20, yy, nm, 21, INK, 400)
+        T(1700, yy, f"{v:.2f}%", 21, INK, 700, "end")
+        T(1930, yy, ("2 (0.05%)" if empty else "0"), 21, INK, 400, "end")
+        L(TX, yy + 14, 1930, yy + 14, stroke="#E2E7EB", sw=0.8)
+    T(TX, 1030, "Frozen parser v18 \u00b7 identical post-processing for all systems", 18, MUT, 400)
     save()
 
 
