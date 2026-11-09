@@ -21,7 +21,7 @@ Re-run the public check from the repository root:
 python code/verify_supplementary_matrix_summary.py
 ```
 
-The script checks label order, matrix totals, diagonal counts, and every one of the 40 top-10 matrix cells. It does not reproduce the withheld case-level predictions.
+The script checks label order, matrix totals, diagonal counts, and every one of the 40 top-10 matrix cells. The separate figure generator also verifies matrix Git blob hashes and regenerates PNG/SVG versions of S0-S4. Neither script reproduces the withheld case-level predictions.
 
 ## Label crosswalk source
 
