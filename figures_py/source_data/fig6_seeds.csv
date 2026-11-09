@@ -1,0 +1,7 @@
+model,seed,accuracy
+ZY-BERT,42,75.77
+ZY-BERT,2026,75.34
+ZY-BERT,7,73.64
+InternLM3,42,69.58
+InternLM3,2026,69.49
+InternLM3,7,69.18

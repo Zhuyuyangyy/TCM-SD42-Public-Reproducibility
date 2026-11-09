@@ -1,0 +1,5 @@
+model,model_family,source,syn_acc@1,macro_f1,weighted_f1,balanced_accuracy,format_validity,empty_pred_rate,ci_lower,ci_upper,total_params,trainable_params,training_seconds,peak_vram_mb
+macbert,discriminative,"v18 frozen prediction (reused, no retrain)",0.6278,0.5681,0.6394,0.7263,1.0,0.0,0.6124,0.642,,,,
+zybert,discriminative,v19 new run,0.7577,0.6651,0.78,0.7932,1.0,0.0,0.7447,0.7705,325565482,325565482,679.9,12790
+qwen3,generative,"v18 frozen prediction (reused, no retrain)",0.587,0.545,0.6182,0.6873,0.9995,0.0005,0.5723,0.6019,,,,
+internlm3,generative,v19 new run,0.6958,0.6074,0.722,0.7355,0.9995,0.0005,0.6823,0.7093,4981002240,52297728,16690.5,9979

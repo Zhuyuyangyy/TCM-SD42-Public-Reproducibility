@@ -1,0 +1,5 @@
+model,paradigm,accuracy,macro_f1,weighted_f1,balanced_accuracy,acc_ci_lo,acc_ci_hi
+ZY-BERT,encoder,75.77,66.51,78.00,79.32,74.47,77.05
+InternLM3,llm,69.58,60.74,72.20,73.55,68.23,70.93
+MacBERT,encoder,62.78,56.81,63.94,72.63,61.24,64.20
+Qwen3,llm,58.70,54.50,61.82,68.73,57.23,60.19

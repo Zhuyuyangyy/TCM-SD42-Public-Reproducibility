@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="620" viewBox="0 0 2000 620">
+<rect width="2000" height="620" fill="#FFFFFF"/>
+<line x1="980" y1="60" x2="980" y2="560" stroke="#CCCCCC" stroke-width="1" stroke-dasharray="4 6" opacity="1" stroke-linecap="round"/>
+<text x="46" y="96" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700" fill="#111111" text-anchor="start">A</text>
+<rect x="170" y="150" width="560" height="84" rx="0" fill="#F4F7FA" stroke="#222222" stroke-width="1.3" opacity="1"/>
+<text x="450.0" y="201.36" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="600" fill="#222222" text-anchor="middle">54,152 clinical records</text>
+<rect x="210" y="286" width="480" height="84" rx="0" fill="#F4F7FA" stroke="#222222" stroke-width="1.3" opacity="1"/>
+<text x="450.0" y="322.0" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="600" fill="#222222" text-anchor="middle">43 eligible source forms</text>
+<text x="450.0" y="352.0" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" fill="#666666" text-anchor="middle">train ≥ 100 · dev ≥ 10 · test ≥ 10</text>
+<rect x="250" y="422" width="400" height="84" rx="0" fill="#F4F7FA" stroke="#222222" stroke-width="1.3" opacity="1"/>
+<text x="450.0" y="458.36" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="600" fill="#222222" text-anchor="middle">42 frozen labels</text>
+<text x="450.0" y="488.36" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" fill="#666666" text-anchor="middle">syndrome_canonical</text>
+<line x1="450" y1="234" x2="450.0" y2="276.0" stroke="#222222" stroke-width="2" opacity="1" stroke-linecap="round"/>
+<line x1="450" y1="234" x2="450.00" y2="276.00" stroke="#222222" stroke-width="2" stroke-linecap="round"/>
+<polygon points="450.00,286.00 446.00,278.00 454.00,278.00" fill="#222222" stroke="#222222" stroke-width="1" stroke-linejoin="round"/>
+<line x1="450" y1="370" x2="450.0" y2="412.0" stroke="#222222" stroke-width="2" opacity="1" stroke-linecap="round"/>
+<line x1="450" y1="370" x2="450.00" y2="412.00" stroke="#222222" stroke-width="2" stroke-linecap="round"/>
+<polygon points="450.00,422.00 446.00,414.00 454.00,414.00" fill="#222222" stroke="#222222" stroke-width="1" stroke-linejoin="round"/>
+<line x1="654" y1="452" x2="694" y2="446" stroke="#999999" stroke-width="1" opacity="1" stroke-linecap="round"/>
+<line x1="654" y1="476" x2="694" y2="478" stroke="#999999" stroke-width="1" opacity="1" stroke-linecap="round"/>
+<text x="700" y="452" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#222222" text-anchor="start">41 one-to-one mappings</text>
+<text x="700" y="484" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#222222" text-anchor="start">1 two-to-one collision</text>
+<text x="1030" y="96" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700" fill="#111111" text-anchor="start">B</text>
+<rect x="1040" y="210" width="400" height="86" rx="0" fill="#FFFFFF" stroke="#222222" stroke-width="1.4" opacity="1"/>
+<text x="1240.0" y="246.28" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" fill="#222222" text-anchor="middle">38 identity-preserved</text>
+<text x="1240.0" y="276.28" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" fill="#222222" text-anchor="middle">labels (KEEP)</text>
+<rect x="1040" y="350" width="400" height="86" rx="0" fill="#FFFFFF" stroke="#222222" stroke-width="1.4" opacity="1"/>
+<text x="1240.0" y="386.28" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" fill="#222222" text-anchor="middle">4 MERGE/rename</text>
+<text x="1240.0" y="416.28" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" fill="#222222" text-anchor="middle">mappings</text>
+<rect x="1560" y="268" width="380" height="110" rx="0" fill="#FFFFFF" stroke="#222222" stroke-width="1.4" opacity="1"/>
+<text x="1750.0" y="316.64" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="600" fill="#222222" text-anchor="middle">40 distinct</text>
+<text x="1750.0" y="346.64" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="600" fill="#222222" text-anchor="middle">normalized categories</text>
+<line x1="1440" y1="253" x2="1500" y2="253" stroke="#222222" stroke-width="1.4" opacity="1" stroke-linecap="round"/>
+<line x1="1440" y1="393" x2="1500" y2="393" stroke="#222222" stroke-width="1.4" opacity="1" stroke-linecap="round"/>
+<line x1="1500" y1="253" x2="1500" y2="393" stroke="#222222" stroke-width="1.4" opacity="1" stroke-linecap="round"/>
+<line x1="1500" y1="323" x2="1550.0" y2="323.0" stroke="#222222" stroke-width="1.8" opacity="1" stroke-linecap="round"/>
+<line x1="1500" y1="323" x2="1550.00" y2="323.00" stroke="#222222" stroke-width="1.8" stroke-linecap="round"/>
+<polygon points="1560.00,323.00 1552.00,327.00 1552.00,319.00" fill="#222222" stroke="#222222" stroke-width="1" stroke-linejoin="round"/>
+<text x="1040" y="500" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#666666" text-anchor="start" font-style="italic">Audit-only correspondence; frozen 42-class target unchanged</text>
+<text x="1040" y="540" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" fill="#666666" text-anchor="start">label-level audit · no model target was altered</text>
+</svg>

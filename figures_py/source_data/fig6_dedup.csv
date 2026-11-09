@@ -1,0 +1,7 @@
+pair,S0,S1,S2,S1_source
+ZY-BERT vs InternLM3,6.19,6.18,6.20,digitized
+ZY-BERT vs MacBERT,12.99,12.98,13.02,digitized
+ZY-BERT vs Qwen3,17.07,17.09,17.09,digitized
+InternLM3 vs MacBERT,6.80,6.80,6.82,digitized
+InternLM3 vs Qwen3,10.88,10.91,10.89,digitized
+MacBERT vs Qwen3,4.08,4.12,4.08,digitized
