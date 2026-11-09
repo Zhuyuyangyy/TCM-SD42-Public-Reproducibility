@@ -130,4 +130,4 @@ The public repository does not contain raw TCM-SD clinical records, per-case pre
 - tests/test_balanced_accuracy_fast_path.py — regression tests for sklearn-compatible prediction-only class handling
 - tests/test_supplementary_figures.py — aggregate matrix and S0-S4 rendering tests
 - tests/test_s2_normalization.py — synthetic coverage for deletion-default and sentinel-comparison S2 normalization
-- .github/workflows/audit-script-smoke-tests.yml — Python syntax and synthetic smoke tests
+- .github/workflows/audit-script-smoke-tests.yml — Python syntax, synthetic tests, public aggregate verification, main-figure provenance, and S0-S4 rendering
