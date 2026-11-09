@@ -29,7 +29,7 @@ The 42-row label crosswalk in Supplement v6 was compared against the public upst
 
 ## Parameter-scale wording
 
-The recorded InternLM3 parameter count (4,981,002,240) and nominal model scale (8B) are distinct reporting bases. Relative to ZY-BERT (325,565,482 parameters), they imply approximately 1:15.3 and 1:24.6, respectively. The existing manuscript wording of approximately one-fifteenth to one-twenty-fifth therefore describes two different denominators; it should not be collapsed into a single parameter count. This audit leaves the recorded value and nominal scale unchanged.
+The repository artifact table records 4,981,002,240 tensor elements for InternLM3 after 4-bit NF4 loading and LoRA insertion. The revised manuscript correctly discloses that this is a packed runtime-object count, not a logical parameter count directly comparable with ZY-BERT. Parameter-scale wording should therefore use the nominal 8B model scale against ZY-BERT's 325,565,482 logical parameters (approximately 1:25), and should not present 4.981B as an alternative comparable parameter count. The artifact-table value itself is left unchanged as a historical recorded field.
 
 ## Scope and limitations
 
