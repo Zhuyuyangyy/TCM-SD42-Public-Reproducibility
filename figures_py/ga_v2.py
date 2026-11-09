@@ -145,7 +145,7 @@ arrow(860, 250, 940, 250, sw=1.8)
 arrow(1390, 250, 1470, 250, sw=1.8)
 
 # ============================================================ B
-T(64, 540, "Discriminative encoders \u00b7 ~1/15\u20131/25 parameters", 21, INK, 700)
+T(64, 540, "Discriminative encoders \u00b7 ~1/25 parameters", 21, INK, 700)
 marker(64, 560, BLUE)
 T(84, 571, "ZY-BERT", 21, INK, 700)
 T(64, 600, "TCM domain \u00b7 seeds 42/2026/7", 18, MUT, 400)
@@ -177,7 +177,7 @@ arrow(360, 840, 420, 840)
 R(420, 770, 520, 140, fill="#FFFFFF", stroke=INK, sw=1.1)
 L(420, 840, 940, 840, stroke=INK, sw=1)
 T(680, 812, "Generated label + templated rationale", 18, INK, 400, "middle")
-T(680, 882, "parser v18 \u00b7 99.95% format-valid", 18, MUT, 400, "middle")
+T(680, 882, "parser v18 \u00b7 99.95% labels extracted", 18, MUT, 400, "middle")
 arrow(940, 840, 980, 840)
 
 # shared label space
@@ -224,8 +224,8 @@ for lab, val, lo, hi, yy in (("\u0394Accuracy", _d[0], _d[1], _d[2], 838),
     L(dx(lo), yy - 6, dx(lo), yy + 6, stroke=INK, sw=1.6)
     L(dx(hi), yy - 6, dx(hi), yy + 6, stroke=INK, sw=1.6)
     R(dx(val) - 4, yy - 4, 8, 8, fill=INK, stroke=INK, sw=0)
-    T(2160, yy + 6, f"+{val:.2f} pp", 18, INK, 700)
-T(1400, 900, f"95% CI {_d[1]:.2f}\u2013{_d[2]:.2f} \u00b7 p < 0.001 (Holm)", 16, MUT, 400)
+    T(2160, yy + 6, f"+{val:.2f} pp ({lo:.2f}\u2013{hi:.2f})", 16, INK, 700)
+T(1400, 900, "brackets: 95% CI \u00b7 p < 0.001 (accuracy, Holm)", 16, MUT, 400)
 
 # seeds
 L(1400, 920, 2340, 920, stroke=RULE, sw=1)
@@ -270,10 +270,10 @@ T(120, 1536, "42 frozen classes \u00b7 support 6\u2013860 (clean held-out test)"
 _par = fd.params()
 _rat = fd.param_ratios()
 T(960, 1170, "Parameter scale", 20, INK, 700)
-T(960, 1244, f"1 : {_rat[0]:.1f}", 40, INK, 700)
-T(960, 1278, f"recorded vs InternLM3-8B \u00b7 nominal 1 : {_rat[1]:.0f}", 17, MUT, 400)
-T(960, 1352, f"+{_d[0]:.2f} pp accuracy at ~1/15\u20131/25 parameters", 19, INK, 700)
-T(960, 1384, f"{_par['ZY-BERT'] / 1e9:.2f}B vs {_par['InternLM3-8B'] / 1e9:.2f}B recorded parameters", 17, MUT, 400)
+T(960, 1244, f"1 : {_rat[1]:.0f}", 40, INK, 700)
+T(960, 1278, "nominal 8B scale vs 0.33B encoder", 17, MUT, 400)
+T(960, 1352, f"+{_d[0]:.2f} pp accuracy at ~1/25 parameters", 19, INK, 700)
+T(960, 1384, "325.6M logical parameters vs 8B nominal", 17, MUT, 400)
 
 # hybrid workflow
 T(1640, 1170, "Proposed hybrid clinical workflow", 20, INK, 700)

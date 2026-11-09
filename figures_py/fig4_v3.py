@@ -90,7 +90,7 @@ T(1020, 78, "B", 32, INK, 700)
 T(40, 696, "C", 32, INK, 700)
 
 # ------------------------------------------------------------------ A
-T(62, 132, "Discriminative route \u00b7 ~1/15\u20131/25 parameters", 20, INK, 700)
+T(62, 132, "Discriminative route \u00b7 ~1/25 parameters", 20, INK, 700)
 input_block(70, 152)
 arrow(300, 208, 300, 240)
 arrow(700, 208, 700, 240)
@@ -110,7 +110,7 @@ arrow(700, 326, 700, 362)
 R(140, 362, 720, 84, stroke=INK, sw=1.1)
 T(500, 394, "Fine-tuned 42-class classification head", 20, INK, 700, "middle")
 T(500, 420, "closed-set argmax \u00b7 no free text", 18, MUT, 400, "middle")
-T(140, 486, "100% format-valid by construction", 19, INK, 700)
+T(140, 486, "valid label guaranteed by construction", 19, INK, 700)
 
 arrow(500, 446, 500, 710, sw=1.5)
 
@@ -139,7 +139,7 @@ arrow(1290, 422, 1290, 458)
 R(1100, 458, 760, 132, stroke=INK, sw=1.1)
 L(1100, 524, 1860, 524, stroke=INK, sw=1)
 T(1480, 492, "Generated label + templated rationale", 18, INK, 400, "middle")
-T(1480, 566, f"Frozen parser v18 \u00b7 99.95% format-valid", 18, MUT, 400, "middle")
+T(1480, 566, f"Frozen parser v18 \u00b7 99.95% labels extracted", 18, MUT, 400, "middle")
 T(1100, 620, "two empty outputs (0.05%)", 18, MUT)
 
 arrow(1660, 590, 1660, 710, sw=1.5)

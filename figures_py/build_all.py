@@ -130,8 +130,8 @@ def fig2():
 
     steps = [
         (170, 150, 560, 84, ["54,152 clinical records"], 26, True),
-        (210, 286, 480, 84, ["43 eligible source forms",
-                             "train \u2265 100 \u00b7 dev \u2265 10 \u00b7 test \u2265 10"], 25, True),
+        (210, 286, 480, 84, ["43 raw source forms (retrospective)",
+                             "train \u2265 100 \u00b7 dev \u2265 10 \u00b7 test \u2265 10"], 23, True),
         (250, 422, 400, 84, ["42 frozen labels", "syndrome_canonical"], 26, True),
     ]
     for x, y, w, h, seq, size, _ in steps:
@@ -625,7 +625,7 @@ def fig8():
              ("MacBERT", GREEN), ("Qwen3-8B", MAGENTA))]
     TX = 1080
     T(TX, 770, "Model", 18, MUT, 600)
-    T(1700, 770, "Format-valid", 18, MUT, 600, "end")
+    T(1700, 770, "Valid label", 18, MUT, 600, "end")
     T(1930, 770, "Empty outputs", 18, MUT, 600, "end")
     L(TX, 784, 1930, 784, stroke=INK, sw=1)
     for i, (nm, v, empty, col) in enumerate(vals):

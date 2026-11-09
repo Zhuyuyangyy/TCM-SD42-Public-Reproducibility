@@ -6,7 +6,7 @@
 <text x="40" y="78" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" fill="#1A1A1A" text-anchor="start">A</text>
 <text x="1020" y="78" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" fill="#1A1A1A" text-anchor="start">B</text>
 <text x="40" y="696" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" fill="#1A1A1A" text-anchor="start">C</text>
-<text x="62" y="132" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#1A1A1A" text-anchor="start">Discriminative route · ~1/15–1/25 parameters</text>
+<text x="62" y="132" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#1A1A1A" text-anchor="start">Discriminative route · ~1/25 parameters</text>
 <rect x="70" y="152" width="880" height="56" rx="0" fill="#FFFFFF" stroke="#1A1A1A" stroke-width="1.1"/>
 <text x="510" y="176" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" fill="#1A1A1A" text-anchor="middle">Standardized clinical record (input_text)</text>
 <text x="510" y="196" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#555555" text-anchor="middle">same frozen splits · 4,186 train / 420 dev</text>
@@ -29,7 +29,7 @@
 <rect x="140" y="362" width="720" height="84" rx="0" fill="none" stroke="#1A1A1A" stroke-width="1.1"/>
 <text x="500" y="394" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#1A1A1A" text-anchor="middle">Fine-tuned 42-class classification head</text>
 <text x="500" y="420" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#555555" text-anchor="middle">closed-set argmax · no free text</text>
-<text x="140" y="486" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="700" fill="#1A1A1A" text-anchor="start">100% format-valid by construction</text>
+<text x="140" y="486" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="700" fill="#1A1A1A" text-anchor="start">valid label guaranteed by construction</text>
 <line x1="500" y1="446" x2="500.00" y2="700.90" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round"/>
 <polygon points="500.00,710.00 496.50,703.00 503.50,703.00" fill="#1A1A1A" stroke="#1A1A1A" stroke-width="0.8" stroke-linejoin="round"/>
 <text x="1042" y="132" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#1A1A1A" text-anchor="start">Generative route · 8B-class</text>
@@ -59,7 +59,7 @@
 <rect x="1100" y="458" width="760" height="132" rx="0" fill="none" stroke="#1A1A1A" stroke-width="1.1"/>
 <line x1="1100" y1="524" x2="1860" y2="524" stroke="#1A1A1A" stroke-width="1" stroke-linecap="round"/>
 <text x="1480" y="492" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#1A1A1A" text-anchor="middle">Generated label + templated rationale</text>
-<text x="1480" y="566" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#555555" text-anchor="middle">Frozen parser v18 · 99.95% format-valid</text>
+<text x="1480" y="566" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#555555" text-anchor="middle">Frozen parser v18 · 99.95% labels extracted</text>
 <text x="1100" y="620" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#555555" text-anchor="start">two empty outputs (0.05%)</text>
 <line x1="1660" y1="590" x2="1660.00" y2="700.90" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round"/>
 <polygon points="1660.00,710.00 1656.50,703.00 1663.50,703.00" fill="#1A1A1A" stroke="#1A1A1A" stroke-width="0.8" stroke-linejoin="round"/>
