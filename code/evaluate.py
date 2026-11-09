@@ -9,7 +9,7 @@ Metrics (six):
 2. macro_f1: macro-averaged F1 (scikit-learn)
 3. weighted_f1: weighted-averaged F1
 4. balanced_accuracy: balanced accuracy
-5. format_validity: % of parseable outputs
+5. format_validity (legacy key): valid-label extraction rate / parser success, not strict format compliance
 6. empty_pred_rate: % of empty predictions
 
 Plus:
@@ -72,7 +72,7 @@ def compute_metrics(
     # syn_acc@1 (exact match accuracy)
     syn_acc1 = sum(1 for g, p in zip(gold_labels, pred_labels) if g == p) / n
 
-    # Format validity (percentage of non-empty, parseable predictions)
+    # Legacy format_validity key: fraction with a non-empty frozen-parser result; not strict two-field format compliance
     format_valid = sum(1 for p in pred_labels if p != "empty") / n
 
     # Empty prediction rate

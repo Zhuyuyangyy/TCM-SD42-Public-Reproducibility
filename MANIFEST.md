@@ -106,7 +106,6 @@ This repository contains public, aggregate, non-patient-level reproducibility ma
 - figures_r/reproduce_figures.R
 - figures_py/reproduce_figures.py — rebuilds the eight main figures from figures_py/source_data/ (vector SVG; 600-dpi PNG where Edge/Chrome is available)
 - figures_py/make_supp_figures.py — validates archived matrix Git blob hashes and rebuilds Supplementary Figures S0-S4
-- figures_py/reproduce_supplementary.py — rebuilds Supplementary Figure S0 and heatmaps S1-S4 from public aggregate matrices; validates all 40 top-10 cells
 - figures_py/figure_data.py — single data loader for metrics, paired differences, seeds, validity, error directions and class support
 - figures_py/build_all.py, fig4_v3.py, ga_v2.py — panel builders (Figures 2–3 and 5–8; Figure 4; Figure 1)
 - figures_py/verify_provenance.py — recomputes Accuracy/Macro-F1/Weighted-F1/Balanced-Accuracy from the four archived confusion matrices and checks the numbers printed in the SVGs
