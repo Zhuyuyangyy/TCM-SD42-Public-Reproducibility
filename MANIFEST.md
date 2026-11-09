@@ -114,8 +114,6 @@ This repository contains public, aggregate, non-patient-level reproducibility ma
 - figures_py/README.md — run instructions and input table
 - docs/SUPPLEMENTARY_FIGURE_REPRODUCTION.md — supplementary figure generation and validation notes
 - requirements-figures.txt — Matplotlib requirement for supplementary figure rendering
-- docs/SUPPLEMENTARY_FIGURE_REPRODUCTION.md — source files, commands, validation checks, and denominator boundaries
-- requirements-figures.txt — Matplotlib requirement for supplementary figure rendering
 
 ## Manuscript note
 
@@ -131,7 +129,5 @@ The public repository does not contain raw TCM-SD clinical records, per-case pre
 - tests/test_recompute_tcm_sd42_label_selection.py — synthetic tests for canonical-first selection, raw-form threshold omission, cap-scope deltas and suffix canonicalization
 - tests/test_balanced_accuracy_fast_path.py — regression tests for sklearn-compatible prediction-only class handling
 - tests/test_supplementary_figures.py — aggregate matrix and S0-S4 rendering tests
-- tests/test_balanced_accuracy_fast_path.py — regression tests for sklearn-compatible prediction-only class handling
-- tests/test_supplementary_figures.py — aggregate matrix checks and S0-S4 rendering tests
 - tests/test_s2_normalization.py — synthetic coverage for deletion-default and sentinel-comparison S2 normalization
 - .github/workflows/audit-script-smoke-tests.yml — Python syntax and synthetic smoke tests
