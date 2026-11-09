@@ -52,3 +52,12 @@ archived figure sources rather than recomputed from per-record predictions; see
 - Panels carry a black letter only; panel titles live in the caption.
 - Figure 4 uses the two-route plate and a shared evaluation rail; it is built by
   `fig4_v3.py`, and `build_all.py` deliberately does not rebuild it.
+
+
+## Supplementary figures S0-S4
+
+The separate script reproduce_supplementary.py regenerates Supplementary Figure S0 and the four 42x42 heatmaps S1-S4 from the public aggregate matrices and top-10 error-direction CSV. It validates label order, matrix totals, diagonal counts, row support, and all 40 top-10 cells before rendering. Install requirements-figures.txt and run:
+
+    python figures_py/reproduce_supplementary.py
+
+The default output is figures_py/generated_supplementary/; both PNG and SVG files are written. The script does not use raw clinical records, case-level predictions, or model checkpoints. See docs/SUPPLEMENTARY_FIGURE_REPRODUCTION.md for denominator and interpretation boundaries.

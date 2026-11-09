@@ -146,3 +146,13 @@ Original code in this repository is released under the MIT License. TCM-SD data 
 ## Additional audit corrections (2026-10-23)
 
 The completed 5-gram Jaccard diagnostic reports Train-to-Dev/Test hits of 615/625 at >=0.80, 516/550 at >=0.85, and 370/387 at >=0.90. Earlier interim counts 502/518 and 424/447 are superseded; these are diagnostics, not the historical production filter. The Qwen3 base model's five weight shards, tokenizer.json and config.json have been verified against the official upstream release (commit prefix b968826d…); the two epoch-specific adapters needed for saved-state comparison remain unavailable. See `docs/TARGETED_CHECKS_20261023.md` and `docs/HISTORICAL_EVIDENCE_RECONCILIATION_20261023.md`.
+
+
+## Supplementary figure reproduction
+
+Supplementary Figure S0 and the four 42x42 heatmaps S1-S4 can be regenerated from the public aggregate matrices and top-10 direction table:
+
+    python -m pip install -r requirements-figures.txt
+    python figures_py/reproduce_supplementary.py
+
+The generator validates the frozen label order, matrix totals, diagonal counts, omitted-output accounting, and all 40 top-10 matrix cells before producing PNG and SVG files. It does not require raw clinical records, case-level predictions, or model checkpoints. See docs/SUPPLEMENTARY_FIGURE_REPRODUCTION.md.

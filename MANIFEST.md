@@ -105,11 +105,14 @@ This repository contains public, aggregate, non-patient-level reproducibility ma
 
 - figures_r/reproduce_figures.R
 - figures_py/reproduce_figures.py — rebuilds the eight main figures from figures_py/source_data/ (vector SVG; 600-dpi PNG where Edge/Chrome is available)
+- figures_py/reproduce_supplementary.py — rebuilds Supplementary Figure S0 and heatmaps S1-S4 from public aggregate matrices; validates all 40 top-10 cells
 - figures_py/figure_data.py — single data loader for metrics, paired differences, seeds, validity, error directions and class support
 - figures_py/build_all.py, fig4_v3.py, ga_v2.py — panel builders (Figures 2–3 and 5–8; Figure 4; Figure 1)
 - figures_py/verify_provenance.py — recomputes Accuracy/Macro-F1/Weighted-F1/Balanced-Accuracy from the four archived confusion matrices and checks the numbers printed in the SVGs
 - figures_py/Figure1.svg … Figure8.svg, Figure1.png … Figure8.png — generated outputs
 - figures_py/README.md — run instructions and input table
+- docs/SUPPLEMENTARY_FIGURE_REPRODUCTION.md — source files, commands, validation checks, and denominator boundaries
+- requirements-figures.txt — Matplotlib requirement for supplementary figure rendering
 
 ## Manuscript note
 
@@ -123,5 +126,7 @@ The public repository does not contain raw TCM-SD clinical records, per-case pre
 ## Tests and CI
 
 - tests/test_recompute_tcm_sd42_label_selection.py — synthetic tests for canonical-first selection, raw-form threshold omission, cap-scope deltas and suffix canonicalization
+- tests/test_balanced_accuracy_fast_path.py — regression tests for sklearn-compatible prediction-only class handling
+- tests/test_supplementary_figures.py — aggregate matrix checks and S0-S4 rendering tests
 - tests/test_s2_normalization.py — synthetic coverage for deletion-default and sentinel-comparison S2 normalization
 - .github/workflows/audit-script-smoke-tests.yml — Python syntax and synthetic smoke tests
