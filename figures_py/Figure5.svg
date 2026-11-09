@@ -166,4 +166,4 @@
 <line x1="1780.0" y1="1250" x2="1780.0" y2="1256" stroke="#222222" stroke-width="1" opacity="1" stroke-linecap="round"/>
 <text x="1780.0" y="1276" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" fill="#666666" text-anchor="middle">15</text>
 <text x="1780" y="1312" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#666666" text-anchor="end">Metric difference (pp)</text>
-</svg>
+<text x="1080" y="800" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="400" fill="#666666" text-anchor="start">Ordinary-bootstrap Balanced Accuracy intervals are provisional pending authorized-data re-execution</text></svg>

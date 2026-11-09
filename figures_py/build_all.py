@@ -374,6 +374,7 @@ def fig5():
     T(1134, 771, "Macro-F1", 19, MUT, 400)
     R(1250, 757, 10, 10, fill="#FFFFFF", stroke=INK, sw=1.2)
     T(1266, 771, "Balanced accuracy", 19, MUT, 400)
+    T(1080, 800, "Ordinary-bootstrap Balanced Accuracy intervals are provisional pending authorized-data re-execution", 15, MUT, 400)
     names = ["ZY-BERT vs InternLM3-8B", "ZY-BERT vs MacBERT", "ZY-BERT vs Qwen3-8B",
              "InternLM3-8B vs MacBERT", "InternLM3-8B vs Qwen3-8B", "MacBERT vs Qwen3-8B"]
 
@@ -474,6 +475,7 @@ def fig6():
 
     T(50, 706, "Macro-F1", 24, INK, 700)
     T(50, 1006, "Balanced accuracy", 24, INK, 700)
+    T(50, 1030, "Ordinary-bootstrap Balanced Accuracy intervals are provisional pending authorized-data re-execution", 14, MUT, 400)
 
     def rowf(yy, vals, nm, shade=False):
         v, lo, hi, slo, shi = vals
