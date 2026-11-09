@@ -115,52 +115,47 @@ for i, (dx, dy) in enumerate([(0, 0), (12, 10), (24, 20)]):
     R(80 + dx, 150 + dy, 96, 118, fill="#EDF2F6" if i < 2 else "#F9FBFC", stroke="#8FA3B3", sw=1)
 for i in range(4):
     L(112, 176 + i * 10, 152, 176 + i * 10, stroke="#B9C6D0", sw=2)
-T(224, 196, "TCM-SD public corpus", 20, INK, 400)
-T(224, 236, "54,152 records", 27, NAVY, 700)
-T(224, 264, "clinical records", 17, MUT, 400)
+T(218, 196, "TCM-SD public corpus", 21, INK, 400)
+T(218, 236, "54,152 records", 28, NAVY, 700)
 
 # decontamination
 R(450, 150, 410, 190, fill="#FAFBFC", stroke="#B9C2CA", sw=1.1)
-T(468, 178, "held-out pool 4,452", 16, MUT, 400)
-T(468, 212, "SHA-256 exact match", 19, INK, 400)
-T(842, 212, "\u22126", 22, INK, 700, "end")
-L(468, 224, 842, 224, stroke="#E1E6EB", sw=1)
-T(468, 252, "TF-IDF cosine \u2265 0.95", 19, INK, 400)
-T(842, 252, "\u2212228", 22, INK, 700, "end")
-L(468, 264, 842, 264, stroke="#E1E6EB", sw=1)
-T(468, 302, "234 excluded", 20, INK, 700)
-T(468, 326, "4,218 clean records", 16, MUT, 400)
+T(468, 180, "held-out pool 4,452", 19, MUT, 400)
+T(468, 216, "SHA-256 exact match", 22, INK, 400)
+T(842, 216, "\u22126", 24, INK, 700, "end")
+L(468, 228, 842, 228, stroke="#E1E6EB", sw=1)
+T(468, 258, "TF-IDF cosine \u2265 0.95", 22, INK, 400)
+T(842, 258, "\u2212228", 24, INK, 700, "end")
+L(468, 270, 842, 270, stroke="#E1E6EB", sw=1)
+T(468, 310, "234 excluded \u00b7 4,218 retained", 22, INK, 700)
 
 # partitions
 R(940, 150, 450, 190, fill="#FFFFFF", stroke="#B9C2CA", sw=1.1)
-R(960, 178, 396, 30, fill="#D6E3EC", stroke="#8FA6B5", sw=1)
-T(972, 199, "Train 4,186", 19, INK, 600)
-R(960, 222, 40, 30, fill="#E8EDF1", stroke=SLATE, sw=1)
-T(1012, 243, "Dev 420", 19, INK, 600)
-R(960, 266, 400, 30, fill=NAVY, stroke=NAVY, sw=1)
-T(972, 287, "Clean test 4,218", 19, "#FFFFFF", 700)
-T(960, 322, "train 91\u2013100 \u00b7 dev 10 \u00b7 test held-out", 15, MUT, 400)
+R(960, 172, 396, 34, fill="#D6E3EC", stroke="#8FA6B5", sw=1)
+T(972, 196, "Train 4,186", 20, INK, 600)
+R(960, 216, 40, 34, fill="#E8EDF1", stroke=SLATE, sw=1)
+T(1016, 240, "Dev 420", 20, INK, 600)
+R(960, 260, 400, 34, fill=NAVY, stroke=NAVY, sw=1)
+T(972, 284, "Clean test 4,218", 20, "#FFFFFF", 700)
 
 # frozen classes
 R(1470, 150, 370, 190, fill="#FFFFFF", stroke="#B9C2CA", sw=1.1)
-T(1655, 184, "42 frozen syndrome", 20, INK, 600, "middle")
-T(1655, 208, "classes \u00b7 TCM-SD42", 20, INK, 600, "middle")
+T(1655, 188, "42 frozen syndrome classes", 21, INK, 600, "middle")
 for r in range(6):
     for c in range(7):
-        R(1500 + c * 48, 226 + r * 17, 40, 13, fill="#E4EDF5", stroke="#FFFFFF", sw=1)
+        R(1500 + c * 48, 212 + r * 17, 40, 13, fill="#E4EDF5", stroke="#FFFFFF", sw=1)
 
 # audit callout
 L(1840, 245, 1896, 245, stroke="#9AA9B4", sw=1, dash="4 5")
 R(1900, 150, 380, 190, fill="#FAFBFC", stroke="#C6D0D7", sw=1.1)
-T(1918, 184, "Label audit", 20, INK, 700)
+T(1918, 186, "Label audit", 21, INK, 700)
 x = 1918
 for i in range(40):
     w = 8.6 if i < 38 else 12.4
-    R(x, 198, w - 1.4, 14, fill="#A8BECF" if i < 38 else "#34495E", stroke="none", sw=0)
+    R(x, 200, w - 1.4, 14, fill="#A8BECF" if i < 38 else "#34495E", stroke="none", sw=0)
     x += w
-T(1918, 246, "38 KEEP + 4 MERGE", 18, INK, 400)
-T(1918, 274, "\u2192 40 normalized", 18, INK, 400)
-T(1918, 306, "42-class target unchanged", 16, MUT, 400, italic=True)
+T(1918, 256, "38 KEEP + 4 MERGE", 21, INK, 400)
+T(1918, 292, "\u2192 40 normalized categories", 21, INK, 400)
 
 arrow(414, 245, 450, 245, sw=2)
 arrow(860, 245, 940, 245, sw=2)
@@ -169,77 +164,75 @@ arrow(1390, 245, 1470, 245, sw=2)
 # ============================================================ B
 head(60, 480, "B", "Four systems, one frozen label space", 1380)
 
-T(80, 545, "Discriminative encoders \u00b7 ~1/15\u20131/25 parameters", 21, NAVY, 700)
+T(80, 545, "Discriminative encoders \u00b7 ~1/15\u20131/25 parameters", 23, NAVY, 700)
 R(80, 565, 300, 88, fill=P_BLUE, stroke=BLUE, sw=2, rx=6)
 T(96, 600, "ZY-BERT", 24, BLUE, 700)
-T(96, 626, "TCM-domain \u00b7 seeds 42 / 2026 / 7", 15, SLATE, 400)
+T(96, 626, "TCM-domain \u00b7 seeds 42/2026/7", 19, SLATE, 400)
 R(80, 665, 300, 88, fill=P_GREEN, stroke=GREEN, sw=1.6, rx=6)
 T(96, 700, "MacBERT", 22, "#006B54", 700)
-T(96, 726, "general-domain \u00b7 historical seed-42", 15, SLATE, 400)
+T(96, 726, "general-domain \u00b7 seed-42", 19, SLATE, 400)
 
 L(400, 609, 430, 609, stroke=INK, sw=1.4)
 L(400, 709, 430, 709, stroke=INK, sw=1.4)
 L(430, 609, 430, 709, stroke=INK, sw=1.4)
 arrow(430, 659, 470, 659, sw=1.8)
-cbox(470, 600, 200, 118, ["42-class heads", "(one per model)"], size=19, lh=26)
+cbox(470, 600, 200, 118, ["42-class heads", "(one per model)"], size=20, lh=27)
 
-T(80, 800, "Generative LLMs \u00b7 8B-class", 21, NAVY, 700)
+T(80, 800, "Generative LLMs \u00b7 8B-class", 23, NAVY, 700)
 R(80, 820, 300, 84, fill=P_ORANGE, stroke=ORANGE, sw=2, rx=6)
-T(96, 852, "InternLM3-8B-Instruct", 19, "#A4400A", 700)
-T(96, 878, "4-bit NF4 QLoRA \u00b7 seeds 42 / 2026 / 7", 14, SLATE, 400)
+T(96, 852, "InternLM3-8B-Instruct", 22, "#A4400A", 700)
+T(96, 878, "4-bit NF4 QLoRA \u00b7 4.98B", 19, SLATE, 400)
 R(80, 912, 300, 84, fill=P_MAGENTA, stroke=MAGENTA, sw=1.6, rx=6)
 T(96, 944, "Qwen3-8B", 22, "#9C3D74", 700)
-T(96, 970, "LoRA-SFT \u00b7 historical seed-42", 15, SLATE, 400)
+T(96, 970, "LoRA-SFT \u00b7 seed-42", 19, SLATE, 400)
 
 L(400, 862, 430, 862, stroke=INK, sw=1.4)
 L(400, 954, 430, 954, stroke=INK, sw=1.4)
 L(430, 862, 430, 954, stroke=INK, sw=1.4)
 arrow(430, 908, 470, 908, sw=1.8)
-cbox(470, 876, 200, 64, ["Prompt /", "LoRA adapter"], size=19, lh=24)
+cbox(470, 876, 200, 64, ["QLoRA / LoRA", "adapters"], size=19, lh=24)
 arrow(670, 908, 700, 908, sw=1.8)
-cbox(700, 872, 240, 72, ["Generated label +", "templated rationale"], size=17, lh=22)
+cbox(700, 872, 240, 72, ["Generated label +", "templated rationale"], size=19, lh=23)
 arrow(820, 944, 820, 976, sw=1.8)
-cbox(700, 976, 240, 54, ["Frozen parser v18"], size=19, weight=600)
+cbox(700, 976, 240, 54, ["Frozen parser v18"], size=20, weight=600)
 arrow(940, 990, 1000, 990, sw=1.8)
 
 # shared output grid
 R(1000, 560, 300, 470, fill="#F4F7FA", stroke=INK, sw=1.4)
-T(1150, 590, "Frozen 42-class output space", 17, NAVY, 700, "middle")
+T(1150, 590, "42-class output space", 21, NAVY, 700, "middle")
 for r in range(7):
     for c in range(6):
         R(1012 + c * 48, 610 + r * 56, 42, 50, fill="#FFFFFF", stroke="#9FB4C6", sw=1)
-T(1150, 1022, "42 frozen classes", 14, MUT, 400, "middle")
 arrow(670, 659, 1000, 659, sw=1.8)
-T(700, 646, "42-class logits", 14, MUT, 400)
 
 # ============================================================ C
 head(1500, 480, "C", "Matched evidence", 840)
 
 C(1930, 472, 5, BLUE, sw=0)
-T(1944, 479, "Accuracy", 15, MUT, 400)
+T(1944, 479, "Accuracy", 16, MUT, 400)
 R(2036, 466, 9, 9, fill="#FFFFFF", stroke=INK, sw=1.1)
-T(2050, 479, "Macro-F1", 15, MUT, 400)
+T(2050, 479, "Macro-F1", 16, MUT, 400)
 
 CY0, CY1 = 800, 590
 def cy(v): return CY0 - v / 100 * (CY0 - CY1)
 L(1760, CY0, 2200, CY0, stroke=INK, sw=1)
 for v in (0, 20, 40, 60, 80, 100):
     L(1760 + v / 100 * 440, CY0, 1760 + v / 100 * 440, CY0 + 6, stroke=INK, sw=1)
-    T(1760 + v / 100 * 440, CY0 + 24, str(v), 15, MUT, 400, "middle")
+    T(1760 + v / 100 * 440, CY0 + 24, str(v), 17, MUT, 400, "middle")
 
 _m = fd.metrics()
 rows = [(n, _m[n]["acc"], _m[n]["mf1"], c, y) for n, c, y in
         (("ZY-BERT", BLUE, 580), ("InternLM3-8B", ORANGE, 640),
          ("MacBERT", GREEN, 700), ("Qwen3-8B", MAGENTA, 760))]
 for nm, acc, f1, col, yy in rows:
-    T(1740, yy + 7, nm, 19, INK, 600 if nm == "ZY-BERT" else 400, "end")
+    T(1740, yy + 7, nm, 20, INK, 600 if nm == "ZY-BERT" else 400, "end")
     C(1760 + acc / 100 * 440, yy - 7, 6, col)
     R(1760 + f1 / 100 * 440 - 5, yy + 2, 10, 10, fill="#FFFFFF", stroke=col, sw=1.6)
-    T(2220, yy + 7, f"{acc:.2f} / {f1:.2f}", 17, col, 600)
+    T(2220, yy + 7, f"{acc:.2f} / {f1:.2f}", 18, col, 600)
 
 # paired differences
 L(1500, 850, 2320, 850, stroke=RULE, sw=1)
-T(1500, 876, "ZY-BERT \u2212 InternLM3-8B", 18, INK, 700)
+T(1500, 876, "ZY-BERT \u2212 InternLM3-8B", 20, INK, 700)
 
 DX0, DX1 = 1760, 2200
 def dx(v): return DX0 + v / 10 * (DX1 - DX0)
@@ -247,29 +240,29 @@ L(DX0, 890, DX0, 964, stroke=SLATE, sw=1, dash="3 4")
 _d = fd.primary_pair()
 for lab, val, lo, hi, yy in (("\u0394Accuracy", _d[0], _d[1], _d[2], 910),
                              ("\u0394Macro-F1", _d[3], _d[4], _d[5], 944)):
-    T(1500, yy + 6, lab, 17, INK, 400)
+    T(1500, yy + 6, lab, 18, INK, 400)
     L(dx(lo), yy, dx(hi), yy, stroke=NAVY, sw=1.8)
     L(dx(lo), yy - 7, dx(lo), yy + 7, stroke=NAVY, sw=1.8)
     L(dx(hi), yy - 7, dx(hi), yy + 7, stroke=NAVY, sw=1.8)
     R(dx(val) - 4.5, yy - 4.5, 9, 9, fill=NAVY, stroke=NAVY, sw=0)
-    T(2220, yy + 6, f"+{val:.2f} pp", 18, NAVY, 700)
-T(1500, 984, "95% CI 4.93\u20137.44 \u00b7 Holm-adjusted p < 0.001", 14, MUT, 400)
+    T(2220, yy + 6, f"+{val:.2f} pp", 19, NAVY, 700)
+T(1500, 984, f"95% CI {_d[1]:.2f}\u2013{_d[2]:.2f} \u00b7 p < 0.001 (Holm)", 17, MUT, 400)
 
 # seeds
 L(1500, 1006, 2320, 1006, stroke=RULE, sw=1)
-T(1500, 1042, "Seeds 42 \u00b7 2026 \u00b7 7", 18, INK, 700)
+T(1500, 1042, "Seeds 42 \u00b7 2026 \u00b7 7", 20, INK, 700)
 SX0, SX1 = 1760, 2200
 def sx(v): return SX0 + (v - 66) / 12 * (SX1 - SX0)
 L(SX0, 1114, SX1, 1114, stroke=INK, sw=1)
 for v in (66, 70, 74, 78):
     L(sx(v), 1114, sx(v), 1120, stroke=INK, sw=1)
-    T(sx(v), 1136, str(v), 14, MUT, 400, "middle")
+    T(sx(v), 1136, str(v), 17, MUT, 400, "middle")
 for nm, (m, sd), col, yy in (("ZY-BERT", fd.seed_mean_sd("ZY-BERT"), BLUE, 1066),
                              ("InternLM3-8B", fd.seed_mean_sd("InternLM3-8B"), ORANGE, 1094)):
-    T(1500, yy + 6, nm, 17, INK, 400)
+    T(1500, yy + 6, nm, 18, INK, 400)
     L(sx(m - sd), yy, sx(m + sd), yy, stroke=col, sw=2)
     C(sx(m), yy, 5, col)
-    T(2220, yy + 6, f"{m:.2f} \u00b1 {sd:.2f}", 17, col, 700)
+    T(2220, yy + 6, f"{m:.2f} \u00b1 {sd:.2f}", 18, col, 700)
 
 # ============================================================ D
 head(60, 1170, "D", "Long tail, efficiency and clinical implication", 2280)
@@ -283,46 +276,43 @@ L(GX0, GY1, GX1, GY1, stroke=INK, sw=1)
 L(GX0, GY0, GX0, GY1, stroke=INK, sw=1)
 for gv, gl in ((10, "10"), (100, "100"), (1000, "1,000")):
     L(GX0, gy(gv), GX1, gy(gv), stroke="#EEEEEE", sw=0.9)
-    T(GX0 - 12, gy(gv) + 6, gl, 15, MUT, 400, "end")
+    T(GX0 - 12, gy(gv) + 6, gl, 17, MUT, 400, "end")
 pitch = (GX1 - GX0) / 42.0
 for i, v in enumerate(sup):
     R(GX0 + i * pitch + 1.5, gy(v), 11, GY1 - gy(v), fill=NAVY if i == 0 else "#6F8FAA", stroke="none", sw=0)
 L(GX0, gy(95), GX1, gy(95), stroke=MUT, sw=1, dash="5 5")
 L(GX0, gy(10), GX1, gy(10), stroke=MUT, sw=1, dash="2 4")
-T(GX1 + 12, gy(95) + 6, "train 91\u2013100", 14, MUT, 400)
-T(GX1 + 12, gy(10) + 18, "dev 10 / class", 14, MUT, 400)
-T(GX0 + pitch + 6, gy(sup[0]) + 7, "860", 15, NAVY, 700)
-T(GX0 + 41 * pitch + pitch / 2, gy(sup[-1]) - 8, "6", 15, INK, 600, "middle")
-T(110, 1582, "42 frozen classes \u00b7 support 6\u2013860 (clean held-out test)", 16, INK, 400)
-T(60, 1222, "Test records (log scale)", 16, MUT, 400)
+T(GX1 + 12, gy(95) + 6, "train 91\u2013100", 17, MUT, 400)
+T(GX1 + 12, gy(10) + 18, "dev 10 / class", 17, MUT, 400)
+T(GX0 + pitch + 6, gy(sup[0]) + 7, "860", 18, NAVY, 700)
+T(GX0 + 41 * pitch + pitch / 2, gy(sup[-1]) - 8, "6", 18, INK, 600, "middle")
+T(110, 1582, "42 frozen classes \u00b7 support 6\u2013860 (clean held-out test)", 19, INK, 400)
+T(60, 1222, "Test records (log scale)", 19, MUT, 400)
 
 # efficiency
-T(940, 1252, "Parameter scale (nominal)", 18, NAVY, 700)
-T(940, 1322, "1 : 25", 42, NAVY, 700)
-R(940, 1352, 24, 24, fill=BLUE, stroke=BLUE, sw=1)
-T(974, 1370, "ZY-BERT", 16, INK, 600)
-for r in range(5):
-    for c in range(5):
-        R(1090 + c * 20, 1352 + r * 20, 16, 16, fill="#E8EDF1", stroke=SLATE, sw=0.7)
-T(1210, 1370, "8B LLMs", 16, SLATE, 600)
-T(940, 1438, "~1/15\u20131/25 parameters \u00b7 +6.19 pp accuracy", 17, INK, 700)
-T(940, 1468, "0.33B vs 8B-class (recorded 1 : 15.3 vs 4.98B)", 15, MUT, 400)
+_par = fd.params()
+_rat = fd.param_ratios()
+T(940, 1252, "Parameter scale", 21, NAVY, 700)
+T(940, 1318, f"1 : {_rat[0]:.1f}", 42, NAVY, 700)
+T(940, 1350, f"recorded vs InternLM3-8B \u00b7 nominal 1 : {_rat[1]:.0f}", 18, MUT, 400)
+T(940, 1412, f"+{_d[0]:.2f} pp accuracy at ~1/15\u20131/25 parameters", 19, INK, 700)
+T(940, 1444, f"{_par['ZY-BERT'] / 1e9:.2f}B vs {_par['InternLM3-8B'] / 1e9:.2f}B recorded parameters", 18, MUT, 400)
 
 # hybrid workflow
-T(1520, 1252, "Proposed hybrid clinical workflow", 18, SLATE, 700)
+T(1520, 1252, "Proposed hybrid clinical workflow", 21, SLATE, 700)
 R(1520, 1282, 240, 76, fill=P_BLUE, stroke=BLUE, sw=1.6, rx=6)
 T(1536, 1314, "ZY-BERT", 19, BLUE, 700)
-T(1536, 1338, "precise syndrome label", 15, INK, 400)
+T(1536, 1338, "precise syndrome label", 18, INK, 400)
 R(1520, 1402, 240, 76, fill="#F1F4F7", stroke=SLATE, sw=1.6, rx=6)
 T(1536, 1434, "LLM", 19, SLATE, 700)
-T(1536, 1458, "interactive rationale", 15, INK, 400)
+T(1536, 1458, "interactive rationale", 18, INK, 400)
 R(1880, 1322, 220, 96, fill="#EEF2F5", stroke=NAVY, sw=1.6, rx=12)
 T(1990, 1360, "Clinician", 19, NAVY, 700, "middle")
 T(1990, 1386, "decision", 19, NAVY, 700, "middle")
 arrow(1760, 1320, 1880, 1352, color=NAVY, sw=2, hs=8)
 arrow(1760, 1440, 1880, 1390, color=SLATE, sw=1.7, hs=8, dash="3 5")
-T(1776, 1310, "decides", 14, NAVY, 700)
-T(1776, 1474, "explains", 14, SLATE, 700)
+T(1776, 1310, "decides", 17, NAVY, 700)
+T(1776, 1474, "explains", 17, SLATE, 700)
 
 S.append("</svg>")
 svg = "\n".join(S)
