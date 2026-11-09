@@ -625,7 +625,7 @@ def fig8():
              ("MacBERT", GREEN), ("Qwen3-8B", MAGENTA))]
     TX = 1080
     T(TX, 770, "Model", 18, MUT, 600)
-    T(1700, 770, "Valid label", 18, MUT, 600, "end")
+    T(1700, 770, "Valid labels (%)", 18, MUT, 600, "end")
     T(1930, 770, "Empty outputs", 18, MUT, 600, "end")
     L(TX, 784, 1930, 784, stroke=INK, sw=1)
     for i, (nm, v, empty, col) in enumerate(vals):
@@ -635,7 +635,8 @@ def fig8():
         T(1700, yy, f"{v:.2f}%", 21, INK, 700, "end")
         T(1930, yy, ("2 (0.05%)" if empty else "0"), 21, INK, 400, "end")
         L(TX, yy + 14, 1930, yy + 14, stroke="#E2E7EB", sw=0.8)
-    T(TX, 1030, "Frozen parser v18 \u00b7 identical post-processing for all systems", 18, MUT, 400)
+    T(TX, 1030, "Denominator N = 4,218 \u00b7 empty outputs counted as errors", 18, MUT, 400)
+    T(TX, 1058, "Frozen parser v18 \u00b7 identical post-processing for all systems", 18, MUT, 400)
     save()
 
 

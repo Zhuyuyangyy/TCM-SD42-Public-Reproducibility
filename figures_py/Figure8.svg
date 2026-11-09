@@ -277,7 +277,7 @@
 <text x="820" y="1240" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" fill="#666666" text-anchor="end">Pooled errors (model-record errors)</text>
 <text x="1020" y="660" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700" fill="#111111" text-anchor="start">C</text>
 <text x="1080" y="770" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" fill="#666666" text-anchor="start">Model</text>
-<text x="1700" y="770" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" fill="#666666" text-anchor="end">Valid label</text>
+<text x="1700" y="770" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" fill="#666666" text-anchor="end">Valid labels (%)</text>
 <text x="1930" y="770" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" fill="#666666" text-anchor="end">Empty outputs</text>
 <line x1="1080" y1="784" x2="1930" y2="784" stroke="#222222" stroke-width="1" opacity="1" stroke-linecap="round"/>
 <rect x="1080" y="809" width="10" height="10" rx="0" fill="#0072B2" stroke="#0072B2" stroke-width="0.6" opacity="1"/>
@@ -300,5 +300,6 @@
 <text x="1700" y="946" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" fill="#222222" text-anchor="end">99.95%</text>
 <text x="1930" y="946" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#222222" text-anchor="end">2 (0.05%)</text>
 <line x1="1080" y1="960" x2="1930" y2="960" stroke="#E2E7EB" stroke-width="0.8" opacity="1" stroke-linecap="round"/>
-<text x="1080" y="1030" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#666666" text-anchor="start">Frozen parser v18 · identical post-processing for all systems</text>
+<text x="1080" y="1030" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#666666" text-anchor="start">Denominator N = 4,218 · empty outputs counted as errors</text>
+<text x="1080" y="1058" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#666666" text-anchor="start">Frozen parser v18 · identical post-processing for all systems</text>
 </svg>
