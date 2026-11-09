@@ -51,3 +51,8 @@ The aggregate pairwise cells and exact McNemar/Holm results are in `results/dedu
 ## Bootstrap implementation note
 
 `code/pairwise_stats.py` uses the archived choices-based, with-replacement index generator. The earlier public randrange-based implementation was also with-replacement but consumed the random-number stream differently, so its interval endpoints did not exactly reproduce the archived results.
+
+
+## Balanced-accuracy resampling semantics
+
+The archived implementation uses the scikit-learn `balanced_accuracy_score` semantics for each resample. In the ordinary (non-stratified) bootstrap, the class universe for a resample is the union of labels observed in its gold and prediction vectors; a predicted-only class contributes zero recall. The implementation does not force a 42-class denominator for every ordinary resample. The full held-out point estimate includes all 42 gold classes and is the reported 42-class mean recall. The class-stratified sensitivity procedure preserves every original gold-class support in each resample. These are implementation semantics, not a change to the frozen predictions or published interval tables.

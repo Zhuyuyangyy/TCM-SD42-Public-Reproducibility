@@ -272,7 +272,7 @@ def fig4():
     R(470, 626, 420, 86, fill="#FFFFFF", stroke=ORANGE, sw=2)
     lines(486, 660, ["InternLM3-8B (4-bit NF4 QLoRA;", "seeds 42, 2026, 7)"], 21, INK, 400, lh=28)
     R(470, 742, 420, 86, fill="#FFFFFF", stroke=MAGENTA, sw=2)
-    lines(486, 776, ["Qwen3-8B (LoRA-SFT;", "historical seed-42)"], 21, INK, 400, lh=28)
+    lines(486, 776, ["Qwen3-8B (QLoRA-SFT;", "historical seed-42)"], 21, INK, 400, lh=28)
 
     L(890, 669, 940, 669, stroke=INK, sw=1.4)
     L(890, 785, 940, 785, stroke=INK, sw=1.4)
