@@ -134,10 +134,10 @@
 <text x="64" y="540" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" fill="#1A1A1A" text-anchor="start">Discriminative encoders · ~1/15–1/25 parameters</text>
 <rect x="64" y="560" width="12" height="12" rx="0" fill="#0072B2" stroke="#0072B2" stroke-width="0.8"/>
 <text x="84" y="571" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" fill="#1A1A1A" text-anchor="start">ZY-BERT</text>
-<text x="64" y="600" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#555555" text-anchor="start">TCM domain · seeds 42/2026/7</text>
+<text x="64" y="600" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#555555" text-anchor="start">TCM domain · seeds 42/2026/7</text>
 <rect x="64" y="628" width="12" height="12" rx="0" fill="#009E73" stroke="#009E73" stroke-width="0.8"/>
 <text x="84" y="639" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" fill="#1A1A1A" text-anchor="start">MacBERT</text>
-<text x="64" y="668" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#555555" text-anchor="start">general domain · seed-42 baseline</text>
+<text x="64" y="668" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#555555" text-anchor="start">general domain · seed-42</text>
 <line x1="330" y1="566" x2="360" y2="566" stroke="#1A1A1A" stroke-width="1.2" stroke-linecap="round"/>
 <line x1="330" y1="634" x2="360" y2="634" stroke="#1A1A1A" stroke-width="1.2" stroke-linecap="round"/>
 <line x1="360" y1="566" x2="360" y2="634" stroke="#1A1A1A" stroke-width="1.2" stroke-linecap="round"/>
@@ -151,10 +151,10 @@
 <text x="64" y="780" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" fill="#1A1A1A" text-anchor="start">Generative LLMs · 8B-class</text>
 <rect x="64" y="800" width="12" height="12" rx="0" fill="#D55E00" stroke="#D55E00" stroke-width="0.8"/>
 <text x="84" y="811" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#1A1A1A" text-anchor="start">InternLM3-8B-Instruct</text>
-<text x="64" y="840" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#555555" text-anchor="start">4-bit NF4 QLoRA · 4.98B</text>
+<text x="64" y="840" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#555555" text-anchor="start">4-bit NF4 QLoRA · 4.98B</text>
 <rect x="64" y="868" width="12" height="12" rx="0" fill="#CC79A7" stroke="#CC79A7" stroke-width="0.8"/>
 <text x="84" y="879" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" fill="#1A1A1A" text-anchor="start">Qwen3-8B</text>
-<text x="64" y="908" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#555555" text-anchor="start">LoRA-SFT · seed 42</text>
+<text x="64" y="908" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#555555" text-anchor="start">LoRA-SFT · seed 42</text>
 <line x1="330" y1="806" x2="360" y2="806" stroke="#1A1A1A" stroke-width="1.2" stroke-linecap="round"/>
 <line x1="330" y1="874" x2="360" y2="874" stroke="#1A1A1A" stroke-width="1.2" stroke-linecap="round"/>
 <line x1="360" y1="806" x2="360" y2="874" stroke="#1A1A1A" stroke-width="1.2" stroke-linecap="round"/>

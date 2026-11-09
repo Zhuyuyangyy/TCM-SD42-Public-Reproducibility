@@ -98,12 +98,12 @@ arrow(700, 208, 700, 240)
 R(150, 240, 300, 86, stroke=BLUE, sw=1.4)
 R(166, 258, 12, 12, fill=BLUE, stroke=BLUE, sw=0.8)
 T(188, 270, "ZY-BERT", 21, INK, 700)
-T(166, 304, "TCM domain \u00b7 seeds 42/2026/7", 17, MUT)
+T(166, 304, "TCM domain \u00b7 seeds 42/2026/7", 18, MUT)
 
 R(550, 240, 300, 86, stroke=GREEN, sw=1.4)
 R(566, 258, 12, 12, fill=GREEN, stroke=GREEN, sw=0.8)
 T(588, 270, "MacBERT", 21, INK, 700)
-T(566, 304, "general domain \u00b7 seed-42 baseline", 17, MUT)
+T(566, 304, "general domain \u00b7 seed-42 baseline", 18, MUT)
 
 arrow(300, 326, 300, 362)
 arrow(700, 326, 700, 362)
@@ -123,12 +123,12 @@ arrow(1700, 208, 1700, 240)
 R(1070, 240, 380, 86, stroke=ORANGE, sw=1.4)
 R(1086, 258, 12, 12, fill=ORANGE, stroke=ORANGE, sw=0.8)
 T(1108, 270, "InternLM3-8B-Instruct", 20, INK, 700)
-T(1086, 304, "4-bit NF4 QLoRA \u00b7 4.98B", 17, MUT)
+T(1086, 304, "4-bit NF4 QLoRA \u00b7 4.98B", 18, MUT)
 
 R(1490, 240, 380, 86, stroke=MAGENTA, sw=1.4)
 R(1506, 258, 12, 12, fill=MAGENTA, stroke=MAGENTA, sw=0.8)
 T(1528, 270, "Qwen3-8B", 21, INK, 700)
-T(1506, 304, "LoRA-SFT \u00b7 seed 42", 17, MUT)
+T(1506, 304, "LoRA-SFT \u00b7 seed 42", 18, MUT)
 
 arrow(1260, 326, 1260, 362)
 arrow(1680, 326, 1680, 362)
@@ -140,7 +140,7 @@ R(1100, 458, 760, 132, stroke=INK, sw=1.1)
 L(1100, 524, 1860, 524, stroke=INK, sw=1)
 T(1480, 492, "Generated label + templated rationale", 18, INK, 400, "middle")
 T(1480, 566, f"Frozen parser v18 \u00b7 99.95% format-valid", 18, MUT, 400, "middle")
-T(1100, 620, "two empty outputs (0.05%)", 17, MUT)
+T(1100, 620, "two empty outputs (0.05%)", 18, MUT)
 
 arrow(1660, 590, 1660, 710, sw=1.5)
 
@@ -157,8 +157,8 @@ T(790, 892, f"\u0394Accuracy +{_DACC:.2f} pp (95% CI {_LO:.2f}\u2013{_HI:.2f})",
 T(790, 924, f"\u0394Macro-F1 +{_DMF1:.2f} pp", 18, MUT)
 
 # compact metric table (right of the class grid)
-T(1830, 786, "Accuracy", 16, MUT, 400, "end")
-T(1930, 786, "Macro-F1", 16, MUT, 400, "end")
+T(1830, 786, "Accuracy", 17, MUT, 400, "end")
+T(1930, 786, "Macro-F1", 17, MUT, 400, "end")
 L(1436, 796, 1930, 796, stroke="#C9D2D8", sw=0.9)
 for i, (nm, col) in enumerate((("ZY-BERT", BLUE), ("InternLM3-8B", ORANGE),
                               ("MacBERT", GREEN), ("Qwen3-8B", MAGENTA))):
