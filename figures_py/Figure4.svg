@@ -43,11 +43,11 @@
 <rect x="1070" y="240" width="380" height="86" rx="0" fill="none" stroke="#D55E00" stroke-width="1.4"/>
 <rect x="1086" y="258" width="12" height="12" rx="0" fill="#D55E00" stroke="#D55E00" stroke-width="0.8"/>
 <text x="1108" y="270" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#1A1A1A" text-anchor="start">InternLM3-8B-Instruct</text>
-<text x="1086" y="304" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#555555" text-anchor="start">4-bit NF4 QLoRA · 4.98B</text>
+<text x="1086" y="304" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#555555" text-anchor="start">4-bit NF4 QLoRA · 8B-class</text>
 <rect x="1490" y="240" width="380" height="86" rx="0" fill="none" stroke="#CC79A7" stroke-width="1.4"/>
 <rect x="1506" y="258" width="12" height="12" rx="0" fill="#CC79A7" stroke="#CC79A7" stroke-width="0.8"/>
 <text x="1528" y="270" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" fill="#1A1A1A" text-anchor="start">Qwen3-8B</text>
-<text x="1506" y="304" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#555555" text-anchor="start">LoRA-SFT · seed 42</text>
+<text x="1506" y="304" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#555555" text-anchor="start">QLoRA-SFT · seed 42</text>
 <line x1="1260" y1="326" x2="1260.00" y2="352.90" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round"/>
 <polygon points="1260.00,362.00 1256.50,355.00 1263.50,355.00" fill="#1A1A1A" stroke="#1A1A1A" stroke-width="0.8" stroke-linejoin="round"/>
 <line x1="1680" y1="326" x2="1680.00" y2="352.90" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round"/>
