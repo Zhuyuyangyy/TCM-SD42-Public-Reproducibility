@@ -36,3 +36,8 @@ The recorded InternLM3 parameter count (4,981,002,240) and nominal model scale (
 - The confusion matrices contain 4,218 valid-label predictions for the encoder systems and 4,216 for each generative system. The two empty outputs per generative model are not represented as a 43rd matrix column.
 - The top-10 percentages above use valid-label off-diagonal errors as their denominator, not all errors including empty outputs.
 - This is an aggregate consistency check, not a new inference run, clinical validation, or independent reproduction of training.
+
+
+## Balanced-accuracy bootstrap code review
+
+A separate code-level review found an edge-case mismatch in the checked-in NumPy fast path used by `code/pairwise_class_sensitive_bootstrap.py`: it previously included prediction-only labels as zero-recall classes, whereas scikit-learn `balanced_accuracy_score` excludes zero-support rows. The fast path is corrected on this review branch and a regression test is added. The public repository does not contain the aligned per-case predictions needed to execute the 50-sample parity gate or regenerate the 2,000-resample intervals. Therefore the published Balanced Accuracy bootstrap endpoints remain historical and are not claimed to have been revalidated by this PR. Run the parity gate and regenerate the tables with authorized local inputs before replacing or relying on those endpoints.

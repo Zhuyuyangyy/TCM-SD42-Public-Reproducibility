@@ -132,13 +132,14 @@ def fast_metrics(g: np.ndarray, p: np.ndarray):
     denom = 2 * tp + fp + fn
     f1 = np.divide(2 * tp, denom, out=np.zeros(N_CLASSES, dtype=np.float64), where=denom > 0)
     macro_f1 = f1.mean()  # 分母固定 42 类 (labels=LABELS)
-    # balanced accuracy: sklearn 对 union(gold, pred) 求 recall 均值, 0 行 -> nan -> 0
+    # sklearn balanced_accuracy_score averages recall over classes present in y_true.
+    # Predicted-only classes have zero-support confusion-matrix rows (NaN recall)
+    # and are excluded by sklearn; do not add them to the denominator.
     row = np.bincount(g, minlength=N_CLASSES + 1)
-    pred_row = np.bincount(p, minlength=N_CLASSES + 1)
-    union = (row + pred_row) > 0
     rec = np.divide(tp, row[:N_CLASSES], out=np.zeros(N_CLASSES, dtype=np.float64),
                     where=row[:N_CLASSES] > 0)
-    balacc = rec[union[:N_CLASSES]].mean()
+    present_gold = row[:N_CLASSES] > 0
+    balacc = rec[present_gold].mean()
     return acc, macro_f1, balacc
 
 
