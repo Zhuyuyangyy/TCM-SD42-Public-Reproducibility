@@ -56,7 +56,7 @@ LIGHT = "#DCE6F0"
 def git_blob_sha1(path: Path) -> str:
     """Return the Git blob object SHA-1 for a file, including the blob header."""
     payload = path.read_bytes()
-    header = f"blob {len(payload)}\\0".encode("ascii")
+    header = f"blob {len(payload)}\0".encode("ascii")
     return hashlib.sha1(header + payload).hexdigest()
 
 
@@ -82,7 +82,7 @@ def load_matrix(key: str, labels: list[str]) -> np.ndarray:
     path = ROOT / "results" / f"confusion_matrix_{key}.csv"
     with path.open(encoding="utf-8-sig", newline="") as handle:
         rows = list(csv.reader(handle))
-    if not rows or rows[0][0] != "gold\\\\pred":
+    if not rows or rows[0][0] != "gold\\pred":
         raise AssertionError(f"{path.name}: unexpected matrix header")
     columns = [value.strip() for value in rows[0][1:]]
     row_labels = [row[0].strip() for row in rows[1:]]
@@ -193,7 +193,7 @@ def fig_s0(mats, error_rows, summary, out_dir: Path, dpi: int):
             )
     ax1.set_xticks(x)
     ax1.set_xticklabels(names, fontsize=11, fontweight="bold")
-    ax1.set_ylabel("Number of valid class-valued\\npredictions (out of N = 4,218)", fontsize=10)
+    ax1.set_ylabel("Number of valid class-valued\npredictions (out of N = 4,218)", fontsize=10)
     ax1.set_ylim(0, 3500)
     ax1.grid(axis="y", color="#E6E6E6")
     ax1.set_axisbelow(True)
@@ -212,7 +212,7 @@ def fig_s0(mats, error_rows, summary, out_dir: Path, dpi: int):
             xytext=(0, 6), ha="center", fontsize=10, fontweight="bold", color="#222222",
         )
         ax2.annotate(
-            f"{t10[i]}\\n{100 * t10[i] / off[i]:.1f}%", (x[i], t10[i] / 2),
+            f"{t10[i]}\n{100 * t10[i] / off[i]:.1f}%", (x[i], t10[i] / 2),
             ha="center", va="center", fontsize=9, color="white", fontweight="bold",
         )
     ax2.set_xticks(x)
