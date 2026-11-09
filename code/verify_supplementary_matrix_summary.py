@@ -16,12 +16,11 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "figures_py" / "source_data"
 
 MODELS = {
-    "ZY-BERT": ("confusion_matrix_zybert.csv", 4218, 3196),
-    "InternLM3-8B": ("confusion_matrix_internlm3.csv", 4216, 2935),
-    "MacBERT": ("confusion_matrix_macbert.csv", 4218, 2648),
-    "Qwen3-8B": ("confusion_matrix_qwen3.csv", 4216, 2476),
+    "ZY-BERT": ("confusion_matrix_zybert.csv", 4218, 3196, "ZY-BERT"),
+    "InternLM3-8B": ("confusion_matrix_internlm3.csv", 4216, 2935, "InternLM3"),
+    "MacBERT": ("confusion_matrix_macbert.csv", 4218, 2648, "MacBERT"),
+    "Qwen3-8B": ("confusion_matrix_qwen3.csv", 4216, 2476, "Qwen3"),
 }
-ERROR_FIELDS = ("ZY-BERT", "InternLM3", "MacBERT", "Qwen3")
 
 
 def read_matrix(filename: str, labels: list[str]) -> tuple[list[str], list[list[int]]]:
@@ -48,7 +47,6 @@ def main() -> int:
     labels = json.loads((DATA / "syndrome_label_list.json").read_text(encoding="utf-8"))
     if len(labels) != 42 or len(set(labels)) != 42:
         raise AssertionError("expected 42 unique frozen labels")
-    label_to_index = {label: i for i, label in enumerate(labels)}
     id_to_index = {f"C{i + 1:02d}": i for i in range(len(labels))}
 
     with (DATA / "classwise_metrics.csv").open(encoding="utf-8-sig", newline="") as fh:
@@ -57,8 +55,7 @@ def main() -> int:
         raise AssertionError("classwise support does not reconcile to N=4,218")
 
     matrices = {}
-    print("model,valid_matrix_n,correct,off_diagonal_errors,top10_errors,top10_pct_of_off_diagonal")
-    for model, (filename, expected_n, expected_correct) in MODELS.items():
+    for model, (filename, expected_n, expected_correct, _) in MODELS.items():
         row_labels, matrix = read_matrix(filename, labels)
         matrix_n = sum(sum(row) for row in matrix)
         correct = sum(matrix[i][i] for i in range(len(labels)))
@@ -69,7 +66,6 @@ def main() -> int:
                 f"expected {expected_n}, {expected_correct}"
             )
         matrices[model] = matrix
-        print(f"{model},{matrix_n},{correct},{offdiag},pending,pending")
 
     with (DATA / "fig8_errors.csv").open(encoding="utf-8-sig", newline="") as fh:
         error_rows = list(csv.DictReader(fh))
@@ -84,9 +80,9 @@ def main() -> int:
         if true_id not in id_to_index or pred_id not in id_to_index:
             raise AssertionError(f"unknown label ID in row {expected_rank}")
         ti, pi = id_to_index[true_id], id_to_index[pred_id]
-        for model in MODELS:
+        for model, (_, _, _, csv_field) in MODELS.items():
             actual = matrices[model][ti][pi]
-            reported = int(row[model])
+            reported = int(row[csv_field])
             if actual != reported:
                 raise AssertionError(
                     f"{model} {true_id}->{pred_id}: CSV={reported}, matrix={actual}"
@@ -94,7 +90,8 @@ def main() -> int:
             top10[model] += reported
 
     print("\nVerified top-10 summary (denominator = valid-label off-diagonal errors):")
-    for model, (_, matrix_n, correct) in MODELS.items():
+    print("model,valid_matrix_n,correct,off_diagonal_errors,top10_errors,top10_pct_of_off_diagonal")
+    for model, (_, matrix_n, correct, _) in MODELS.items():
         offdiag = matrix_n - correct
         count = top10[model]
         pct = 100.0 * count / offdiag if offdiag else 0.0
