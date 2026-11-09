@@ -149,7 +149,7 @@ def validity():
            "macbert": "MacBERT", "qwen3": "Qwen3-8B"}
     out = {}
     for m, r in _summary().items():
-        rate = float(r["format_validity"])
+        rate = float(r["valid_label_extraction_rate"])
         out[key[m]] = (round(rate * 100, 2), round((1 - rate) * 4218))
     return out
 

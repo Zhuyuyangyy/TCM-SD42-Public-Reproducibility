@@ -40,7 +40,7 @@ def main():
         computed={"syn_acc@1":sum(tp)/N,"macro_f1":sum(f1)/42,
                   "weighted_f1":sum(gold[i]*f1[i] for i in range(42))/N,
                   "balanced_accuracy":sum(recall)/42,
-                  "format_validity":sum(observed)/N,
+                  "valid_label_extraction_rate":sum(observed)/N,
                   "empty_pred_rate":sum(omitted)/N}
         for k,v in computed.items():eq(v,float(published[m][k]),m+"."+k)
         print(f"{m}: PASS / included {sum(observed)} / omitted {sum(omitted)} / correct {sum(tp)}")

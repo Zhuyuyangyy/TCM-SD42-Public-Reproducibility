@@ -1,6 +1,6 @@
 # Supplementary-material and public-matrix audit (2026-11-09)
 
-This note records a read-only cross-check of the public aggregate files against the supplementary overview in the author-side file `TCM-SD42_Supplement_FinalReview_20261026_v6.docx`. No clinical records, case-level predictions, or model weights were accessed or added.
+This note records a read-only cross-check of the public aggregate files against the supplementary overview in the author-side file `TCM-SD42_Supplement_FinalReview_20261109_v7.docx`. No clinical records, case-level predictions, or model weights were accessed or added.
 
 ## Supplementary Figure S1-S4 companion overview
 
@@ -13,7 +13,7 @@ The four public 42 x 42 confusion matrices and `figures_py/source_data/fig8_erro
 | MacBERT | 4,218 | 2,648 | 1,570 | **640** | **40.8%** |
 | Qwen3-8B | 4,216 | 2,476 | 1,740 | **667** | **38.3%** |
 
-The Supplement v6 companion overview displayed 630 for MacBERT and 677 for Qwen3. Those two values do not match the sum of the ten public error-direction cells or the corresponding confusion-matrix cells. The corrected aggregate counts are 640 and 667. The valid-label off-diagonal denominators remain 1,570 and 1,740, respectively; the two empty outputs for each generative model are outside the 42 x 42 matrix and are still counted as errors in the full N=4,218 evaluation metrics.
+The superseded Supplement v6 companion overview displayed 630 for MacBERT and 677 for Qwen3; the v7 overview corrected both values. Those two values do not match the sum of the ten public error-direction cells or the corresponding confusion-matrix cells. The corrected aggregate counts are 640 and 667. The valid-label off-diagonal denominators remain 1,570 and 1,740, respectively; the two empty outputs for each generative model are outside the 42 x 42 matrix and are still counted as errors in the full N=4,218 evaluation metrics.
 
 Re-run the public check from the repository root:
 

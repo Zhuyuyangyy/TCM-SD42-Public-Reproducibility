@@ -72,5 +72,5 @@ out.parent.mkdir(parents=True, exist_ok=True)
 out.write_text("\n".join(json.dumps(r, ensure_ascii=False) for r in records) + "\n", encoding="utf-8")
 m = compute_metrics([r["gold"] for r in records], [r["pred"] for r in records])
 print(f"[metrics] n={m['n']} syn@1={m['syn_acc@1']:.4f} macroF1={m['macro_f1']:.4f} "
-      f"balAcc={m['balanced_accuracy']:.4f} fmt={m['format_validity']:.4f} empty={m['empty_pred_rate']:.4f}")
+      f"balAcc={m['balanced_accuracy']:.4f} valid_label_extraction_rate={m['valid_label_extraction_rate']:.4f} empty={m['empty_pred_rate']:.4f}")
 print(f"[saved] {out}")

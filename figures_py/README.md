@@ -29,7 +29,7 @@ prints a notice.
 
 | File | Role |
 | --- | --- |
-| `model_summary.csv` | public aggregate model summary (four rows): format validity and recorded parameter counts; no per-record predictions |
+| `model_summary.csv` | public aggregate model summary (four rows): valid-label extraction rate (frozen-parser success, not strict format compliance) and recorded parameter counts; no per-record predictions |
 | `confusion_matrix_{zybert,internlm3,macbert,qwen3}.csv` | archived 42×42 matrices; source of all point metrics |
 | `fig5_metrics.csv`, `fig5_pairs.csv` | seed-42 metrics and paired differences (six comparisons) |
 | `fig6_seeds.csv` | three-seed summaries for ZY-BERT and InternLM3 |
