@@ -42,11 +42,13 @@ The main paper reports the decontaminated held-out set (N=4,218). The original s
 - Macro-F1
 - Weighted-F1
 - Balanced accuracy
-- format validity and empty-prediction rate for generated outputs
+- valid-label extraction rate (frozen-parser success; not strict two-field format compliance) and empty-prediction rate for generated outputs. The public aggregate CSV retains the historical field name `format_validity` for this quantity.
 - paired bootstrap 95% CI for accuracy, Macro-F1, and Balanced Accuracy differences (2,000 resamples; seed 20260516)
 - exact two-sided McNemar test for paired accuracy
 - Holm correction across six pairwise accuracy comparisons
 - class-stratified paired-bootstrap sensitivity analysis for class-sensitive metrics
+
+The historical Balanced Accuracy fast path included prediction-only labels in its averaging denominator. This was corrected on PR #4 and the ordinary paired-bootstrap intervals were re-run with authorized input on 2026-11-10. The corrected fast path matched scikit-learn in 8,000/8,000 resample/model comparisons; only one CI endpoint changed by 0.01 percentage points and no zero-exclusion verdict changed. The aligned case-level input remains private. See `docs/STATISTICAL_METHOD.md` and `audits/20261110_ba_reverification/README.md`.
 
 ## Checkpoint selection
 - MacBERT: development Macro-F1 early stopping (historical frozen run)

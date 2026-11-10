@@ -272,7 +272,7 @@ def fig4():
     R(470, 626, 420, 86, fill="#FFFFFF", stroke=ORANGE, sw=2)
     lines(486, 660, ["InternLM3-8B (4-bit NF4 QLoRA;", "seeds 42, 2026, 7)"], 21, INK, 400, lh=28)
     R(470, 742, 420, 86, fill="#FFFFFF", stroke=MAGENTA, sw=2)
-    lines(486, 776, ["Qwen3-8B (LoRA-SFT;", "historical seed-42)"], 21, INK, 400, lh=28)
+    lines(486, 776, ["Qwen3-8B (QLoRA-SFT;", "historical seed-42)"], 21, INK, 400, lh=28)
 
     L(890, 669, 940, 669, stroke=INK, sw=1.4)
     L(890, 785, 940, 785, stroke=INK, sw=1.4)
@@ -374,6 +374,7 @@ def fig5():
     T(1134, 771, "Macro-F1", 19, MUT, 400)
     R(1250, 757, 10, 10, fill="#FFFFFF", stroke=INK, sw=1.2)
     T(1266, 771, "Balanced accuracy", 19, MUT, 400)
+    T(1080, 800, "Ordinary-bootstrap Balanced Accuracy intervals are provisional pending authorized-data re-execution", 15, MUT, 400)
     names = ["ZY-BERT vs InternLM3-8B", "ZY-BERT vs MacBERT", "ZY-BERT vs Qwen3-8B",
              "InternLM3-8B vs MacBERT", "InternLM3-8B vs Qwen3-8B", "MacBERT vs Qwen3-8B"]
 
@@ -474,6 +475,7 @@ def fig6():
 
     T(50, 706, "Macro-F1", 24, INK, 700)
     T(50, 1006, "Balanced accuracy", 24, INK, 700)
+    T(50, 1030, "Ordinary-bootstrap Balanced Accuracy intervals are provisional pending authorized-data re-execution", 14, MUT, 400)
 
     def rowf(yy, vals, nm, shade=False):
         v, lo, hi, slo, shi = vals
@@ -625,7 +627,7 @@ def fig8():
              ("MacBERT", GREEN), ("Qwen3-8B", MAGENTA))]
     TX = 1080
     T(TX, 770, "Model", 18, MUT, 600)
-    T(1700, 770, "Valid labels (%)", 18, MUT, 600, "end")
+    T(1700, 770, "Valid label", 18, MUT, 600, "end")
     T(1930, 770, "Empty outputs", 18, MUT, 600, "end")
     L(TX, 784, 1930, 784, stroke=INK, sw=1)
     for i, (nm, v, empty, col) in enumerate(vals):
@@ -635,8 +637,7 @@ def fig8():
         T(1700, yy, f"{v:.2f}%", 21, INK, 700, "end")
         T(1930, yy, ("2 (0.05%)" if empty else "0"), 21, INK, 400, "end")
         L(TX, yy + 14, 1930, yy + 14, stroke="#E2E7EB", sw=0.8)
-    T(TX, 1030, "Denominator N = 4,218 \u00b7 empty outputs counted as errors", 18, MUT, 400)
-    T(TX, 1058, "Frozen parser v18 \u00b7 identical post-processing for all systems", 18, MUT, 400)
+    T(TX, 1030, "Frozen parser v18 \u00b7 identical post-processing for all systems", 18, MUT, 400)
     save()
 
 

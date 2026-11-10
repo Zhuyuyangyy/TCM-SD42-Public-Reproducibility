@@ -70,3 +70,6 @@ archived matrices in `../results/` and the top-10 table in `source_data/`:
 
 The plotted values are identical to the typeset supplement; the styling is a
 clean re-implementation and is not claimed to be pixel-identical.
+
+
+The S0-S4 generator validates the four confusion-matrix Git blob SHA-1 values, frozen row/column label order, matrix totals, diagonal counts, class-support accounting, and all 40 top-10 cells before rendering. It writes PNG and SVG outputs to the selected output directory; the checked-in PNGs are the current public rendering snapshot.

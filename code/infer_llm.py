@@ -130,5 +130,5 @@ parsed_out.write_text("\n".join(json.dumps(r, ensure_ascii=False) for r in parse
 
 m = compute_metrics([r["gold"] for r in parsed_records], [r["pred"] for r in parsed_records])
 print(f"[metrics] n={m['n']} syn@1={m['syn_acc@1']:.4f} macroF1={m['macro_f1']:.4f} "
-      f"balAcc={m['balanced_accuracy']:.4f} fmt={m['format_validity']:.4f} empty={m['empty_pred_rate']:.4f}")
+      f"balAcc={m['balanced_accuracy']:.4f} validLabelExtractionRate={m['format_validity']:.4f} empty={m['empty_pred_rate']:.4f}")
 print(f"[saved] {raw_out}\n[saved] {parsed_out}")

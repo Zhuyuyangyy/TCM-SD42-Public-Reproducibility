@@ -107,9 +107,11 @@ def main():
         "Figure1.svg": ["75.77", "66.51", "69.58", "60.74", "+6.19 pp", "+5.77 pp",
                         "74.92 \u00b1 1.13", "69.42 \u00b1 0.21", "4,218", "4,186", "860", "6"],
         "Figure5.svg": ["75.77", "66.51", "69.58", "60.74", "62.78", "56.81",
-                        "58.70", "54.50", "+6.19 pp", "4.93", "7.44", "505 / 244"],
+                        "58.70", "54.50", "+6.19 pp", "4.93", "7.44", "505 / 244",
+                        "Ordinary-bootstrap Balanced Accuracy intervals are provisional pending authorized-data re-execution"],
         "Figure6.svg": ["75.77", "75.34", "73.64", "69.58", "69.49", "69.18",
-                        "74.92 \u00b1 1.13", "69.42 \u00b1 0.21"],
+                        "74.92 \u00b1 1.13", "69.42 \u00b1 0.21",
+                        "Ordinary-bootstrap Balanced Accuracy intervals are provisional pending authorized-data re-execution"],
         "Figure7.svg": ["860", "6", "support"],
         "Figure8.svg": ["99.95", "100.00", "77", "92", "136"],
     }
