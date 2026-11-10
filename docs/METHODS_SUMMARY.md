@@ -48,7 +48,7 @@ The main paper reports the decontaminated held-out set (N=4,218). The original s
 - Holm correction across six pairwise accuracy comparisons
 - class-stratified paired-bootstrap sensitivity analysis for class-sensitive metrics
 
-The archived ordinary-bootstrap Balanced Accuracy intervals are provisional because the historical fast path included prediction-only labels in its averaging denominator. The corrected sklearn-compatible implementation is on open PR #4; authorized-input G3 parity testing and the 2,000-resample ordinary-BA rerun remain pending. See `docs/STATISTICAL_METHOD.md`.
+The historical Balanced Accuracy fast path included prediction-only labels in its averaging denominator. This was corrected on PR #4 and the ordinary paired-bootstrap intervals were re-run with authorized input on 2026-11-10. The corrected fast path matched scikit-learn in 8,000/8,000 resample/model comparisons; only one CI endpoint changed by 0.01 percentage points and no zero-exclusion verdict changed. The aligned case-level input remains private. See `docs/STATISTICAL_METHOD.md` and `audits/20261110_ba_reverification/README.md`.
 
 ## Checkpoint selection
 - MacBERT: development Macro-F1 early stopping (historical frozen run)

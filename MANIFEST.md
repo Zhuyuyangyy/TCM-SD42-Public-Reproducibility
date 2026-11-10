@@ -124,6 +124,15 @@ This repository contains public, aggregate, non-patient-level reproducibility ma
 The public repository does not contain raw TCM-SD clinical records, per-case prediction files, raw generated outputs, trained model/adapter weights, private compute paths, the private near-duplicate pair table, or full operational logs. The internal dataset_stats.json used to document the reported 278/42 counts is not included.
 
 
+## Audits
+
+- audits/20261110_ba_reverification/README.md — authorized-data ordinary BA re-verification summary and local rerun instructions
+- audits/20261110_ba_reverification/REPORT_BA_REVERIFICATION.md — G1-G4 results, six corrected BA intervals, and historical comparison
+- audits/20261110_ba_reverification/results/ — corrected and union-vs-corrected aggregate CSVs plus per-resample aggregate differences (no case-level records)
+- audits/20261110_ba_reverification/scripts/ — portable scripts requiring an authorized local six-field input; no private server paths
+- audits/20261110_ba_reverification/logs/ — sanitized execution logs
+- audits/20261110_ba_reverification/SHA256SUMS.txt — checksums for the committed audit artifacts
+
 ## Tests and CI
 
 - tests/test_recompute_tcm_sd42_label_selection.py — synthetic tests for canonical-first selection, raw-form threshold omission, cap-scope deltas and suffix canonicalization

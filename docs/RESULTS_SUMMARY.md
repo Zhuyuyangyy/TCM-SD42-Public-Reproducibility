@@ -35,20 +35,24 @@ All six seed-42 pairwise accuracy comparisons remain statistically significant a
 
 All six Macro-F1 intervals exclude zero.
 
-## Pairwise Balanced Accuracy bootstrap (historical ordinary paired bootstrap; provisional)
+## Pairwise Balanced Accuracy bootstrap (corrected ordinary paired bootstrap; authorized-data re-verification 2026-11-10)
 
-**Implementation caveat (2026-11-09).** The intervals below are archived historical estimates produced by the original NumPy fast path, which averaged recall over the union of labels present in the resampled gold and prediction vectors. Prediction-only labels therefore entered the denominator as zero-recall classes. This is not equivalent to scikit-learn `balanced_accuracy_score`, which averages over classes present in `y_true` only. A corrected gold-present fast path is available on the open PR #4 review branch and passes code-level regression tests, but it has not been merged into `main`. The authorized aligned case-level predictions are not in this public repository, so the 50-sample G3 parity gate and the 2,000-resample ordinary-BA rerun have not been performed. The endpoints below must remain labelled historical/provisional; whether any endpoint changes under the corrected implementation is not yet known. Do not interpret this caveat as changing the full-test-set BA point estimates, Macro-F1 intervals, or class-stratified BA intervals.
+**Implementation correction.** The historical fast path averaged recall over the union of classes present in the resampled gold and prediction vectors, incorrectly including prediction-only classes as zero-recall categories. The corrected implementation averages over classes present in the resampled gold labels, matching scikit-learn balanced_accuracy_score.
 
-| Comparison | Difference (first - second) | 95% CI |
+The authorized-data re-verification used N = 4,218, 2,000 paired resamples, seed 20260516, and percentile indices [50] / [1949]. The corrected fast path matched scikit-learn in 8,000/8,000 resample/model comparisons (maximum absolute difference 0). The historical union implementation reproduced the archived six-pair intervals. Only one endpoint changed: the ZY-BERT-versus-InternLM3 upper limit moved from 0.0786 to 0.0787. No zero-exclusion verdict changed. The full-test-set BA point estimates, Macro-F1 intervals, and class-stratified BA intervals are unaffected.
+
+| Comparison | Difference (first - second) | Corrected 95% CI |
 |---|---:|---:|
-| ZY-BERT vs InternLM3 | +0.0577 | [0.0361, 0.0786] |
+| ZY-BERT vs InternLM3 | +0.0577 | [0.0361, 0.0787] |
 | ZY-BERT vs MacBERT | +0.0669 | [0.0452, 0.0894] |
 | ZY-BERT vs Qwen3 | +0.1059 | [0.0847, 0.1276] |
 | InternLM3 vs MacBERT | +0.0092 | [-0.0146, 0.0331] |
 | InternLM3 vs Qwen3 | +0.0482 | [0.0289, 0.0678] |
 | MacBERT vs Qwen3 | +0.0390 | [0.0145, 0.0636] |
 
-Among the historical ordinary-bootstrap intervals shown above, five of six exclude zero. The InternLM3-versus-MacBERT interval includes zero, so the archived ordinary-bootstrap analysis does not support a class-balanced recall advantage for InternLM3 over MacBERT despite InternLM3's higher point estimate. These ordinary BA interval statements remain provisional pending the authorized-data rerun described above. The unrounded point difference is approximately +0.9258 percentage points and is reported as +0.93.
+Five of six corrected ordinary-bootstrap intervals exclude zero. The InternLM3-versus-MacBERT interval remains the only interval containing zero; the corrected analysis therefore does not support a class-balanced recall advantage for InternLM3 over MacBERT despite its higher BA point estimate. The unrounded point difference is approximately +0.9258 percentage points and is reported as +0.93.
+
+The original historical aggregate CSV remains unchanged. The corrected result and union-versus-corrected comparison are separately archived in [the BA re-verification audit](../audits/20261110_ba_reverification/README.md). Case-level predictions are not distributed; independent reproduction requires authorized local input. PR #4 remains unmerged, so the current public main branch has not yet been updated to these corrected endpoints.
 
 ## Sensitivity analysis
 
