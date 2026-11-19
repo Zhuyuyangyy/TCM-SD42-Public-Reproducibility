@@ -97,24 +97,21 @@ def compute_metrics(
     except Exception:
         bal_acc = 0.0
 
-    # Per-class metrics
-    class_metrics = {}
+    # Score the complete gold/prediction pairs, including out-of-vocabulary
+    # predictions. The exported closed-set confusion matrix omits those rows.
     try:
-        cm = confusion_matrix(gold_labels, pred_labels, labels=label_list)
-        for i, label in enumerate(label_list):
-            tp = cm[i, i]
-            fp = cm[:, i].sum() - tp
-            fn = cm[i, :].sum() - tp
-            prec = tp / (tp + fp) if (tp + fp) > 0 else 0.0
-            rec = tp / (tp + fn) if (tp + fn) > 0 else 0.0
-            f1 = 2 * prec * rec / (prec + rec) if (prec + rec) > 0 else 0.0
-            support = cm[i, :].sum()
-            class_metrics[label] = {
-                "precision": round(prec, 4),
-                "recall": round(rec, 4),
-                "f1": round(f1, 4),
-                "support": int(support),
+        precision, recall, f1, support = precision_recall_fscore_support(
+            gold_labels, pred_labels, labels=label_list, average=None, zero_division=0
+        )
+        class_metrics = {
+            label: {
+                "precision": round(float(p), 4),
+                "recall": round(float(r), 4),
+                "f1": round(float(f), 4),
+                "support": int(n_gold),
             }
+            for label, p, r, f, n_gold in zip(label_list, precision, recall, f1, support)
+        }
     except Exception as e:
         class_metrics = {"error": str(e)}
 

@@ -1,0 +1,2 @@
+# Supplementary figures verify the frozen Git blob of each matrix.
+results/confusion_matrix_*.csv text eol=lf
