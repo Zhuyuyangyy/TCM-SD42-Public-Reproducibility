@@ -2,15 +2,18 @@
 # -*- coding: utf-8 -*-
 """Single source of truth for every number drawn in Figures 1-8.
 
-All values are read from source_data/ (copied verbatim from the audited
-recompute package).  Figure scripts must not hard-code a metric: if a value
-is missing here, add a loader, do not type the number into the drawing code.
+Values are loaded from the archived aggregate inputs and the published
+authorized-data re-verification audit. Figure scripts call these loaders.
 """
 import csv
 import math
 import os
 
-DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "source_data")
+HERE = os.path.dirname(os.path.abspath(__file__))
+DATA = os.path.join(HERE, "source_data")
+ROOT = os.path.dirname(HERE)
+RESULTS = os.path.join(ROOT, "results")
+BA_AUDIT = os.path.join(ROOT, "audits", "20261110_ba_reverification", "results")
 
 SHORT = {"ZY-BERT": "ZY-BERT", "InternLM3": "InternLM3-8B",
          "MacBERT": "MacBERT", "Qwen3": "Qwen3-8B"}
@@ -19,8 +22,8 @@ ORDER = ["ZY-BERT", "InternLM3-8B", "MacBERT", "Qwen3-8B"]
 SUP = str.maketrans("0123456789-", "\u2070\u00b9\u00b2\u00b3\u2074\u2075\u2076\u2077\u2078\u2079\u207b")
 
 
-def _rows(name):
-    with open(os.path.join(DATA, name), encoding="utf-8-sig") as fh:
+def _rows(name, directory=DATA):
+    with open(os.path.join(directory, name), encoding="utf-8-sig") as fh:
         yield from csv.DictReader(fh)
 
 
@@ -62,9 +65,23 @@ def mf1_forest():
             for r in _rows("fig5_pairs.csv")]
 
 
+def _model_key(name):
+    return name.lower().removesuffix("-8b").replace("-", "")
+
+
+def _pair_key(row):
+    return _model_key(row["a"]), _model_key(row["b"])
+
+
 def ba_forest():
-    return [(float(r["ba_diff"]), float(r["ba_lo"]), float(r["ba_hi"]))
-            for r in _rows("fig5_pairs.csv")]
+    """Ordinary BA intervals from the authorized-data re-verification."""
+    corrected = {
+        (r["model_a"], r["model_b"]): tuple(
+            100 * float(r[col]) for col in ("diff_obs_full_precision", "ci_lower", "ci_upper")
+        )
+        for r in _rows("pairwise_balanced_accuracy_bootstrap_seed42_corrected.csv", BA_AUDIT)
+    }
+    return [corrected[_pair_key(r)] for r in _rows("fig5_pairs.csv")]
 
 
 def _paired():
@@ -99,8 +116,13 @@ def seed_mean_sd(model):
 
 def dedup_slopes():
     """6 rows in panel order: (label, S0, S1, S2); sign = later model - earlier model."""
-    raw = {r["pair"]: (float(r["S0"]), float(r["S1"]), float(r["S2"]))
-           for r in _rows("fig6_dedup.csv")}
+    raw = {}
+    for r in _rows("dedup_sensitivity_seed42.csv", RESULTS):
+        a, b = r["pair"].split("-vs-")
+        subset = r["subset"][:2]
+        delta = float(r["delta_acc_pp"])
+        raw[subset, a, b] = delta
+        raw[subset, b, a] = -delta
     spec = [("Qwen3 vs ZY-BERT", "ZY-BERT vs Qwen3", -1),
             ("MacBERT vs ZY-BERT", "ZY-BERT vs MacBERT", -1),
             ("InternLM3 vs ZY-BERT", "ZY-BERT vs InternLM3", -1),
@@ -109,23 +131,23 @@ def dedup_slopes():
             ("InternLM3 vs Qwen3", "InternLM3 vs Qwen3", 1)]
     out = []
     for label, key, sign in spec:
-        s0, s1, s2 = raw[key]
-        out.append((label, sign * s0, sign * s1, sign * s2))
+        a, b = (_model_key(name) for name in key.split(" vs "))
+        out.append((label, *(sign * raw[s, a, b] for s in ("S0", "S1", "S2"))))
     return out
 
 
 def bootstrap_forest():
     """(macro list, balanced-accuracy list), each 6 rows (diff, ord_lo, ord_hi, str_lo, str_hi)"""
-    macro, ba = [], []
-    for r in _rows("fig6_bootstrap.csv"):
-        t = (float(r["diff"]), float(r["ord_lo"]), float(r["ord_hi"]),
-             float(r["str_lo"]), float(r["str_hi"]))
-        (macro if r["metric"] == "Macro-F1" else ba).append(t)
-    return macro, ba
-
-
-def bootstrap_sources():
-    return {r["metric"]: r["str_source"] for r in _rows("fig6_bootstrap.csv")}
+    stratified = {
+        (r["metric"], r["model_a"], r["model_b"]):
+            (100 * float(r["ci_lower"]), 100 * float(r["ci_upper"]))
+        for r in _rows("pairwise_class_sensitive_stratified_bootstrap_seed42.csv", RESULTS)
+    }
+    keys = [_pair_key(r) for r in _rows("fig5_pairs.csv")]
+    return tuple(
+        [(*ordinary, *stratified[(metric, *key)]) for key, ordinary in zip(keys, values)]
+        for metric, values in (("macro_f1", mf1_forest()), ("balanced_accuracy", ba_forest()))
+    )
 
 
 def error_rows():

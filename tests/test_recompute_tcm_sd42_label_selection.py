@@ -44,7 +44,7 @@ class LabelSelectionRecomputeTests(unittest.TestCase):
                 ])
 
             cmd = [
-                sys.executable, str(SCRIPT),
+                sys.executable, "-X", "utf8", str(SCRIPT),
                 "--train", str(train), "--dev", str(dev), "--test", str(test),
                 "--label-field", "syndrome", "--frozen-labels", str(labels),
                 "--frozen-support-csv", str(frozen), "--out-dir", str(out),
@@ -52,7 +52,7 @@ class LabelSelectionRecomputeTests(unittest.TestCase):
                 "--expected-test", str(len(test_labels)),
                 "--reported-final-train", "1100", "--reported-final-dev", "30", "--reported-final-test", "30",
             ]
-            run = subprocess.run(cmd, check=True, capture_output=True, text=True)
+            run = subprocess.run(cmd, check=True, capture_output=True, encoding="utf-8")
             result = json.loads((out / "label_selection_recompute.json").read_text(encoding="utf-8"))
             self.assertTrue(result["frozen_label_comparison"]["exact_set_match"])
             self.assertEqual(result["label_counts"]["eligible_raw_strings"], 3)
@@ -80,13 +80,13 @@ class LabelSelectionRecomputeTests(unittest.TestCase):
             self.write_json(dev, ["气滞血瘀证"] * 100 + ["气滞血瘀"] * 14)
             self.write_json(test, ["气滞血瘀证"] * 100 + ["气滞血瘀"] * 8)
             base = [
-                sys.executable, str(SCRIPT),
+                sys.executable, "-X", "utf8", str(SCRIPT),
                 "--train", str(train), "--dev", str(dev), "--test", str(test),
                 "--label-field", "syndrome",
                 "--expected-train", "597", "--expected-dev", "114", "--expected-test", "108",
             ]
-            subprocess.run(base + ["--out-dir", str(out_c)], check=True, capture_output=True, text=True)
-            subprocess.run(base + ["--selection-level", "raw_form", "--out-dir", str(out_r)], check=True, capture_output=True, text=True)
+            subprocess.run(base + ["--out-dir", str(out_c)], check=True, capture_output=True, encoding="utf-8")
+            subprocess.run(base + ["--selection-level", "raw_form", "--out-dir", str(out_r)], check=True, capture_output=True, encoding="utf-8")
             canonical = json.loads((out_c / "label_selection_recompute.json").read_text(encoding="utf-8"))
             raw = json.loads((out_r / "label_selection_recompute.json").read_text(encoding="utf-8"))
             self.assertEqual(canonical["recomputed_selected_support_before_historical_dedup"]["train_before_cap"], 597)
@@ -108,21 +108,21 @@ class LabelSelectionRecomputeTests(unittest.TestCase):
             write_jsonl(train, "正虚瘀结证", 100)
             write_jsonl(dev, "正虚瘀结证", 10)
             write_jsonl(test, "正虚瘀结证", 10)
-            cmd = [sys.executable, str(SCRIPT), "--train", str(train), "--dev", str(dev), "--test", str(test),
+            cmd = [sys.executable, "-X", "utf8", str(SCRIPT), "--train", str(train), "--dev", str(dev), "--test", str(test),
                    "--label-field", "syndrome", "--expected-train", "100", "--expected-dev", "10",
                    "--expected-test", "10", "--out-dir", str(out)]
-            subprocess.run(cmd, check=True, capture_output=True, text=True)
+            subprocess.run(cmd, check=True, capture_output=True, encoding="utf-8")
             result = json.loads((out / "label_selection_recompute.json").read_text(encoding="utf-8"))
             self.assertEqual(result["source_files"]["train"]["rows"], 100)
             self.assertEqual(result["recomputed_selected_support_before_historical_dedup"]["train_after_cap"], 100)
 
     def test_trailing_suffix_canonicalization_is_not_applied_twice(self):
         # A label with no trailing 证 is preserved; exactly one trailing character is removed.
-        cmd = [sys.executable, "-c",
+        cmd = [sys.executable, "-X", "utf8", "-c",
                "import runpy; m=runpy.run_path(r'" + str(SCRIPT) + "'); "
                "assert m['canonicalize']('正虚瘀结证') == '正虚瘀结'; "
                "assert m['canonicalize']('正虚瘀结') == '正虚瘀结'"]
-        subprocess.run(cmd, check=True, capture_output=True, text=True)
+        subprocess.run(cmd, check=True, capture_output=True, encoding="utf-8")
 
 if __name__ == "__main__":
     unittest.main()

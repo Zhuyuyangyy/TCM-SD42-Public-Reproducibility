@@ -1,7 +1,7 @@
-# TCM-SD42: Controlled Model Comparison for TCM Syndrome Differentiation
+# TCM-SD42: Case-Matched System Comparison for TCM Syndrome Classification
 
 > **Research archive / Medical NLP / Reproducibility**  
-> A controlled, system-level comparison of specialized encoders and general-purpose language models for traditional Chinese medicine syndrome differentiation.
+> A retrospective, case-matched comparison of two encoders and two generative language models for traditional Chinese medicine syndrome classification. The four systems share the same cases and label space, with distinct training and checkpoint-selection histories.
 
 ### S2 normalization verification (2026-10-25)
 
@@ -26,7 +26,7 @@ A direct comparison against archived aggregate anchors found that digit deletion
 
 Public reproducibility materials for the study:
 
-**Domain-Specific Encoder Shows an Advantage over General-Purpose Large Language Models in Closed-Set TCM Syndrome Classification**
+**A Case-Matched Comparison of ZY-BERT and General-Purpose Large Language Models for Closed-Set TCM Syndrome Classification**
 
 ## Read the evidence first
 
@@ -122,7 +122,7 @@ To recompute metrics from standardized prediction files (`id`, `gold`, `pred`), 
 
 The historical four-layer leakage-audit implementation was recovered and is published as `code/audit_leakage.py`. The v23 class-sensitive statistics addendum was also recovered; its ordinary and class-stratified aggregate tables and portable verification scripts are included here. The run-level seal coverage and the remaining evidence gap are summarized in `docs/PROVENANCE_EVIDENCE.md` and `provenance/seal_summary.json`.
 
-A copy of preprocess_tcm_sd_v4_topn.py was recovered in the private local evidence archive and inspected; it is not redistributed in this public repository because it contains fixed private runtime paths and expects licensed source data at those paths. The contemporaneous preprocessing stdout, complete historical source-label frequency table, and intermediate training-cleaning output remain unavailable. The recovered code supports suffix canonicalization before support counting/capping, and a later canonical-first source-split reconstruction explains the 227 post-cap / 117 pre-cap differences. The exact historical downstream execution order remains unproven because the contemporaneous stdout and complete source-label frequency table are unavailable; the canonical-first reconstruction is now synchronized to this public branch, but the exact historical downstream execution order remains unproven because the contemporaneous stdout and complete source-label frequency table are unavailable.
+A copy of preprocess_tcm_sd_v4_topn.py was recovered in the private local evidence archive and inspected; it is not redistributed in this public repository because it contains fixed private runtime paths and expects licensed source data at those paths. The contemporaneous preprocessing stdout, complete historical source-label frequency table, and intermediate training-cleaning output remain unavailable. The recovered code supports suffix canonicalization before support counting/capping, and a later canonical-first source-split reconstruction explains the 227 post-cap / 117 pre-cap differences. The canonical-first reconstruction is available in this repository. The exact historical downstream execution order remains unproven because the contemporaneous stdout and complete source-label frequency table are unavailable.
 
 ## Provenance notes
 
@@ -131,6 +131,16 @@ The exact 42-label task predates the current comparative experiments and was hel
 ## 2026-10-24 manuscript-facing evidence update
 
 The public documentation now reflects the latest author-side manuscript review without publishing the manuscript itself or any private clinical artifacts. It corrects the balanced-accuracy difference to +0.93 percentage points, distinguishes the 234-record exclusion set from the mixed record/hash counting convention, documents the recovered-but-private preprocessing script, and records the three-seed byte-identical dev_420 replay with its limits. It also preserves the unresolved full Seed-7 runtime log, the missing seed-2026 intermediate checkpoint, and historical baseline weight-linkage gaps. See [the synchronization note](docs/MANUSCRIPT_SYNC_20261024.md), [dev420 replay evidence](docs/DEV420_REPLAY_EVIDENCE_20261023.md), and [known limitations](docs/KNOWN_LIMITATIONS.md). The public repository still cannot reproduce private case-level exclusion decisions or the private development replay from its own files alone.
+
+### Optional strict output-template audit
+
+The historical `format_validity` field reports valid-label extraction with the frozen parser. Its fallback can recover a label from explanation text. Use the separate diagnostic below to measure compliance with the two-field template from authorized local raw outputs.
+
+```bash
+python code/audit_output_format.py /path/to/authorized_raw_outputs.jsonl
+```
+
+The diagnostic requires exactly two ordered nonblank fields, `证型：` with a full in-vocabulary label and `辨证依据：` with a nonempty single-line rationale. It prints aggregate counts and rates. It leaves archived predictions and metrics intact. The public archive does not distribute raw generative outputs, so it does not report a measured strict-compliance rate.
 
 ## Citation
 

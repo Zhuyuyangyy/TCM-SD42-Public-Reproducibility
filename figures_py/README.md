@@ -27,6 +27,13 @@ prints a notice.
 
 ## Inputs (`source_data/`)
 
+Figures 5 and 6 load ordinary balanced-accuracy intervals from the 2026-11-10
+authorized-data audit under `audits/20261110_ba_reverification/`. The plotted
+S0–S2 contrasts and stratified intervals come from the archived aggregate CSVs
+under `results/`. The published historical CSVs remain available for comparison.
+The public regeneration reproduces the source-backed plots. The typeset
+manuscript can use a different visual layout.
+
 | File | Role |
 | --- | --- |
 | `model_summary.csv` | public aggregate model summary (four rows): valid-label extraction rate (historical column name `format_validity`) and recorded parameter counts; no per-record predictions |
