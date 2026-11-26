@@ -88,9 +88,11 @@ This repository contains public, aggregate, non-patient-level reproducibility ma
 - results/figures/figure1_overall_performance.png
 - results/figures/figure2_seed_robustness.png
 - results/internlm3_3seed_metrics.json
-- results/pairwise_balanced_accuracy_bootstrap_seed42.csv
-- results/pairwise_class_sensitive_bootstrap_seed42.csv
-- results/pairwise_class_sensitive_stratified_bootstrap_seed42.csv
+- results/AUTHORITATIVE_VS_HISTORICAL.md — explicit separation between historical pre-reverification CSVs and authoritative publication-facing tables
+- results/README.md — prominent warning against citing legacy CSVs plus 4,216-vs-4,218 matrix denominator reconciliation
+- results/pairwise_balanced_accuracy_bootstrap_seed42.csv — [DO NOT CITE FOR FINAL ORDINARY BA] historical pre-reverification archive (union-denominator ordinary BA; retained unchanged for audit traceability)
+- results/pairwise_class_sensitive_bootstrap_seed42.csv — [DO NOT CITE FOR FINAL ORDINARY BA] historical pre-reverification archive (Macro-F1 matches pairwise_macro_f1_bootstrap_seed42.csv; BA rows retain historical pre-correction values)
+- results/pairwise_class_sensitive_stratified_bootstrap_seed42.csv — authoritative class-stratified paired bootstrap intervals, synchronized with corrected ordinary BA CI (`ordinary_ci_upper = 0.0787`), 4-decimal unrounded-difference values (`diff_obs_unrounded_4dp`), and 16-digit matrix-derived floating-point differences (`diff_obs_full_precision`)
 - results/pairwise_macro_f1_bootstrap_seed42.csv
 - results/pairwise_significance_seed42.csv
 - results/three_seed_summary.csv
@@ -105,11 +107,16 @@ This repository contains public, aggregate, non-patient-level reproducibility ma
 
 - figures_r/reproduce_figures.R
 - figures_py/reproduce_figures.py — rebuilds the eight main figures from figures_py/source_data/ (vector SVG; 600-dpi PNG where Edge/Chrome is available)
+- figures_py/redraw_new_reference_20261122.py — final publication redraw entry point for Figures 1–8 (`Figure1.svg`–`Figure8.svg`), reading derived source CSVs (with filled `true_zh`/`pred_zh` labels in `source_data/fig8_errors.csv`)
+- figures_py/make_supp_figures.py — validates archived matrix Git blob hashes and rebuilds Supplementary Figures S0-S4
 - figures_py/figure_data.py — single data loader for metrics, paired differences, seeds, validity, error directions and class support
 - figures_py/build_all.py, fig4_v3.py, ga_v2.py — panel builders (Figures 2–3 and 5–8; Figure 4; Figure 1)
 - figures_py/verify_provenance.py — recomputes Accuracy/Macro-F1/Weighted-F1/Balanced-Accuracy from the four archived confusion matrices and checks the numbers printed in the SVGs
-- figures_py/Figure1.svg … Figure8.svg, Figure1.png … Figure8.png — generated outputs
+- figures_py/Figure1.svg … Figure8.svg, Figure1.png … Figure8.png — generated main-figure outputs
+- figures_py/supp_figures/FigureS0.png … FigureS4.png — generated supplementary-figure outputs
 - figures_py/README.md — run instructions and input table
+- docs/SUPPLEMENTARY_FIGURE_REPRODUCTION.md — supplementary figure generation and validation notes
+- requirements-figures.txt — Matplotlib requirement for supplementary figure rendering
 
 ## Manuscript note
 
@@ -120,8 +127,20 @@ This repository contains public, aggregate, non-patient-level reproducibility ma
 The public repository does not contain raw TCM-SD clinical records, per-case prediction files, raw generated outputs, trained model/adapter weights, private compute paths, the private near-duplicate pair table, or full operational logs. The internal dataset_stats.json used to document the reported 278/42 counts is not included.
 
 
+## Audits
+
+- audits/20261110_ba_reverification/README.md — authorized-data ordinary BA re-verification summary and local rerun instructions
+- audits/20261110_ba_reverification/REPORT_BA_REVERIFICATION.md — G1-G4 results, six corrected BA intervals, and historical comparison
+- audits/20261110_ba_reverification/results/ — corrected and union-vs-corrected aggregate CSVs plus per-resample aggregate differences (no case-level records)
+- audits/20261110_ba_reverification/scripts/ — portable scripts requiring an authorized local six-field input; no private server paths
+- audits/20261110_ba_reverification/logs/ — sanitized execution logs
+- audits/20261110_ba_reverification/SHA256SUMS.txt — checksums for the committed audit artifacts
+
 ## Tests and CI
 
 - tests/test_recompute_tcm_sd42_label_selection.py — synthetic tests for canonical-first selection, raw-form threshold omission, cap-scope deltas and suffix canonicalization
+- tests/test_balanced_accuracy_fast_path.py — regression tests for sklearn-compatible prediction-only class handling
+- tests/test_supplementary_figures.py — aggregate matrix and S0-S4 rendering tests
 - tests/test_s2_normalization.py — synthetic coverage for deletion-default and sentinel-comparison S2 normalization
-- .github/workflows/audit-script-smoke-tests.yml — Python syntax and synthetic smoke tests
+- tests/test_final_figure_source_consistency.py — guards authoritative vs. historical BA provenance, `fig8_errors.csv` label completeness, Figure 2 `Inquiry` label, Figure 7 168-point bounds/non-occlusion, and Figure 8 `4,216 / 4,218` visibility
+- .github/workflows/audit-script-smoke-tests.yml — Python syntax, synthetic tests, public aggregate verification, main-figure provenance, and S0-S4 rendering

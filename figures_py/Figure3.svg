@@ -1,77 +1,249 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="740" viewBox="0 0 2000 740">
-<rect width="2000" height="740" fill="#FFFFFF"/>
-<line x1="505" y1="60" x2="505" y2="720" stroke="#8A8A8A" stroke-width="1.1" stroke-dasharray="6 6" opacity="1" stroke-linecap="round"/>
-<line x1="1400" y1="60" x2="1400" y2="720" stroke="#8A8A8A" stroke-width="1.1" stroke-dasharray="6 6" opacity="1" stroke-linecap="round"/>
-<text x="46" y="96" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700" fill="#111111" text-anchor="start">A</text>
-<rect x="60" y="150" width="410" height="84" rx="0" fill="#FFFFFF" stroke="#222222" stroke-width="1.3" opacity="1"/>
-<text x="76" y="184" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="600" fill="#222222" text-anchor="start">4,186 training records</text>
-<text x="76" y="214" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" fill="#666666" text-anchor="start">91–100 per class</text>
-<rect x="60" y="260" width="410" height="84" rx="0" fill="#FFFFFF" stroke="#222222" stroke-width="1.3" opacity="1"/>
-<text x="76" y="294" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="600" fill="#222222" text-anchor="start">420 development records</text>
-<text x="76" y="324" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" fill="#666666" text-anchor="start">10 per class</text>
-<rect x="60" y="370" width="410" height="84" rx="0" fill="#FFFFFF" stroke="#222222" stroke-width="2.0" opacity="1"/>
-<text x="76" y="404" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="600" fill="#222222" text-anchor="start">4,452-record source test pool</text>
-<text x="76" y="434" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" fill="#666666" text-anchor="start">before decontamination</text>
-<rect x="60" y="480" width="410" height="84" rx="0" fill="#EAF1F7" stroke="#222222" stroke-width="1.3" opacity="1"/>
-<text x="76" y="514" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="600" fill="#222222" text-anchor="start">4,218 clean held-out test records</text>
-<text x="76" y="544" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" fill="#666666" text-anchor="start">primary evaluation</text>
-<text x="520" y="96" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700" fill="#111111" text-anchor="start">B</text>
-<line x1="470" y1="412" x2="530.0" y2="412.0" stroke="#222222" stroke-width="2" opacity="1" stroke-linecap="round"/>
-<line x1="470" y1="412" x2="530.00" y2="412.00" stroke="#222222" stroke-width="2" stroke-linecap="round"/>
-<polygon points="540.00,412.00 532.00,416.00 532.00,408.00" fill="#222222" stroke="#222222" stroke-width="1" stroke-linejoin="round"/>
-<circle cx="540" cy="412" r="4.5" fill="#222222" stroke="none" stroke-width="1"/>
-<line x1="540" y1="210" x2="540" y2="510" stroke="#222222" stroke-width="2" opacity="1" stroke-linecap="round"/>
-<circle cx="540" cy="510" r="4" fill="#222222" stroke="none" stroke-width="1"/>
-<line x1="540" y1="210" x2="590.0" y2="210.0" stroke="#222222" stroke-width="1.8" opacity="1" stroke-linecap="round"/>
-<line x1="540" y1="210" x2="590.00" y2="210.00" stroke="#222222" stroke-width="1.8" stroke-linecap="round"/>
-<polygon points="600.00,210.00 592.00,214.00 592.00,206.00" fill="#222222" stroke="#222222" stroke-width="1" stroke-linejoin="round"/>
-<line x1="540" y1="510" x2="590.0" y2="510.0" stroke="#222222" stroke-width="1.8" opacity="1" stroke-linecap="round"/>
-<line x1="540" y1="510" x2="590.00" y2="510.00" stroke="#222222" stroke-width="1.8" stroke-linecap="round"/>
-<polygon points="600.00,510.00 592.00,514.00 592.00,506.00" fill="#222222" stroke="#222222" stroke-width="1" stroke-linejoin="round"/>
-<rect x="600" y="160" width="560" height="100" rx="0" fill="#FFFFFF" stroke="#222222" stroke-width="1.4" opacity="1"/>
-<text x="880.0" y="202.92" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" fill="#222222" text-anchor="middle">SHA-256 exact match on raw input_text</text>
-<text x="880.0" y="232.92" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" fill="#222222" text-anchor="middle">6 exact duplicates (5 unique hashes)</text>
-<rect x="600" y="460" width="560" height="100" rx="0" fill="#FFFFFF" stroke="#222222" stroke-width="1.4" opacity="1"/>
-<text x="880.0" y="502.92" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" fill="#222222" text-anchor="middle">TF-IDF cosine ≥ 0.95 (char 2–4-gram)</text>
-<text x="880.0" y="532.9200000000001" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" fill="#222222" text-anchor="middle">228 near-duplicates excluded</text>
-<line x1="1200" y1="210" x2="1240" y2="210" stroke="#222222" stroke-width="1.4" opacity="1" stroke-linecap="round"/>
-<line x1="1200" y1="510" x2="1240" y2="510" stroke="#222222" stroke-width="1.4" opacity="1" stroke-linecap="round"/>
-<line x1="1240" y1="210" x2="1240" y2="560" stroke="#222222" stroke-width="1.4" opacity="1" stroke-linecap="round"/>
-<line x1="1240" y1="560" x2="1240.0" y2="590.0" stroke="#222222" stroke-width="1.8" opacity="1" stroke-linecap="round"/>
-<line x1="1240" y1="560" x2="1240.00" y2="590.00" stroke="#222222" stroke-width="1.8" stroke-linecap="round"/>
-<polygon points="1240.00,600.00 1236.00,592.00 1244.00,592.00" fill="#222222" stroke="#222222" stroke-width="1" stroke-linejoin="round"/>
-<rect x="600" y="600" width="740" height="90" rx="0" fill="#FFFFFF" stroke="#222222" stroke-width="1.4" opacity="1"/>
-<text x="970.0" y="653.28" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="600" fill="#222222" text-anchor="middle">234 excluded  ·  4,452 − 6 − 228 = 4,218 clean records</text>
-<text x="1450" y="96" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700" fill="#111111" text-anchor="start">C</text>
-<rect x="1460" y="150" width="470" height="66" rx="0" fill="#FFFFFF" stroke="#222222" stroke-width="1.4" opacity="1"/>
-<text x="1695.0" y="191.28" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="600" fill="#222222" text-anchor="middle">420 development records</text>
-<line x1="1695" y1="216" x2="1695.0" y2="248.0" stroke="#222222" stroke-width="1.8" opacity="1" stroke-linecap="round"/>
-<line x1="1695" y1="216" x2="1695.00" y2="248.00" stroke="#222222" stroke-width="1.8" stroke-linecap="round"/>
-<polygon points="1695.00,258.00 1691.00,250.00 1699.00,250.00" fill="#222222" stroke="#222222" stroke-width="1" stroke-linejoin="round"/>
-<rect x="1460" y="258" width="470" height="96" rx="0" fill="#FFFFFF" stroke="#222222" stroke-width="1.4" opacity="1"/>
-<text x="1695.0" y="299.56" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#222222" text-anchor="middle">54 instances in train–dev pairs</text>
-<text x="1695.0" y="327.56" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#222222" text-anchor="middle">≥ 0.95 (18 exact duplicates) excluded</text>
-<line x1="1695" y1="354" x2="1695.0" y2="386.0" stroke="#222222" stroke-width="1.8" opacity="1" stroke-linecap="round"/>
-<line x1="1695" y1="354" x2="1695.00" y2="386.00" stroke="#222222" stroke-width="1.8" stroke-linecap="round"/>
-<polygon points="1695.00,396.00 1691.00,388.00 1699.00,388.00" fill="#222222" stroke="#222222" stroke-width="1" stroke-linejoin="round"/>
-<rect x="1460" y="396" width="470" height="60" rx="0" fill="#FFFFFF" stroke="#222222" stroke-width="1.4" opacity="1"/>
-<text x="1695.0" y="433.92" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="600" fill="#222222" text-anchor="middle">366 development records remaining</text>
-<rect x="1460" y="486" width="470" height="240" rx="0" fill="#F7F9FB" stroke="#D5DCE3" stroke-width="1.1" opacity="1"/>
-<text x="1478" y="518" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#0072B2" text-anchor="start">ZY-BERT development Macro-F1</text>
-<text x="1478" y="542" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#666666" text-anchor="start">record-level audit</text>
-<line x1="1700" y1="642" x2="1900" y2="642" stroke="#222222" stroke-width="1.2" opacity="1" stroke-linecap="round"/>
-<line x1="1700.0" y1="642" x2="1700.0" y2="648" stroke="#222222" stroke-width="1" opacity="1" stroke-linecap="round"/>
-<text x="1700.0" y="668" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" fill="#666666" text-anchor="middle">0.76</text>
-<line x1="1766.6666666666667" y1="642" x2="1766.6666666666667" y2="648" stroke="#222222" stroke-width="1" opacity="1" stroke-linecap="round"/>
-<text x="1766.6666666666667" y="668" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" fill="#666666" text-anchor="middle">0.78</text>
-<line x1="1833.3333333333335" y1="642" x2="1833.3333333333335" y2="648" stroke="#222222" stroke-width="1" opacity="1" stroke-linecap="round"/>
-<text x="1833.3333333333335" y="668" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" fill="#666666" text-anchor="middle">0.80</text>
-<text x="1478" y="575" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#222222" text-anchor="start">Before exclusion</text>
-<text x="1478" y="611" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#222222" text-anchor="start">After exclusion</text>
-<text x="1852.0" y="552" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" fill="#222222" text-anchor="middle">0.8056</text>
-<text x="1747.3333333333333" y="588" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" fill="#222222" text-anchor="middle">0.7742</text>
-<circle cx="1852.0" cy="576" r="6" fill="#0072B2" stroke="none" stroke-width="1"/>
-<circle cx="1747.3333333333333" cy="612" r="6" fill="#0072B2" stroke="none" stroke-width="1"/>
-<line x1="1852.0" y1="576" x2="1747.3333333333333" y2="612" stroke="#0072B2" stroke-width="1.2" opacity="1" stroke-linecap="round"/>
-<text x="1478" y="706" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" fill="#D55E00" text-anchor="start">Δ −0.0314  (−3.9%)</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1254 1254" width="1254" height="1254">
+<rect x="0" y="0" width="1254" height="1254" rx="0" fill="#ffffff" stroke="none" stroke-width="1"/>
+<rect x="18" y="39" width="1218" height="200" rx="8" fill="#ffffff" stroke="#000035" stroke-width="1.7"/>
+<path d="M60,80 V160 C60,175 132,175 132,160 V80 Z" fill="#e0e0e7" stroke="#000035" stroke-width="1.55"/>
+<path d="M60,80 C60,68 132,68 132,80 C132,92 60,92 60,80 Z" fill="#9c9cb0" stroke="#000035" stroke-width="1.55"/>
+<path d="M60,107 C60,117 132,117 132,107" fill="none" stroke="#000035" stroke-width="1.45"/>
+<path d="M60,134 C60,144 132,144 132,134" fill="none" stroke="#000035" stroke-width="1.45"/>
+<circle cx="125" cy="114.667" r="1.75" fill="#000035" stroke="none" stroke-width="1"/>
+<circle cx="125" cy="142.333" r="1.75" fill="#000035" stroke="none" stroke-width="1"/>
+<text x="211" y="132" text-anchor="start" font-family="Arial" font-size="43" font-weight="700" fill="#000035">54,152</text>
+<text x="217" y="161" text-anchor="start" font-family="Arial" font-size="24" font-weight="400" fill="#000035">records</text>
+<text x="153" y="222" text-anchor="start" font-family="Arial" font-size="23" font-weight="700" fill="#000035">Raw corpus</text>
+<polyline points="357,133 390,133" stroke="#000035" stroke-width="2" fill="none"/>
+<polygon points="398,133 390,136.68 390,129.32" stroke="none" stroke-width="0" fill="#000035"/>
+<rect x="415" y="70" width="17" height="17" rx="0" fill="#2a73b9" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="438" y="70" width="17" height="17" rx="0" fill="#ffffff" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="461" y="70" width="17" height="17" rx="0" fill="#ffffff" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="484" y="70" width="17" height="17" rx="0" fill="#ffffff" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="507" y="70" width="17" height="17" rx="0" fill="#ffffff" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="530" y="70" width="17" height="17" rx="0" fill="#2a73b9" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="553" y="70" width="17" height="17" rx="0" fill="#ffffff" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="415" y="91" width="17" height="17" rx="0" fill="#ffffff" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="438" y="91" width="17" height="17" rx="0" fill="#ffffff" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="461" y="91" width="17" height="17" rx="0" fill="#2a73b9" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="484" y="91" width="17" height="17" rx="0" fill="#ffffff" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="507" y="91" width="17" height="17" rx="0" fill="#ffffff" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="530" y="91" width="17" height="17" rx="0" fill="#ffffff" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="553" y="91" width="17" height="17" rx="0" fill="#ffffff" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="415" y="112" width="17" height="17" rx="0" fill="#2a73b9" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="438" y="112" width="17" height="17" rx="0" fill="#ffffff" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="461" y="112" width="17" height="17" rx="0" fill="#ffffff" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="484" y="112" width="17" height="17" rx="0" fill="#ffffff" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="507" y="112" width="17" height="17" rx="0" fill="#2a73b9" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="530" y="112" width="17" height="17" rx="0" fill="#ffffff" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="553" y="112" width="17" height="17" rx="0" fill="#ffffff" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="415" y="133" width="17" height="17" rx="0" fill="#ffffff" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="438" y="133" width="17" height="17" rx="0" fill="#ffffff" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="461" y="133" width="17" height="17" rx="0" fill="#2a73b9" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="484" y="133" width="17" height="17" rx="0" fill="#ffffff" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="507" y="133" width="17" height="17" rx="0" fill="#ffffff" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="530" y="133" width="17" height="17" rx="0" fill="#ffffff" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="553" y="133" width="17" height="17" rx="0" fill="#2a73b9" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="415" y="154" width="17" height="17" rx="0" fill="#ffffff" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="438" y="154" width="17" height="17" rx="0" fill="#ffffff" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="461" y="154" width="17" height="17" rx="0" fill="#ffffff" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="484" y="154" width="17" height="17" rx="0" fill="#ffffff" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="507" y="154" width="17" height="17" rx="0" fill="#2a73b9" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="530" y="154" width="17" height="17" rx="0" fill="#ffffff" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="553" y="154" width="17" height="17" rx="0" fill="#ffffff" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="415" y="175" width="17" height="17" rx="0" fill="#ffffff" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="438" y="175" width="17" height="17" rx="0" fill="#2a73b9" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="461" y="175" width="17" height="17" rx="0" fill="#ffffff" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="484" y="175" width="17" height="17" rx="0" fill="#ffffff" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="507" y="175" width="17" height="17" rx="0" fill="#ffffff" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="530" y="175" width="17" height="17" rx="0" fill="#ffffff" stroke="#2a73b9" stroke-width="1.2"/>
+<rect x="553" y="175" width="17" height="17" rx="0" fill="#2a73b9" stroke="#2a73b9" stroke-width="1.2"/>
+<text x="590" y="135" text-anchor="start" font-family="Arial" font-size="43" font-weight="700" fill="#000035">42</text>
+<text x="594" y="163" text-anchor="start" font-family="Arial" font-size="22" font-weight="400" fill="#000035">classes</text>
+<text x="466" y="222" text-anchor="middle" font-family="Arial" font-size="24" font-weight="700" fill="#000035">Frozen task</text>
+<polyline points="665,133 699,133" stroke="#000035" stroke-width="2" fill="none"/>
+<polygon points="707,133 699,136.68 699,129.32" stroke="none" stroke-width="0" fill="#000035"/>
+<text x="715" y="85" text-anchor="start" font-family="Arial" font-size="19" font-weight="400" fill="#000035">Training</text>
+<rect x="842" y="71" width="277" height="22" rx="2" fill="#e9e5df" stroke="none" stroke-width="1"/>
+<rect x="842" y="71" width="260.45" height="22" rx="2" fill="#2a73b9" stroke="none" stroke-width="1"/>
+<text x="1198" y="89" text-anchor="end" font-family="Arial" font-size="25" font-weight="700" fill="#000035">4,186</text>
+<text x="715" y="132" text-anchor="start" font-family="Arial" font-size="19" font-weight="400" fill="#000035">Development</text>
+<rect x="842" y="118" width="277" height="22" rx="2" fill="#e9e5df" stroke="none" stroke-width="1"/>
+<rect x="842" y="118" width="26.1321" height="22" rx="2" fill="#4e7648" stroke="none" stroke-width="1"/>
+<text x="1198" y="136" text-anchor="end" font-family="Arial" font-size="25" font-weight="700" fill="#000035">420</text>
+<text x="715" y="179" text-anchor="start" font-family="Arial" font-size="19" font-weight="400" fill="#000035">Source test</text>
+<rect x="842" y="165" width="277" height="22" rx="2" fill="#e9e5df" stroke="none" stroke-width="1"/>
+<rect x="842" y="165" width="277" height="22" rx="2" fill="#2a73b9" stroke="none" stroke-width="1"/>
+<text x="1198" y="183" text-anchor="end" font-family="Arial" font-size="25" font-weight="700" fill="#000035">4,452</text>
+<text x="943" y="222" text-anchor="middle" font-family="Arial" font-size="23" font-weight="700" fill="#000035">Frozen splits</text>
+<polyline points="627,243 627,265" stroke="#000035" stroke-width="2.2" fill="none"/>
+<polygon points="627,273 623.32,265 630.68,265" stroke="none" stroke-width="0" fill="#000035"/>
+<rect x="18" y="278" width="1218" height="203" rx="8" fill="#ffffff" stroke="#000035" stroke-width="1.7"/>
+<line x1="92" y1="302" x2="92" y2="437" stroke="#000035" stroke-width="1.5"/>
+<text x="137" y="351" text-anchor="start" font-family="Arial" font-size="43" font-weight="700" fill="#000035">4,452</text>
+<text x="137" y="378" text-anchor="start" font-family="Arial" font-size="22" font-weight="400" fill="#000035">record IDs</text>
+<line x1="138" y1="391" x2="297" y2="391" stroke="#000035" stroke-width="2"/>
+<line x1="138" y1="405" x2="274" y2="405" stroke="#000035" stroke-width="2"/>
+<line x1="138" y1="419" x2="250" y2="419" stroke="#000035" stroke-width="2"/>
+<line x1="138" y1="433" x2="225" y2="433" stroke="#000035" stroke-width="2"/>
+<text x="151" y="463" text-anchor="start" font-family="Arial" font-size="22" font-weight="700" fill="#000035">Source pool</text>
+<polyline points="328,368 360,368" stroke="#000035" stroke-width="2" fill="none"/>
+<polygon points="368,368 360,371.68 360,364.32" stroke="none" stroke-width="0" fill="#000035"/>
+<text x="388" y="349" text-anchor="middle" font-family="Georgia" font-size="24" font-weight="700" fill="#000035">h(a)</text>
+<rect x="457" y="331" width="19" height="28" rx="1" fill="#000035" stroke="none" stroke-width="1"/>
+<rect x="480" y="331" width="19" height="28" rx="1" fill="#2a73b9" stroke="none" stroke-width="1"/>
+<rect x="503" y="331" width="19" height="28" rx="1" fill="#2a73b9" stroke="none" stroke-width="1"/>
+<rect x="526" y="331" width="19" height="28" rx="1" fill="#f4eee0" stroke="none" stroke-width="1"/>
+<rect x="549" y="331" width="19" height="28" rx="1" fill="#4e7648" stroke="none" stroke-width="1"/>
+<rect x="572" y="331" width="19" height="28" rx="1" fill="#2a73b9" stroke="none" stroke-width="1"/>
+<rect x="595" y="331" width="19" height="28" rx="1" fill="#2a73b9" stroke="none" stroke-width="1"/>
+<rect x="618" y="331" width="19" height="28" rx="1" fill="#c44f2f" stroke="none" stroke-width="1"/>
+<rect x="641" y="331" width="19" height="28" rx="1" fill="#000035" stroke="none" stroke-width="1"/>
+<rect x="664" y="331" width="19" height="28" rx="1" fill="#2a73b9" stroke="none" stroke-width="1"/>
+<rect x="687" y="331" width="19" height="28" rx="1" fill="#2a73b9" stroke="none" stroke-width="1"/>
+<rect x="710" y="331" width="19" height="28" rx="1" fill="#4e7648" stroke="none" stroke-width="1"/>
+<text x="388" y="416" text-anchor="middle" font-family="Georgia" font-size="24" font-weight="700" fill="#000035">h(b)</text>
+<rect x="457" y="398" width="19" height="28" rx="1" fill="#000035" stroke="none" stroke-width="1"/>
+<rect x="480" y="398" width="19" height="28" rx="1" fill="#2a73b9" stroke="none" stroke-width="1"/>
+<rect x="503" y="398" width="19" height="28" rx="1" fill="#2a73b9" stroke="none" stroke-width="1"/>
+<rect x="526" y="398" width="19" height="28" rx="1" fill="#f4eee0" stroke="none" stroke-width="1"/>
+<rect x="549" y="398" width="19" height="28" rx="1" fill="#4e7648" stroke="none" stroke-width="1"/>
+<rect x="572" y="398" width="19" height="28" rx="1" fill="#2a73b9" stroke="none" stroke-width="1"/>
+<rect x="595" y="398" width="19" height="28" rx="1" fill="#2a73b9" stroke="none" stroke-width="1"/>
+<rect x="618" y="398" width="19" height="28" rx="1" fill="#c44f2f" stroke="none" stroke-width="1"/>
+<rect x="641" y="398" width="19" height="28" rx="1" fill="#000035" stroke="none" stroke-width="1"/>
+<rect x="664" y="398" width="19" height="28" rx="1" fill="#2a73b9" stroke="none" stroke-width="1"/>
+<rect x="687" y="398" width="19" height="28" rx="1" fill="#2a73b9" stroke="none" stroke-width="1"/>
+<rect x="710" y="398" width="19" height="28" rx="1" fill="#4e7648" stroke="none" stroke-width="1"/>
+<text x="609" y="463" text-anchor="middle" font-family="Arial" font-size="23" font-weight="700" fill="#000035">SHA-256 hashes</text>
+<text x="782" y="373" text-anchor="middle" font-family="Arial" font-size="31" font-weight="700" fill="#000035">=</text>
+<rect x="820" y="321" width="119" height="83" rx="10" fill="#eef3e6" stroke="#4e7648" stroke-width="2"/>
+<text x="879" y="351" text-anchor="middle" font-family="Arial" font-size="21" font-weight="400" fill="#000035">Exact</text>
+<text x="879" y="375" text-anchor="middle" font-family="Arial" font-size="21" font-weight="400" fill="#000035">match</text>
+<polyline points="965,368 1000,368" stroke="#000035" stroke-width="2" fill="none"/>
+<polygon points="1008,368 1000,371.68 1000,364.32" stroke="none" stroke-width="0" fill="#000035"/>
+<text x="1040" y="391" text-anchor="start" font-family="Arial" font-size="59" font-weight="700" fill="#c44f2f">6</text>
+<text x="1091" y="384" text-anchor="start" font-family="Arial" font-size="25" font-weight="400" fill="#000035">excluded</text>
+<text x="1003" y="463" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#000035">Exact duplicates</text>
+<polyline points="627,482 627,506" stroke="#000035" stroke-width="2.2" fill="none"/>
+<polygon points="627,514 623.32,506 630.68,506" stroke="none" stroke-width="0" fill="#000035"/>
+<rect x="18" y="518" width="1218" height="210" rx="8" fill="#ffffff" stroke="#000035" stroke-width="1.7"/>
+<line x1="92" y1="545" x2="92" y2="679" stroke="#000035" stroke-width="1.5"/>
+<text x="145" y="587" text-anchor="middle" font-family="Georgia" font-size="24" font-weight="700" fill="#000035">v₁</text>
+<rect x="177" y="568" width="22" height="28" rx="0" fill="#2a73b9" stroke="#2a73b9" stroke-width="1.1"/>
+<rect x="204" y="568" width="22" height="28" rx="0" fill="#f8fafc" stroke="#2a73b9" stroke-width="1.1"/>
+<rect x="231" y="568" width="22" height="28" rx="0" fill="#f8fafc" stroke="#2a73b9" stroke-width="1.1"/>
+<rect x="258" y="568" width="22" height="28" rx="0" fill="#f8fafc" stroke="#2a73b9" stroke-width="1.1"/>
+<rect x="285" y="568" width="22" height="28" rx="0" fill="#f8fafc" stroke="#2a73b9" stroke-width="1.1"/>
+<rect x="312" y="568" width="22" height="28" rx="0" fill="#2a73b9" stroke="#2a73b9" stroke-width="1.1"/>
+<rect x="339" y="568" width="22" height="28" rx="0" fill="#f8fafc" stroke="#2a73b9" stroke-width="1.1"/>
+<rect x="366" y="568" width="22" height="28" rx="0" fill="#f8fafc" stroke="#2a73b9" stroke-width="1.1"/>
+<rect x="393" y="568" width="22" height="28" rx="0" fill="#2a73b9" stroke="#2a73b9" stroke-width="1.1"/>
+<rect x="420" y="568" width="22" height="28" rx="0" fill="#f8fafc" stroke="#2a73b9" stroke-width="1.1"/>
+<rect x="447" y="568" width="22" height="28" rx="0" fill="#f8fafc" stroke="#2a73b9" stroke-width="1.1"/>
+<text x="145" y="651" text-anchor="middle" font-family="Georgia" font-size="24" font-weight="700" fill="#000035">v₂</text>
+<rect x="177" y="632" width="22" height="28" rx="0" fill="#2a73b9" stroke="#2a73b9" stroke-width="1.1"/>
+<rect x="204" y="632" width="22" height="28" rx="0" fill="#f8fafc" stroke="#2a73b9" stroke-width="1.1"/>
+<rect x="231" y="632" width="22" height="28" rx="0" fill="#f8fafc" stroke="#2a73b9" stroke-width="1.1"/>
+<rect x="258" y="632" width="22" height="28" rx="0" fill="#f8fafc" stroke="#2a73b9" stroke-width="1.1"/>
+<rect x="285" y="632" width="22" height="28" rx="0" fill="#f8fafc" stroke="#2a73b9" stroke-width="1.1"/>
+<rect x="312" y="632" width="22" height="28" rx="0" fill="#2a73b9" stroke="#2a73b9" stroke-width="1.1"/>
+<rect x="339" y="632" width="22" height="28" rx="0" fill="#f8fafc" stroke="#2a73b9" stroke-width="1.1"/>
+<rect x="366" y="632" width="22" height="28" rx="0" fill="#f8fafc" stroke="#2a73b9" stroke-width="1.1"/>
+<rect x="393" y="632" width="22" height="28" rx="0" fill="#2a73b9" stroke="#2a73b9" stroke-width="1.1"/>
+<rect x="420" y="632" width="22" height="28" rx="0" fill="#f8fafc" stroke="#2a73b9" stroke-width="1.1"/>
+<rect x="447" y="632" width="22" height="28" rx="0" fill="#f8fafc" stroke="#2a73b9" stroke-width="1.1"/>
+<text x="318" y="705" text-anchor="middle" font-family="Arial" font-size="23" font-weight="700" fill="#000035">TF-IDF vectors</text>
+<text x="514" y="603" text-anchor="middle" font-family="Arial" font-size="23" font-weight="700" fill="#000035">…</text>
+<polyline points="563,603 595,603" stroke="#000035" stroke-width="2" fill="none"/>
+<polygon points="603,603 595,606.68 595,599.32" stroke="none" stroke-width="0" fill="#000035"/>
+<polyline points="666,657 878,657" stroke="#000035" stroke-width="1.5" fill="none"/>
+<polygon points="886,657 878,660.68 878,653.32" stroke="none" stroke-width="0" fill="#000035"/>
+<polyline points="666,657 666,553" stroke="#000035" stroke-width="1.5" fill="none"/>
+<polygon points="666,545 669.68,553 662.32,553" stroke="none" stroke-width="0" fill="#000035"/>
+<polyline points="666,657 781.912,558.19" stroke="#2a73b9" stroke-width="2.6" fill="none"/>
+<polygon points="788,553 784.299,560.99 779.525,555.389" stroke="none" stroke-width="0" fill="#2a73b9"/>
+<polyline points="666,657 812.882,581.651" stroke="#c44f2f" stroke-width="2.6" fill="none"/>
+<polygon points="820,578 814.562,584.926 811.202,578.377" stroke="none" stroke-width="0" fill="#c44f2f"/>
+<path d="M706,657 A40,40 0 0 1 722,632" fill="none" stroke="#000035" stroke-width="1.2"/>
+<text x="727" y="640" text-anchor="start" font-family="Arial" font-size="18" font-weight="700" fill="#000035">θ</text>
+<text x="783" y="550" text-anchor="start" font-family="Arial" font-size="21" font-weight="700" fill="#000035">COSINE ≥ 0.95</text>
+<text x="783" y="705" text-anchor="middle" font-family="Arial" font-size="19" font-weight="400" fill="#000035">Cosine similarity</text>
+<polyline points="920,603 955,603" stroke="#000035" stroke-width="2" fill="none"/>
+<polygon points="963,603 955,606.68 955,599.32" stroke="none" stroke-width="0" fill="#000035"/>
+<text x="1006" y="604" text-anchor="start" font-family="Arial" font-size="59" font-weight="700" fill="#c44f2f">228</text>
+<text x="1007" y="636" text-anchor="start" font-family="Arial" font-size="22" font-weight="400" fill="#000035">additional</text>
+<text x="1007" y="663" text-anchor="start" font-family="Arial" font-size="22" font-weight="400" fill="#000035">exclusions</text>
+<text x="1002" y="705" text-anchor="start" font-family="Arial" font-size="22" font-weight="700" fill="#000035">Near duplicates</text>
+<polyline points="627,730 627,751" stroke="#000035" stroke-width="2.2" fill="none"/>
+<polygon points="627,759 623.32,751 630.68,751" stroke="none" stroke-width="0" fill="#000035"/>
+<rect x="18" y="763" width="1218" height="176" rx="8" fill="#ffffff" stroke="#000035" stroke-width="1.7"/>
+<line x1="92" y1="789" x2="92" y2="908" stroke="#000035" stroke-width="1.5"/>
+<text x="136" y="837" text-anchor="start" font-family="Arial" font-size="43" font-weight="700" fill="#000035">4,452</text>
+<text x="142" y="866" text-anchor="start" font-family="Arial" font-size="20" font-weight="400" fill="#000035">source-test records</text>
+<text x="151" y="913" text-anchor="start" font-family="Arial" font-size="22" font-weight="700" fill="#000035">Source test</text>
+<rect x="363" y="799" width="519.197" height="57" rx="0" fill="#4e7648" stroke="none" stroke-width="1"/>
+<rect x="882.197" y="799" width="28.0647" height="57" rx="0" fill="#ba4e2c" stroke="none" stroke-width="1"/>
+<rect x="910.261" y="799" width="0.738544" height="57" rx="0" fill="#2a73b9" stroke="none" stroke-width="1"/>
+<text x="622.598" y="837" text-anchor="middle" font-family="Arial" font-size="26" font-weight="700" fill="#ffffff">4,218 retained</text>
+<line x1="910.631" y1="798" x2="910.631" y2="784" stroke="#2a73b9" stroke-width="1.4"/>
+<text x="910.631" y="780" text-anchor="middle" font-family="Arial" font-size="13" font-weight="700" fill="#2a73b9">6</text>
+<rect x="394" y="870" width="27" height="19" rx="0" fill="#4e7648" stroke="none" stroke-width="1"/>
+<text x="433" y="887" text-anchor="start" font-family="Arial" font-size="18" font-weight="400" fill="#000035">Retained</text>
+<rect x="580" y="870" width="27" height="19" rx="0" fill="#ba4e2c" stroke="none" stroke-width="1"/>
+<text x="619" y="887" text-anchor="start" font-family="Arial" font-size="18" font-weight="400" fill="#000035">Near 228</text>
+<rect x="801" y="870" width="27" height="19" rx="0" fill="#2a73b9" stroke="none" stroke-width="1"/>
+<text x="840" y="887" text-anchor="start" font-family="Arial" font-size="18" font-weight="400" fill="#000035">Exact 6</text>
+<text x="635" y="914" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#000035">Exclusion summary</text>
+<polyline points="930,827 964,827" stroke="#000035" stroke-width="2" fill="none"/>
+<polygon points="972,827 964,830.68 964,823.32" stroke="none" stroke-width="0" fill="#000035"/>
+<text x="1007" y="805" text-anchor="start" font-family="Arial" font-size="19" font-weight="400" fill="#000035">4,452 − 6 − 228</text>
+<text x="1008" y="869" text-anchor="start" font-family="Arial" font-size="55" font-weight="700" fill="#4e7648">4,218</text>
+<text x="1010" y="903" text-anchor="start" font-family="Arial" font-size="23" font-weight="700" fill="#000035">Clean held-out</text>
+<polyline points="627,945 627,966" stroke="#000035" stroke-width="2.2" fill="none"/>
+<polygon points="627,974 623.32,966 630.68,966" stroke="none" stroke-width="0" fill="#000035"/>
+<rect x="18" y="979" width="1218" height="241" rx="8" fill="#ffffff" stroke="#000035" stroke-width="1.7"/>
+<line x1="87" y1="1008" x2="87" y2="1168" stroke="#000035" stroke-width="1.5"/>
+<text x="136" y="1030" text-anchor="start" font-family="Arial" font-size="21" font-weight="400" fill="#000035">Train</text>
+<text x="225" y="1030" text-anchor="start" font-family="Arial" font-size="21" font-weight="400" fill="#000035">Dev</text>
+<circle cx="140" cy="1060" r="8" fill="#ffffff" stroke="#2a73b9" stroke-width="2"/>
+<circle cx="249" cy="1060" r="8" fill="#ffffff" stroke="#4e7648" stroke-width="2"/>
+<line x1="148" y1="1060" x2="241" y2="1096" stroke="#2a73b9" stroke-width="1.6"/>
+<circle cx="140" cy="1088" r="8" fill="#ffffff" stroke="#2a73b9" stroke-width="2"/>
+<circle cx="249" cy="1088" r="8" fill="#ffffff" stroke="#4e7648" stroke-width="2"/>
+<line x1="148" y1="1088" x2="241" y2="1070" stroke="#c44f2f" stroke-width="1.6"/>
+<circle cx="140" cy="1116" r="8" fill="#ffffff" stroke="#2a73b9" stroke-width="2"/>
+<circle cx="249" cy="1116" r="8" fill="#ffffff" stroke="#4e7648" stroke-width="2"/>
+<line x1="148" y1="1116" x2="241" y2="1152" stroke="#2a73b9" stroke-width="1.6"/>
+<circle cx="140" cy="1144" r="8" fill="#ffffff" stroke="#2a73b9" stroke-width="2"/>
+<circle cx="249" cy="1144" r="8" fill="#ffffff" stroke="#4e7648" stroke-width="2"/>
+<line x1="148" y1="1144" x2="241" y2="1116" stroke="#c44f2f" stroke-width="1.6"/>
+<circle cx="140" cy="1172" r="8" fill="#ffffff" stroke="#2a73b9" stroke-width="2"/>
+<circle cx="249" cy="1172" r="8" fill="#ffffff" stroke="#4e7648" stroke-width="2"/>
+<line x1="148" y1="1172" x2="241" y2="1172" stroke="#2a73b9" stroke-width="1.6"/>
+<text x="175" y="1204" text-anchor="middle" font-family="Arial" font-size="21" font-weight="700" fill="#000035">Overlap audit</text>
+<text x="319" y="1072" text-anchor="start" font-family="Arial" font-size="23" font-weight="700" fill="#9c3827">54 / 420 flagged</text>
+<text x="329" y="1106" text-anchor="start" font-family="Arial" font-size="18" font-weight="400" fill="#000035">18 exact among 54</text>
+<rect x="323" y="1123" width="215" height="39" rx="3" fill="#e3ead8" stroke="none" stroke-width="1"/>
+<text x="431" y="1152" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#3d6b39">366 remaining</text>
+<text x="427" y="1204" text-anchor="middle" font-family="Arial" font-size="21" font-weight="700" fill="#000035">Flagged cases</text>
+<line x1="590" y1="1005" x2="590" y2="1171" stroke="#000035" stroke-width="1.5"/>
+<text x="864" y="1011" text-anchor="middle" font-family="Arial" font-size="19" font-weight="700" fill="#000035">ZY-BERT / DEV MACRO-F1</text>
+<text x="1147" y="1010" text-anchor="end" font-family="Arial" font-size="17" font-weight="700" fill="#c34f34">Δ −0.0314 (−3.9%)</text>
+<line x1="678" y1="1136" x2="1165" y2="1136" stroke="#dbe0ea" stroke-width="1"/>
+<text x="668" y="1140" text-anchor="end" font-family="Arial" font-size="13" font-weight="400" fill="#000035">0.74</text>
+<line x1="678" y1="1111.5" x2="1165" y2="1111.5" stroke="#dbe0ea" stroke-width="1"/>
+<text x="668" y="1115.5" text-anchor="end" font-family="Arial" font-size="13" font-weight="400" fill="#000035">0.76</text>
+<line x1="678" y1="1087" x2="1165" y2="1087" stroke="#dbe0ea" stroke-width="1"/>
+<text x="668" y="1091" text-anchor="end" font-family="Arial" font-size="13" font-weight="400" fill="#000035">0.78</text>
+<line x1="678" y1="1062.5" x2="1165" y2="1062.5" stroke="#dbe0ea" stroke-width="1"/>
+<text x="668" y="1066.5" text-anchor="end" font-family="Arial" font-size="13" font-weight="400" fill="#000035">0.80</text>
+<line x1="678" y1="1038" x2="1165" y2="1038" stroke="#dbe0ea" stroke-width="1"/>
+<text x="668" y="1042" text-anchor="end" font-family="Arial" font-size="13" font-weight="400" fill="#000035">0.82</text>
+<line x1="678" y1="1136" x2="678" y2="1038" stroke="#000035" stroke-width="1.3"/>
+<line x1="678" y1="1136" x2="1165" y2="1136" stroke="#000035" stroke-width="1.3"/>
+<polyline points="799,1055.64 1036,1094.11" stroke="#000035" stroke-width="1.7" fill="none"/>
+<circle cx="799" cy="1055.64" r="9" fill="#2a73b9" stroke="#000035" stroke-width="1.4"/>
+<circle cx="1036" cy="1094.11" r="9" fill="#c44f2f" stroke="#000035" stroke-width="1.4"/>
+<text x="799" y="1039.64" text-anchor="middle" font-family="Arial" font-size="20" font-weight="700" fill="#000035">0.8056</text>
+<text x="1036" y="1078.11" text-anchor="middle" font-family="Arial" font-size="20" font-weight="700" fill="#000035">0.7742</text>
+<text x="799" y="1170" text-anchor="middle" font-family="Arial" font-size="18" font-weight="400" fill="#000035">Original</text>
+<text x="1036" y="1170" text-anchor="middle" font-family="Arial" font-size="18" font-weight="400" fill="#000035">After removal</text>
+<text x="918" y="1204" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#000035">Macro-F1 sensitivity</text>
 </svg>

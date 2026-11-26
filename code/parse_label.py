@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Unified label parser — 42-label exact matching.
-All experiments use this parser. Do NOT write per-experiment parsers.
+"""Frozen v18 syndrome-label extraction.
 
-Rules:
-1. Exact label match (full string match against 42 predefined labels)
-2. Zero hits → return "empty"
-3. Multiple hits → return first match (order: labels_42.txt order)
-4. Output: single string, one of the 42 labels or "empty"
+The parser first looks for a 证型 field and checks whether its first token
+equals or contains a frozen label. The field-token substring fallback
+uses the frozen label order. If the field yields no match, the parser
+uses the earliest occurrence of a frozen label anywhere in the output,
+including in explanatory text. Ties use the frozen label order.
+Outputs without a match return "empty".
 """
 
 import json
@@ -36,7 +35,7 @@ except FileNotFoundError:
         "风痰入络", "风痰阻络",
     ]
 
-# Build lookup set (exact match only — no fuzzy, no substring)
+# Lookup set for the field-token equality check.
 _LABEL_SET = set(LABELS_42)
 
 
@@ -48,11 +47,8 @@ def parse_label(text: str) -> str:
     if not text or not text.strip():
         return "empty"
 
-    # Find all exact label matches in the order they appear
+    # Record the first literal substring match for each label.
     matched = []
-    # Search in order of appearance in text (earliest first)
-    # To handle cases like "痰浊瘀阻" vs "瘀血阻络" correctly,
-    # we use a regex that finds all possible matches
     for label in LABELS_42:
         if label in text:
             # Record position

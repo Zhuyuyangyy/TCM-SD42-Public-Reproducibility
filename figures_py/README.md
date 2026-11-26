@@ -27,6 +27,13 @@ prints a notice.
 
 ## Inputs (`source_data/`)
 
+Figures 5 and 6 load ordinary balanced-accuracy intervals from the 2026-11-10
+authorized-data audit under `audits/20261110_ba_reverification/`. The plotted
+S0–S2 contrasts and stratified intervals come from the archived aggregate CSVs
+under `results/`. The published historical CSVs remain available for comparison.
+The public regeneration reproduces the source-backed plots. The typeset
+manuscript can use a different visual layout.
+
 | File | Role |
 | --- | --- |
 | `model_summary.csv` | public aggregate model summary (four rows): valid-label extraction rate (historical column name `format_validity`) and recorded parameter counts; no per-record predictions |
@@ -70,3 +77,6 @@ archived matrices in `../results/` and the top-10 table in `source_data/`:
 
 The plotted values are identical to the typeset supplement; the styling is a
 clean re-implementation and is not claimed to be pixel-identical.
+
+
+The S0-S4 generator validates the four confusion-matrix Git blob SHA-1 values, frozen row/column label order, matrix totals, diagonal counts, class-support accounting, and all 40 top-10 cells before rendering. It writes PNG and SVG outputs to the selected output directory; the checked-in PNGs are the current public rendering snapshot.

@@ -11,7 +11,8 @@ Macro-F1 / Balanced Accuracy 差值 paired bootstrap (v23 stats addendum, 2026-0
                   存在 v20 包时与 data_documentation/labels_42.txt 交叉校验)
   - 指标定义    : macro-F1 = sklearn precision_recall_fscore_support(
                     average='macro', labels=LABELS, zero_division=0)   (42 类分母固定)
-                  Balanced Accuracy = sklearn balanced_accuracy_score  (union 平均, nan->0)
+                  Balanced Accuracy = sklearn balanced_accuracy_score  (仅对 y_true 中有 support 的类求 recall 均值;
+                    prediction-only 类对应零 support 行, recall 为 NaN, 不进入均值)
   - ordinary    : random.Random(20260516) 每 pair 全新实例, rng.choices(idx, k=n),
                   2000 resamples, percentile [50]/[1949], 差值 = first - second
                   (与 v19 accuracy 口径逐字相同; 本脚本在同一 resample 上同时计算 acc/f1/balacc)
@@ -132,13 +133,14 @@ def fast_metrics(g: np.ndarray, p: np.ndarray):
     denom = 2 * tp + fp + fn
     f1 = np.divide(2 * tp, denom, out=np.zeros(N_CLASSES, dtype=np.float64), where=denom > 0)
     macro_f1 = f1.mean()  # 分母固定 42 类 (labels=LABELS)
-    # balanced accuracy: sklearn 对 union(gold, pred) 求 recall 均值, 0 行 -> nan -> 0
+    # sklearn balanced_accuracy_score averages recall over classes present in y_true.
+    # Predicted-only classes have zero-support confusion-matrix rows (NaN recall)
+    # and are excluded by sklearn; do not add them to the denominator.
     row = np.bincount(g, minlength=N_CLASSES + 1)
-    pred_row = np.bincount(p, minlength=N_CLASSES + 1)
-    union = (row + pred_row) > 0
     rec = np.divide(tp, row[:N_CLASSES], out=np.zeros(N_CLASSES, dtype=np.float64),
                     where=row[:N_CLASSES] > 0)
-    balacc = rec[union[:N_CLASSES]].mean()
+    present_gold = row[:N_CLASSES] > 0
+    balacc = rec[present_gold].mean()
     return acc, macro_f1, balacc
 
 

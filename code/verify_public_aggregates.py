@@ -37,6 +37,7 @@ def main():
         col=[sum(mat[j][i] for j in range(42)) for i in range(42)]
         f1=[2*tp[i]/(gold[i]+col[i]) for i in range(42)]
         recall=[tp[i]/gold[i] for i in range(42)]
+        # Legacy public CSV key: valid-label extraction (frozen-parser success), not strict two-field format compliance.
         computed={"syn_acc@1":sum(tp)/N,"macro_f1":sum(f1)/42,
                   "weighted_f1":sum(gold[i]*f1[i] for i in range(42))/N,
                   "balanced_accuracy":sum(recall)/42,

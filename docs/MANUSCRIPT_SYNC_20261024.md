@@ -42,3 +42,9 @@ The hash-verified continuation stdout supports a batch-size-8 continuation that 
 ## Public release boundary
 
 This update changes documentation only. It does not change the frozen 4,218-record prediction files, confusion matrices, primary metrics, SEAL artifacts, or historical checkpoint files. The public repository continues to exclude raw clinical records, case-level predictions, trained weights, private operational logs, and the pair-level near-duplicate file. Author/mentor confirmation of manuscript declarations and final manuscript/Supplement consistency remains outside the scope of this repository update.
+
+## Final figure and derived-table synchronization (2026-11-26)
+
+The publication-facing review branch now carries the final-round figure source updates. Ordinary Balanced Accuracy intervals are sourced from the corrected 2026-11-10 audit, class-stratified intervals are sourced from the class-sensitive bootstrap result table, and deduplication sensitivity is generated directly from `results/dedup_sensitivity_seed42.csv`. Figure 6 reports MacBERT versus Qwen3 at S1 as +4.11 percentage points. The redraw source also carries the Figure 1–8 semantic fixes, including the non-parent role of the official 148-class taxonomy, a count-proportional Figure 3 exclusion summary, a 2x2 Figure 5 discordance schematic, data-derived Figure 7 summaries, and the Figure 8 empty-output label.
+
+The canonical-first source-split reconstruction reproduces 19,125/4,411/4,452 and explains the 227 post-cap and 117 pre-cap differences by label. Historical execution order remains an evidence limitation because the contemporaneous stdout and complete source-label frequency table are unavailable.

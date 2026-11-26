@@ -1,7 +1,10 @@
-# TCM-SD42: Controlled Model Comparison for TCM Syndrome Differentiation
+# TCM-SD42 Public Reproducibility: Retrospective Case-Matched Four-System Comparison
+
+> [!CAUTION]
+> **Do NOT use historical pre-reverification CSVs in `results/` (`results/pairwise_balanced_accuracy_bootstrap_seed42.csv` and `results/pairwise_class_sensitive_bootstrap_seed42.csv`) for publication numbers.** Use only the authoritative files listed in [`results/AUTHORITATIVE_VS_HISTORICAL.md`](results/AUTHORITATIVE_VS_HISTORICAL.md) and [`results/README.md`](results/README.md): [`audits/20261110_ba_reverification/results/pairwise_balanced_accuracy_bootstrap_seed42_corrected.csv`](audits/20261110_ba_reverification/results/pairwise_balanced_accuracy_bootstrap_seed42_corrected.csv) (ordinary Balanced Accuracy), [`results/pairwise_macro_f1_bootstrap_seed42.csv`](results/pairwise_macro_f1_bootstrap_seed42.csv) (ordinary Macro-F1), and [`results/pairwise_class_sensitive_stratified_bootstrap_seed42.csv`](results/pairwise_class_sensitive_stratified_bootstrap_seed42.csv) (class-stratified intervals, `ordinary_ci_upper = 0.0787`, `diff_obs_unrounded_4dp`, and 16-digit `diff_obs_full_precision`).
 
 > **Research archive / Medical NLP / Reproducibility**  
-> A controlled, system-level comparison of specialized encoders and general-purpose language models for traditional Chinese medicine syndrome differentiation.
+> A retrospective, case-matched comparison of two encoders and two generative language models for traditional Chinese medicine syndrome classification. The four systems share the same cases and label space, with distinct training and checkpoint-selection histories.
 
 ### S2 normalization verification (2026-10-25)
 
@@ -17,16 +20,14 @@ A direct comparison against archived aggregate anchors found that digit deletion
 | Strongest reported baseline in this comparison | **ZY-BERT: 75.77% accuracy / 66.51% macro-F1** |
 | Evidence | Evaluation scripts, aggregate results, statistical tests, provenance and known limitations |
 
-**Start with the evidence:** [Results summary](docs/RESULTS_SUMMARY.md) · [Methods](docs/METHODS_SUMMARY.md) · [Statistical tests](docs/STATISTICAL_METHOD.md) · [Dataset provenance](docs/DATASET_PROVENANCE.md) · [Known limitations](docs/KNOWN_LIMITATIONS.md) · [Data availability](docs/DATA_AVAILABILITY.md).
+**Start with the evidence:** [BA re-verification audit (2026-11-10)](audits/20261110_ba_reverification/README.md) · [Supplementary figure audit (2026-11-09)](docs/SUPPLEMENTARY_AUDIT_20261109.md) · [Results summary](docs/RESULTS_SUMMARY.md) · [Methods](docs/METHODS_SUMMARY.md) · [Statistical tests](docs/STATISTICAL_METHOD.md) · [Dataset provenance](docs/DATASET_PROVENANCE.md) · [Known limitations](docs/KNOWN_LIMITATIONS.md) · [Data availability](docs/DATA_AVAILABILITY.md).
 
 > [!IMPORTANT]
 > This is **not** the official normalized 148-class TCM-SD benchmark. The fixed historical task has a disclosed test-informed eligibility rule. The public release intentionally does not include raw clinical records, per-case predictions or trained weights. Interpret the numbers and reproducibility scope in that context.
 
 ---
 
-Public reproducibility materials for the study:
-
-**Domain-Specific Encoders versus General-Purpose Large Language Models for Traditional Chinese Medicine Syndrome Differentiation: A Controlled System-Level Evaluation on a TCM-SD-Derived 42-Class Task**
+Public reproducibility materials for the manuscript titled **A Case-Matched Comparison of TCM-Specific and General-Purpose Language Models for Closed-Set TCM Syndrome Classification**. The repository scope is a retrospective, case-matched comparison of four frozen systems on one fixed 42-class task.
 
 ## Read the evidence first
 
@@ -82,12 +83,21 @@ The comparative experiments reported here keep the resulting TCM-SD42 label spac
 
 Three-seed summaries for ZY-BERT and InternLM3-8B are under `results/three_seed_summary.csv`. Pairwise accuracy comparisons use paired bootstrap confidence intervals, exact McNemar tests, and six-comparison Holm correction.
 
-The v23 statistical addendum additionally reports paired-bootstrap 95% confidence intervals for **Macro-F1** and **Balanced Accuracy** differences. All six Macro-F1 intervals exclude zero. Five of six Balanced Accuracy intervals exclude zero; the InternLM3-versus-MacBERT difference is +0.93 percentage points with 95% CI [-1.46, 3.31]. A class-stratified paired-bootstrap sensitivity analysis preserves the direction of all 12 class-sensitive comparisons and the same qualitative exception. See the ordinary and stratified tables under `results/`, the portable scripts under `code/`, and `docs/STATISTICAL_METHOD.md`.
+The v23 statistical addendum reports paired-bootstrap 95% confidence intervals for **Macro-F1** and **Balanced Accuracy** differences. All six Macro-F1 intervals exclude zero. The ordinary-bootstrap Balanced Accuracy intervals have been re-evaluated using the corrected gold-present implementation and authorized aligned predictions (2,000 paired resamples; seed `20260516`). The corrected fast path matched `sklearn.metrics.balanced_accuracy_score` in all 8,000 resample/model comparisons. Only the ZY-BERT-versus-InternLM3 upper endpoint changed, from 0.0786 to 0.0787; five of six intervals still exclude zero, and InternLM3-versus-MacBERT remains the single interval containing zero. Full-test-set BA point estimates, Macro-F1 intervals, and class-stratified BA intervals are unaffected. The aligned case-level predictions remain excluded from this public repository; rerunning requires authorized local input. See the [BA re-verification audit](audits/20261110_ba_reverification/README.md), `docs/STATISTICAL_METHOD.md`, and `docs/SUPPLEMENTARY_AUDIT_20261109.md`. Historical pre-correction tables remain preserved in `results/` for traceability alongside explicit warnings against citing legacy BA numbers.
+
+## Final publication synchronization (2026-11-26)
+
+The `main` release now consolidates all audit updates: audited ordinary Balanced Accuracy intervals (`audits/20261110_ba_reverification/results/pairwise_balanced_accuracy_bootstrap_seed42_corrected.csv`, where the dated 2026-11-10 column `diff_obs_full_precision` holds 4-decimal unrounded-metric differences such as `0.0670` and `0.0093`), clean Macro-F1 intervals (`results/pairwise_macro_f1_bootstrap_seed42.csv`), and synchronized class-stratified intervals (`results/pairwise_class_sensitive_stratified_bootstrap_seed42.csv`, with `ordinary_ci_upper = 0.0787`, `diff_obs_unrounded_4dp` for 4-decimal values, and true 16-digit IEEE-754 floating-point differences in `diff_obs_full_precision` computed directly from the frozen 42x42 confusion matrices), plus deduplication sensitivity values directly from `results/dedup_sensitivity_seed42.csv` and completed `true_zh`/`pred_zh` labels in `figures_py/source_data/fig8_errors.csv`. Historical pre-reverification CSVs (`results/pairwise_balanced_accuracy_bootstrap_seed42.csv` and `results/pairwise_class_sensitive_bootstrap_seed42.csv`) and `audits/` artifacts remain preserved for traceability; see [`results/AUTHORITATIVE_VS_HISTORICAL.md`](results/AUTHORITATIVE_VS_HISTORICAL.md) and [`results/README.md`](results/README.md).
+
+The final figure redraw entry point is `figures_py/redraw_new_reference_20261122.py`, and the synchronized vector/raster outputs are committed under `figures_py/Figure1.svg`–`Figure8.svg` and `figures_py/Figure1.png`–`Figure8.png`. It reads the repository source tables, uses one coordinate transform for Figure 6 intervals, derives Figure 7 summaries from `classwise_metrics.csv` with left/right axis padding, uses `Inquiry` in Figure 2A, and keeps the official 148-class taxonomy as contextual reference evidence.
+
+The repository does not claim server-side checkpoint verification. Author metadata and journal-specific declarations remain manuscript-side confirmation items.
 
 ## Repository contents
 
 ```text
 code/          parser, evaluator, leakage audit, training/inference reference scripts, pairwise statistics and audit gates
+audits/        dated, aggregate-only verification reports and authorized-input reproduction scripts
 configs/       model/protocol snapshots
 label_space/   fixed 42-label taxonomy
 results/       aggregate metrics, seed summaries, confusion matrices, bootstrap summaries, figures
@@ -121,7 +131,7 @@ To recompute metrics from standardized prediction files (`id`, `gold`, `pred`), 
 
 The historical four-layer leakage-audit implementation was recovered and is published as `code/audit_leakage.py`. The v23 class-sensitive statistics addendum was also recovered; its ordinary and class-stratified aggregate tables and portable verification scripts are included here. The run-level seal coverage and the remaining evidence gap are summarized in `docs/PROVENANCE_EVIDENCE.md` and `provenance/seal_summary.json`.
 
-A copy of preprocess_tcm_sd_v4_topn.py was recovered in the private local evidence archive and inspected; it is not redistributed in this public repository because it contains fixed private runtime paths and expects licensed source data at those paths. The contemporaneous preprocessing stdout, complete historical source-label frequency table, and intermediate training-cleaning output remain unavailable. The recovered code supports suffix canonicalization before support counting/capping, and a later canonical-first source-split reconstruction explains the 227 post-cap / 117 pre-cap differences. The exact historical downstream execution order remains unproven because the contemporaneous stdout and complete source-label frequency table are unavailable; the canonical-first reconstruction is now synchronized to this public branch, but the exact historical downstream execution order remains unproven because the contemporaneous stdout and complete source-label frequency table are unavailable.
+A copy of preprocess_tcm_sd_v4_topn.py was recovered in the private local evidence archive and inspected; it is not redistributed in this public repository because it contains fixed private runtime paths and expects licensed source data at those paths. The contemporaneous preprocessing stdout, complete historical source-label frequency table, and intermediate training-cleaning output remain unavailable. The recovered code supports suffix canonicalization before support counting/capping, and a later canonical-first source-split reconstruction explains the 227 post-cap / 117 pre-cap differences. The canonical-first reconstruction is available in this repository. The exact historical downstream execution order remains unproven because the contemporaneous stdout and complete source-label frequency table are unavailable.
 
 ## Provenance notes
 
@@ -130,6 +140,16 @@ The exact 42-label task predates the current comparative experiments and was hel
 ## 2026-10-24 manuscript-facing evidence update
 
 The public documentation now reflects the latest author-side manuscript review without publishing the manuscript itself or any private clinical artifacts. It corrects the balanced-accuracy difference to +0.93 percentage points, distinguishes the 234-record exclusion set from the mixed record/hash counting convention, documents the recovered-but-private preprocessing script, and records the three-seed byte-identical dev_420 replay with its limits. It also preserves the unresolved full Seed-7 runtime log, the missing seed-2026 intermediate checkpoint, and historical baseline weight-linkage gaps. See [the synchronization note](docs/MANUSCRIPT_SYNC_20261024.md), [dev420 replay evidence](docs/DEV420_REPLAY_EVIDENCE_20261023.md), and [known limitations](docs/KNOWN_LIMITATIONS.md). The public repository still cannot reproduce private case-level exclusion decisions or the private development replay from its own files alone.
+
+### Optional strict output-template audit
+
+The historical `format_validity` field reports valid-label extraction with the frozen parser. Its fallback can recover a label from explanation text. Use the separate diagnostic below to measure compliance with the two-field template from authorized local raw outputs.
+
+```bash
+python code/audit_output_format.py /path/to/authorized_raw_outputs.jsonl
+```
+
+The diagnostic requires exactly two ordered nonblank fields, `证型：` with a full in-vocabulary label and `辨证依据：` with a nonempty single-line rationale. It prints aggregate counts and rates. It leaves archived predictions and metrics intact. The public archive does not distribute raw generative outputs, so it does not report a measured strict-compliance rate.
 
 ## Citation
 
@@ -146,3 +166,13 @@ Original code in this repository is released under the MIT License. TCM-SD data 
 ## Additional audit corrections (2026-10-23)
 
 The completed 5-gram Jaccard diagnostic reports Train-to-Dev/Test hits of 615/625 at >=0.80, 516/550 at >=0.85, and 370/387 at >=0.90. Earlier interim counts 502/518 and 424/447 are superseded; these are diagnostics, not the historical production filter. The Qwen3 base model's five weight shards, tokenizer.json and config.json have been verified against the official upstream release (commit prefix b968826d…); the two epoch-specific adapters needed for saved-state comparison remain unavailable. See `docs/TARGETED_CHECKS_20261023.md` and `docs/HISTORICAL_EVIDENCE_RECONCILIATION_20261023.md`.
+
+
+## Supplementary figure reproduction
+
+Supplementary Figure S0 and the four 42x42 heatmaps S1-S4 can be regenerated from the public aggregate matrices and top-10 direction table:
+
+    python -m pip install -r requirements-figures.txt
+    python figures_py/make_supp_figures.py
+
+The generator validates the frozen label order, matrix totals, diagonal counts, omitted-output accounting, and all 40 top-10 matrix cells before producing PNG and SVG files. It does not require raw clinical records, case-level predictions, or model checkpoints. See docs/SUPPLEMENTARY_FIGURE_REPRODUCTION.md.

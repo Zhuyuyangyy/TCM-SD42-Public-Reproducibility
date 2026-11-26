@@ -9,7 +9,7 @@ Metrics (six):
 2. macro_f1: macro-averaged F1 (scikit-learn)
 3. weighted_f1: weighted-averaged F1
 4. balanced_accuracy: balanced accuracy
-5. format_validity: % of parseable outputs
+5. format_validity (legacy key): valid-label extraction rate / parser success, not strict format compliance
 6. empty_pred_rate: % of empty predictions
 
 Plus:
@@ -72,7 +72,7 @@ def compute_metrics(
     # syn_acc@1 (exact match accuracy)
     syn_acc1 = sum(1 for g, p in zip(gold_labels, pred_labels) if g == p) / n
 
-    # Format validity (percentage of non-empty, parseable predictions)
+    # Legacy format_validity key: fraction with a non-empty frozen-parser result; not strict two-field format compliance
     format_valid = sum(1 for p in pred_labels if p != "empty") / n
 
     # Empty prediction rate
@@ -97,24 +97,21 @@ def compute_metrics(
     except Exception:
         bal_acc = 0.0
 
-    # Per-class metrics
-    class_metrics = {}
+    # Score the complete gold/prediction pairs, including out-of-vocabulary
+    # predictions. The exported closed-set confusion matrix omits those rows.
     try:
-        cm = confusion_matrix(gold_labels, pred_labels, labels=label_list)
-        for i, label in enumerate(label_list):
-            tp = cm[i, i]
-            fp = cm[:, i].sum() - tp
-            fn = cm[i, :].sum() - tp
-            prec = tp / (tp + fp) if (tp + fp) > 0 else 0.0
-            rec = tp / (tp + fn) if (tp + fn) > 0 else 0.0
-            f1 = 2 * prec * rec / (prec + rec) if (prec + rec) > 0 else 0.0
-            support = cm[i, :].sum()
-            class_metrics[label] = {
-                "precision": round(prec, 4),
-                "recall": round(rec, 4),
-                "f1": round(f1, 4),
-                "support": int(support),
+        precision, recall, f1, support = precision_recall_fscore_support(
+            gold_labels, pred_labels, labels=label_list, average=None, zero_division=0
+        )
+        class_metrics = {
+            label: {
+                "precision": round(float(p), 4),
+                "recall": round(float(r), 4),
+                "f1": round(float(f), 4),
+                "support": int(n_gold),
             }
+            for label, p, r, f, n_gold in zip(label_list, precision, recall, f1, support)
+        }
     except Exception as e:
         class_metrics = {"error": str(e)}
 

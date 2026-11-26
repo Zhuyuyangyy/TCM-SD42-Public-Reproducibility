@@ -24,7 +24,7 @@ The Seed-7 continuation stdout was recovered and SHA-256-verified as `17eaf1e94b
 
 ## Reporting boundary
 
-The 42-label set is independently matched and Dev/Test totals are arithmetically reconciled. The canonical-first count mechanism now reconciles the 227 post-cap and 117 pre-cap differences, but the full source-to-frozen historical execution is not fully reproducible because original stdout and the complete source-label frequency table are unavailable; the canonical-first script patch is still pending on this branch. Do not mix the early pilot evaluator's aggregate metrics with the current exact-label comparison, and do not claim end-to-end Seed-7 or Qwen3 checkpoint provenance beyond the evidence above.
+The 42-label set is independently matched and Dev/Test totals are arithmetically reconciled. The canonical-first count mechanism reconciles the 227 post-cap and 117 pre-cap differences. The canonical-first reconstruction is synchronized to the public branch and its synthetic CI tests pass; the full source-to-frozen historical execution is still not fully reproducible because the contemporaneous stdout and complete source-label frequency table remain unavailable. Do not mix the early pilot evaluator's aggregate metrics with the current exact-label comparison, and do not claim end-to-end Seed-7 or Qwen3 checkpoint provenance beyond the evidence above.
 
 
 ## Qwen3 base-model upstream hash verification
