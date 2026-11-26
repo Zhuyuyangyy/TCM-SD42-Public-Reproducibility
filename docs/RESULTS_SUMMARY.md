@@ -41,22 +41,26 @@ All six Macro-F1 intervals exclude zero.
 
 The authorized-data re-verification used N = 4,218, 2,000 paired resamples, seed 20260516, and percentile indices [50] / [1949]. The corrected fast path matched scikit-learn in 8,000/8,000 resample/model comparisons (maximum absolute difference 0). The historical union implementation reproduced the archived six-pair intervals. Only one endpoint changed: the ZY-BERT-versus-InternLM3 upper limit moved from 0.0786 to 0.0787. No zero-exclusion verdict changed. The full-test-set BA point estimates, Macro-F1 intervals, and class-stratified BA intervals are unaffected.
 
-| Comparison | Difference (first - second) | Corrected 95% CI |
+| Comparison | Difference (pp) | Corrected 95% CI (pp) |
 |---|---:|---:|
-| ZY-BERT vs InternLM3 | +0.0577 | [0.0361, 0.0787] |
-| ZY-BERT vs MacBERT | +0.0669 | [0.0452, 0.0894] |
-| ZY-BERT vs Qwen3 | +0.1059 | [0.0847, 0.1276] |
-| InternLM3 vs MacBERT | +0.0092 | [-0.0146, 0.0331] |
-| InternLM3 vs Qwen3 | +0.0482 | [0.0289, 0.0678] |
-| MacBERT vs Qwen3 | +0.0390 | [0.0145, 0.0636] |
+| ZY-BERT vs InternLM3 | +5.77 | [3.61, 7.87] |
+| ZY-BERT vs MacBERT | +6.70 | [4.52, 8.94] |
+| ZY-BERT vs Qwen3 | +10.59 | [8.47, 12.76] |
+| InternLM3 vs MacBERT | +0.93 | [-1.46, 3.31] |
+| InternLM3 vs Qwen3 | +4.82 | [2.89, 6.78] |
+| MacBERT vs Qwen3 | +3.90 | [1.45, 6.36] |
 
 Five of six corrected ordinary-bootstrap intervals exclude zero. The InternLM3-versus-MacBERT interval remains the only interval containing zero; the corrected analysis therefore does not support a class-balanced recall advantage for InternLM3 over MacBERT despite its higher BA point estimate. The unrounded point difference is approximately +0.9258 percentage points and is reported as +0.93.
 
-The original historical aggregate CSV remains unchanged. The corrected result and union-versus-corrected comparison are separately archived in [the BA re-verification audit](../audits/20261110_ba_reverification/README.md). Case-level predictions are not distributed; independent reproduction requires authorized local input. PR #4 remains unmerged, so the current public main branch has not yet been updated to these corrected endpoints.
+The historical audit inputs and union-versus-corrected comparison remain archived in [the BA re-verification audit](../audits/20261110_ba_reverification/README.md). The publication-facing `fig5_pairs.csv` and `fig6_bootstrap.csv` tables now point to the corrected ordinary audit values and record their source fields explicitly. Case-level predictions are not distributed; independent reproduction requires authorized local input. These PR #4 and PR #5 audit updates have been consolidated into `main`, while legacy CSVs remain preserved in `results/` with non-citation warnings.
 
 ## Sensitivity analysis
 
-A class-stratified paired-bootstrap analysis preserved the direction of all 12 class-sensitive comparisons. The same qualitative exception remained for InternLM3 versus MacBERT Balanced Accuracy: its interval included zero under both ordinary and class-stratified resampling.
+A class-stratified paired-bootstrap analysis preserved the direction of all 12 class-sensitive comparisons. Its Balanced Accuracy intervals are read from `results/pairwise_class_sensitive_stratified_bootstrap_seed42.csv`, including [4.55, 8.86] for ZY-BERT versus MacBERT and [8.59, 12.60] for ZY-BERT versus Qwen3. The same qualitative exception remained for InternLM3 versus MacBERT Balanced Accuracy: its interval included zero under both ordinary and class-stratified resampling.
+
+## Final derived-table synchronization (2026-11-26)
+
+`fig6_dedup.csv` is generated from `results/dedup_sensitivity_seed42.csv`, so MacBERT versus Qwen3 at S1 is reported as +4.11 percentage points. `fig6_bootstrap.csv` records separate authoritative ordinary (`results/pairwise_macro_f1_bootstrap_seed42.csv` for Macro-F1 and `audits/20261110_ba_reverification/results/pairwise_balanced_accuracy_bootstrap_seed42_corrected.csv` for Balanced Accuracy) and class-stratified (`results/pairwise_class_sensitive_stratified_bootstrap_seed42.csv`) source paths. Historical pre-reverification files (`results/pairwise_balanced_accuracy_bootstrap_seed42.csv` and `results/pairwise_class_sensitive_bootstrap_seed42.csv`, which retain `0.0786`, `0.0669`, and `0.0092`) are preserved unchanged for audit traceability and are not authoritative for ordinary Balanced Accuracy; `results/pairwise_class_sensitive_stratified_bootstrap_seed42.csv` carries the synchronized `ordinary_ci_upper = 0.0787`, `diff_obs_unrounded_4dp` (`0.0670`, `0.0093`), and true 16-digit matrix-derived floating-point `diff_obs_full_precision` (whereas the dated 2026-11-10 audit table stores 4-decimal rounded values in its similarly named `diff_obs_full_precision` column). In Figure 7, classes are ranked by descending test support with ties resolved by ascending frozen class ID (e.g., C24 before C35 at support 21). The frozen matrices, primary predictions and principal metrics remain unchanged.
 
 ## Interpretation boundary
 
@@ -70,7 +74,7 @@ The primary results above remain the frozen 4,218-record record-level analysis. 
 
 ## Source-split label-selection reconstruction (2026-10-23)
 
-A read-only reconstruction on the official public source splits found 278 distinct raw `syndrome` strings in Train, 282 in the raw union across train/dev/test, and 278 after removing a trailing `证`. The thresholds train>=100, dev>=10, test>=10 select 43 eligible raw strings; canonicalization merges two into the frozen 42-label vocabulary. The cap-before-canonicalization reconstruction gives 19,352 / 4,902 / 4,912. Retained duplicate counts reconcile Dev and Test to 4,411 and 4,452 (453 Dev/Train, 460 Test/Train, and 38 additional Dev/Test removals). The 227-record Train difference remains under targeted review: the revised source-split script compares cap-before-canonicalization and canonicalization-before-cap and checks per-class Train support against the frozen CSV. The original post-processing/deduplication implementation is missing, so no historical operation order is asserted until the per-class comparison is complete. The internal summary's `raw_label_count=278` field is ambiguous about which counting stage it represents.
+A read-only reconstruction on the official public source splits found 278 distinct raw `syndrome` strings in Train, 282 in the raw union across train/dev/test, and 278 after removing a trailing `证`. The thresholds train>=100, dev>=10, test>=10 select 43 eligible raw strings; canonicalization merges two into the frozen 42-label vocabulary. The canonical-first reconstruction reproduces 19,125 / 4,411 / 4,452 after applying the retained duplicate counters and attributes the 227 post-cap and 117 pre-cap differences by label. The historical execution order remains unproven because the contemporaneous stdout and complete source-label frequency table are unavailable. The internal summary's `raw_label_count=278` field remains ambiguous about its counting stage.
 
 ## Targeted historical checks
 

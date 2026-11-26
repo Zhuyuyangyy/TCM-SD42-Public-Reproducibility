@@ -88,9 +88,11 @@ This repository contains public, aggregate, non-patient-level reproducibility ma
 - results/figures/figure1_overall_performance.png
 - results/figures/figure2_seed_robustness.png
 - results/internlm3_3seed_metrics.json
-- results/pairwise_balanced_accuracy_bootstrap_seed42.csv
-- results/pairwise_class_sensitive_bootstrap_seed42.csv
-- results/pairwise_class_sensitive_stratified_bootstrap_seed42.csv
+- results/AUTHORITATIVE_VS_HISTORICAL.md — explicit separation between historical pre-reverification CSVs and authoritative publication-facing tables
+- results/README.md — prominent warning against citing legacy CSVs plus 4,216-vs-4,218 matrix denominator reconciliation
+- results/pairwise_balanced_accuracy_bootstrap_seed42.csv — [DO NOT CITE FOR FINAL ORDINARY BA] historical pre-reverification archive (union-denominator ordinary BA; retained unchanged for audit traceability)
+- results/pairwise_class_sensitive_bootstrap_seed42.csv — [DO NOT CITE FOR FINAL ORDINARY BA] historical pre-reverification archive (Macro-F1 matches pairwise_macro_f1_bootstrap_seed42.csv; BA rows retain historical pre-correction values)
+- results/pairwise_class_sensitive_stratified_bootstrap_seed42.csv — authoritative class-stratified paired bootstrap intervals, synchronized with corrected ordinary BA CI (`ordinary_ci_upper = 0.0787`), 4-decimal unrounded-difference values (`diff_obs_unrounded_4dp`), and 16-digit matrix-derived floating-point differences (`diff_obs_full_precision`)
 - results/pairwise_macro_f1_bootstrap_seed42.csv
 - results/pairwise_significance_seed42.csv
 - results/three_seed_summary.csv
@@ -105,6 +107,7 @@ This repository contains public, aggregate, non-patient-level reproducibility ma
 
 - figures_r/reproduce_figures.R
 - figures_py/reproduce_figures.py — rebuilds the eight main figures from figures_py/source_data/ (vector SVG; 600-dpi PNG where Edge/Chrome is available)
+- figures_py/redraw_new_reference_20261122.py — final publication redraw entry point for Figures 1–8 (`Figure1.svg`–`Figure8.svg`), reading derived source CSVs (with filled `true_zh`/`pred_zh` labels in `source_data/fig8_errors.csv`)
 - figures_py/make_supp_figures.py — validates archived matrix Git blob hashes and rebuilds Supplementary Figures S0-S4
 - figures_py/figure_data.py — single data loader for metrics, paired differences, seeds, validity, error directions and class support
 - figures_py/build_all.py, fig4_v3.py, ga_v2.py — panel builders (Figures 2–3 and 5–8; Figure 4; Figure 1)
@@ -139,4 +142,5 @@ The public repository does not contain raw TCM-SD clinical records, per-case pre
 - tests/test_balanced_accuracy_fast_path.py — regression tests for sklearn-compatible prediction-only class handling
 - tests/test_supplementary_figures.py — aggregate matrix and S0-S4 rendering tests
 - tests/test_s2_normalization.py — synthetic coverage for deletion-default and sentinel-comparison S2 normalization
+- tests/test_final_figure_source_consistency.py — guards authoritative vs. historical BA provenance, `fig8_errors.csv` label completeness, Figure 2 `Inquiry` label, Figure 7 168-point bounds/non-occlusion, and Figure 8 `4,216 / 4,218` visibility
 - .github/workflows/audit-script-smoke-tests.yml — Python syntax, synthetic tests, public aggregate verification, main-figure provenance, and S0-S4 rendering

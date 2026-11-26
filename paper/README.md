@@ -4,6 +4,6 @@ The complete manuscript draft is intentionally **not included in the public repo
 
 Current working title:
 
-> A Case-Matched Comparison of ZY-BERT and General-Purpose Large Language Models for Closed-Set TCM Syndrome Classification
+> A Case-Matched Comparison of TCM-Specific and General-Purpose Language Models for Closed-Set TCM Syndrome Classification
 
 The manuscript can be added later if the chosen journal permits preprints/public drafts and the authors decide to release it.
