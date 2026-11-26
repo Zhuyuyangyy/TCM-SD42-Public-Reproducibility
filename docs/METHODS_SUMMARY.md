@@ -42,7 +42,8 @@ The main paper reports the decontaminated held-out set (N=4,218). The original s
 - Macro-F1
 - Weighted-F1
 - Balanced accuracy
-- valid-label extraction rate (frozen-parser success; not strict two-field format compliance) and empty-prediction rate for generated outputs. The public aggregate CSV retains the historical field name `format_validity` for this quantity.
+- valid-label extraction rate (frozen-parser success; not strict two-field format compliance) and empty-prediction rate for generated outputs. The public aggregate CSV retains the historical field name `format_validity` for this quantity. As implemented in `code/parse_label.py`, `parse_label_from_output` is a permissive fallback parser: it searches for a `证型：` field first (exact match or canonical-order substring in the candidate token) and falls back to earliest literal substring matching across the entire output text, including explanatory text. Because raw test generations are not released publicly, a strict schema-only parser sensitivity rate is not computed here.
+- Note on partition caps: the comparative training (4,186; 91–100 per class) and development (420; 10 per class) splits are inherited balanced-cap subsets drawn prior to this four-model comparison so all models share identical fixed partitions, rather than retraining on all source records.
 - paired bootstrap 95% CI for accuracy, Macro-F1, and Balanced Accuracy differences (2,000 resamples; seed 20260516)
 - exact two-sided McNemar test for paired accuracy
 - Holm correction across six pairwise accuracy comparisons

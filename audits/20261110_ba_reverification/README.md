@@ -1,7 +1,7 @@
 # TCM-SD42 ordinary paired-bootstrap Balanced Accuracy re-verification
 
 Date: 2026-11-10  
-Status: completed on authorized local data; PR #4 remains open and unmerged.
+Status: completed on authorized local data; subsequently consolidated into `main` via PR #4 and PR #5.
 
 ## Result
 
@@ -32,4 +32,4 @@ The aligned six-field case-level prediction file is intentionally not included i
 
 The corrected implementation is in `code/pairwise_class_sensitive_bootstrap.py` on this PR branch. The full AutoDL execution package, detailed report, and sanitized logs are retained by the authors. To independently rerun, use an authorized local aligned JSONL with the PR #4 implementation; do not upload case-level predictions or clinical text.
 
-The historical aggregate CSV on `main` is not overwritten. PR #4 remains unmerged, so these corrected results are review-branch evidence, not yet the published main-branch result.
+The historical aggregate CSV (`results/pairwise_balanced_accuracy_bootstrap_seed42.csv`) remains preserved for audit traceability with explicit non-citation warnings; PR #4 and PR #5 have now been merged into `main` so the authoritative corrected audit outputs are live on `main`.

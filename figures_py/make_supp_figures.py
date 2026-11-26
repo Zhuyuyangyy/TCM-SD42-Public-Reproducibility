@@ -20,8 +20,28 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 HERE = Path(__file__).resolve().parent
-ROOT = HERE.parent
-SOURCE = HERE / "source_data"
+# The script supports both the repository layout and the packaged submission layout.
+# Repository mode: figures_py/source_data, results, code/labels_42.txt.
+# Package mode: Supplementary/make_supp_figures.py with Figures/ReproData/.
+PACKAGE_ROOT = HERE.parent
+if (PACKAGE_ROOT / "Figures" / "ReproData").is_dir():
+    # Final submission layout: Supplementary/ beside Figures/.
+    DATA_ROOT = PACKAGE_ROOT / "Figures" / "ReproData"
+    SOURCE = DATA_ROOT / "figures_py" / "source_data"
+    RESULTS = DATA_ROOT / "results"
+    LABELS_PATH = DATA_ROOT / "labels_42.txt"
+elif (PACKAGE_ROOT / "ReproData").is_dir():
+    # Figure-package layout: Supplementary/ beside ReproData/.
+    DATA_ROOT = PACKAGE_ROOT / "ReproData"
+    SOURCE = DATA_ROOT / "figures_py" / "source_data"
+    RESULTS = DATA_ROOT / "results"
+    LABELS_PATH = DATA_ROOT / "labels_42.txt"
+else:
+    # Repository layout: figures_py/source_data, results, code/labels_42.txt.
+    DATA_ROOT = PACKAGE_ROOT
+    SOURCE = HERE / "source_data"
+    RESULTS = PACKAGE_ROOT / "results"
+    LABELS_PATH = PACKAGE_ROOT / "code" / "labels_42.txt"
 DEFAULT_OUT = HERE / "supp_figures"
 N_TEST = 4218
 
@@ -61,7 +81,7 @@ def git_blob_sha1(path: Path) -> str:
 
 
 def load_labels() -> list[str]:
-    labels_path = ROOT / "code" / "labels_42.txt"
+    labels_path = LABELS_PATH
     labels = [line.strip() for line in labels_path.read_text(encoding="utf-8").splitlines() if line.strip()]
     if len(labels) != 42 or len(set(labels)) != 42:
         raise AssertionError("code/labels_42.txt must contain 42 unique frozen labels")
@@ -79,7 +99,7 @@ def load_support(labels: list[str]) -> dict[str, int]:
 
 
 def load_matrix(key: str, labels: list[str]) -> np.ndarray:
-    path = ROOT / "results" / f"confusion_matrix_{key}.csv"
+    path = RESULTS / f"confusion_matrix_{key}.csv"
     with path.open(encoding="utf-8-sig", newline="") as handle:
         rows = list(csv.reader(handle))
     if not rows or rows[0][0] != "gold\\pred":

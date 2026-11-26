@@ -4,6 +4,6 @@ The complete manuscript draft is intentionally **not included in the public repo
 
 Current working title:
 
-> Domain-Specific Pretraining versus Large Language Models for Traditional Chinese Medicine Syndrome Differentiation: A Controlled Evaluation on TCM-SD42
+> A Case-Matched Comparison of TCM-Specific and General-Purpose Language Models for Closed-Set TCM Syndrome Classification
 
 The manuscript can be added later if the chosen journal permits preprints/public drafts and the authors decide to release it.
